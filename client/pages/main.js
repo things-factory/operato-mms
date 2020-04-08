@@ -19,9 +19,7 @@ class OperatoSellerMain extends connect(store)(PageView) {
     `
   }
 
-  stateChanged(state) {
-    this.operatoSeller = state.operatoSeller.state_main
-  }
+  stateChanged(state) {}
 }
 
 window.customElements.define('operato-seller-main', OperatoSellerMain)
