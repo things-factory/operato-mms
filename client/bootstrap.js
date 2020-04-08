@@ -1,5 +1,6 @@
 import { html } from 'lit-element'
 import { store } from '@things-factory/shell'
+import { auth } from '@things-factory/auth-base'
 import {
   appendViewpart,
   updateViewpart,
@@ -11,12 +12,17 @@ import { APPEND_APP_TOOL } from '@things-factory/apptool-base'
 import { ADD_SETTING } from '@things-factory/setting-base'
 import '@things-factory/setting-ui/client/setting-lets/domain-switch-let'
 
+import { UPDATE_BOARD_SETTINGS } from './actions/board-settings'
+import { fetchBoardSettings } from './viewparts/fetch-board-settings'
+
 import notification from './reducers/notification'
+import boardSetting from './reducers/board-settings'
 
 import './viewparts/user-circle'
 import './viewparts/menu-tools'
 import './viewparts/notification-badge'
 import './viewparts/notification-list'
+import './viewparts/dashboard-setting-let'
 
 console.log(
   `%c
@@ -31,7 +37,20 @@ console.log(
 
 export default function bootstrap() {
   /* initialize reducers */
-  store.addReducers({ notification })
+  store.addReducers({ notification, boardSetting })
+
+  /* 사용자 signin/signout 에 따라서, setting 변경 */
+  auth.on('profile', async () => {
+    var settings = await fetchBoardSettings()
+
+    store.dispatch({
+      type: UPDATE_BOARD_SETTINGS,
+      settings: settings.reduce((settings, setting) => {
+        settings[setting.name] = setting
+        return settings
+      }, {}),
+    })
+  })
 
   store.dispatch({
     type: APPEND_APP_TOOL,
@@ -120,6 +139,14 @@ export default function bootstrap() {
     setting: {
       seq: 10,
       template: html` <domain-switch-let></domain-switch-let> `,
+    },
+  })
+
+  store.dispatch({
+    type: ADD_SETTING,
+    setting: {
+      seq: 20,
+      template: html` <dashboard-setting-let></dashboard-setting-let> `,
     },
   })
 }
