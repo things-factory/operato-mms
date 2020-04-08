@@ -4,12 +4,13 @@ import { connect } from 'pwa-helpers'
 import { store } from '@things-factory/shell'
 
 import {
-  ICONS_MONITORING,
-  ICONS_REPORT,
-  ICONS_DEVICE,
-  ICONS_DRIVER,
-  ICONS_GEOFENCE,
-  ICONS_ADMINISTRATOR
+  ICONS_DASHBOARD,
+  ICONS_ORDER,
+  ICONS_INVENTORY,
+  ICONS_CATALOGUE,
+  ICONS_REPORTS,
+  ICONS_PROMOTIONS,
+  ICONS_INTEGRATION,
 } from '../icons/menu-icons'
 
 export class MenuTools extends connect(store)(LitElement) {
@@ -18,8 +19,8 @@ export class MenuTools extends connect(store)(LitElement) {
       page: String,
       width: {
         type: String,
-        reflect: true
-      }
+        reflect: true,
+      },
     }
   }
 
@@ -124,42 +125,47 @@ export class MenuTools extends connect(store)(LitElement) {
         div {
           font-size: 0.6em;
         }
-      `
+      `,
     ]
   }
 
   render() {
     this.menus = [
       {
-        name: 'monitoring',
-        path: 'fms-monitoring',
-        icons: ICONS_MONITORING
+        name: 'dashboard',
+        path: 'seller-dashboard',
+        icons: ICONS_DASHBOARD,
       },
       {
-        name: 'report',
-        path: 'fms-report',
-        icons: ICONS_REPORT
+        name: 'order',
+        path: 'seller-order',
+        icons: ICONS_ORDER,
       },
       {
-        name: 'device',
-        path: 'fms-device',
-        icons: ICONS_DEVICE
+        name: 'inventory',
+        path: 'seller-inventory',
+        icons: ICONS_INVENTORY,
       },
       {
-        name: 'client',
-        path: 'fms-client',
-        icons: ICONS_DRIVER
+        name: 'catalogue',
+        path: 'seller-catalogue',
+        icons: ICONS_CATALOGUE,
       },
       {
-        name: 'geo-fence',
-        path: 'fms-geofence',
-        icons: ICONS_GEOFENCE
+        name: 'reports',
+        path: 'seller-reports',
+        icons: ICONS_REPORTS,
       },
       {
-        name: 'admin',
-        path: 'fms-admin',
-        icons: ICONS_ADMINISTRATOR
-      }
+        name: 'promotions',
+        path: 'seller-promotions',
+        icons: ICONS_PROMOTIONS,
+      },
+      {
+        name: 'integration',
+        path: 'seller-integration',
+        icons: ICONS_INTEGRATION,
+      },
     ]
 
     var page = this.page || ''
@@ -167,7 +173,7 @@ export class MenuTools extends connect(store)(LitElement) {
     return html`
       <ul>
         ${this.menus.map(
-          menu => html`
+          (menu) => html`
             <li>
               <a href=${menu.path} ?active=${!!~page.indexOf(menu.path)}>
                 <img src=${!!~page.indexOf(menu.path) ? menu.icons[1] : menu.icons[0]} />

@@ -1,4 +1,4 @@
-const ICON_MONITORING = `
+const ICON_DASHBOARD = `
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 150 150" style="enable-background:new 0 0 150 150;" xml:space="preserve">
 	 <g>
@@ -8,7 +8,8 @@ const ICON_MONITORING = `
  	 </g>
 </svg>
 `
-const ICON_REPORT = `
+
+const ICON_ORDER = `
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 150 150" style="enable-background:new 0 0 150 150;" xml:space="preserve">
 	 <g>
@@ -32,7 +33,8 @@ const ICON_REPORT = `
 	</g>
 </svg>
 `
-const ICON_DEVICE = `
+
+const ICON_INVENTORY = `
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 150 150" style="enable-background:new 0 0 150 150;" xml:space="preserve">
 	 <g>
@@ -47,7 +49,8 @@ const ICON_DEVICE = `
 	</g>
 </svg>
 `
-const ICON_DRIVER = `
+
+const ICON_CATALOGUE = `
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 150 150" style="enable-background:new 0 0 150 150;" xml:space="preserve">
 	 <g>
@@ -61,7 +64,8 @@ const ICON_DRIVER = `
 	</g>
 </svg>
 `
-const ICON_GEOFENCE = `
+
+const ICON_REPORTS = `
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 150 150" style="enable-background:new 0 0 150 150;" xml:space="preserve">
 	 <g>
@@ -80,7 +84,8 @@ const ICON_GEOFENCE = `
 	</g>
 </svg>
 `
-const ICON_ADMINISTRATOR = `
+
+const ICON_PROMOTIONS = `
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 150 150" style="enable-background:new 0 0 150 150;" xml:space="preserve">
 	 <g>
@@ -103,7 +108,8 @@ const ICON_ADMINISTRATOR = `
 	</g>
 </svg>
 `
-const ICON_CLIENT = `
+
+const ICON_INTEGRATION = `
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 150 150" style="enable-background:new 0 0 150 150;" xml:space="preserve">
 	 <g>
@@ -121,13 +127,14 @@ const ICON_CLIENT = `
 
 function icons(template) {
   return ['#ffffff', '#64A3D9'].map(
-    color => 'data:image/svg+xml;charset=UTF-8;base64,' + btoa(template.replace(/{{strokecolor}}/g, color))
+    (color) => 'data:image/svg+xml;charset=UTF-8;base64,' + btoa(template.replace(/{{strokecolor}}/g, color))
   )
 }
 
-export const ICONS_MONITORING = icons(ICON_MONITORING)
-export const ICONS_REPORT = icons(ICON_REPORT)
-export const ICONS_DEVICE = icons(ICON_DEVICE)
-export const ICONS_DRIVER = icons(ICON_DRIVER)
-export const ICONS_GEOFENCE = icons(ICON_GEOFENCE)
-export const ICONS_ADMINISTRATOR = icons(ICON_ADMINISTRATOR)
+export const ICONS_DASHBOARD = icons(ICON_DASHBOARD)
+export const ICONS_ORDER = icons(ICON_ORDER)
+export const ICONS_INVENTORY = icons(ICON_INVENTORY)
+export const ICONS_CATALOGUE = icons(ICON_CATALOGUE)
+export const ICONS_REPORTS = icons(ICON_REPORTS)
+export const ICONS_PROMOTIONS = icons(ICON_PROMOTIONS)
+export const ICONS_INTEGRATION = icons(ICON_INTEGRATION)
