@@ -192,4 +192,4 @@ export class MenuTools extends connect(store)(LitElement) {
   }
 }
 
-window.customElements.define('menu-tools', MenuTools)
+customElements.define('menu-tools', MenuTools)

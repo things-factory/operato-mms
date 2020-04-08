@@ -2,19 +2,23 @@ import { html } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
 import { store, PageView } from '@things-factory/shell'
 
-import logo from '../../assets/images/hatiolab-logo.png'
-
-class OperatoSellerMain extends connect(store)(PageView) {
+class Order extends connect(store)(PageView) {
   static get properties() {
     return {
-      operatoSeller: String
+      operatoSeller: String,
     }
   }
+
+  get context() {
+    return {
+      title: 'order',
+    }
+  }
+
   render() {
     return html`
       <section>
-        <h2>OperatoSeller</h2>
-        <img src=${logo}></img>
+        <h2>Order</h2>
       </section>
     `
   }
@@ -22,4 +26,4 @@ class OperatoSellerMain extends connect(store)(PageView) {
   stateChanged(state) {}
 }
 
-window.customElements.define('operato-seller-main', OperatoSellerMain)
+customElements.define('seller-order', Order)
