@@ -113,7 +113,7 @@ export class MenuTools extends connect(store)(LitElement) {
 
         img {
           display: block;
-          width: 35px;
+          width: 30px;
           padding: 5px 10px 0px 10px;
           vertical-align: bottom;
         }
