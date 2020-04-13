@@ -1,7 +1,7 @@
 {
-  "name": "Operato Seller",
-  "short_name": "Operato Seller",
-  "description": "Reimagining Selling in a new digital world",
+  "name": "Operato MMS",
+  "short_name": "Operato MMS",
+  "description": "Reimagining marketplace management in a new digital world",
   "icons": [
     {
       "src": "manifest/icon-192x192.png",

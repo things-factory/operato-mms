@@ -10,7 +10,7 @@ import {
   ICONS_CATALOGUE,
   ICONS_REPORTS,
   ICONS_PROMOTIONS,
-  ICONS_INTEGRATION,
+  ICONS_INTEGRATION
 } from '../icons/menu-icons'
 
 export class MenuTools extends connect(store)(LitElement) {
@@ -19,8 +19,8 @@ export class MenuTools extends connect(store)(LitElement) {
       page: String,
       width: {
         type: String,
-        reflect: true,
-      },
+        reflect: true
+      }
     }
   }
 
@@ -125,7 +125,7 @@ export class MenuTools extends connect(store)(LitElement) {
         div {
           font-size: 0.6em;
         }
-      `,
+      `
     ]
   }
 
@@ -133,39 +133,39 @@ export class MenuTools extends connect(store)(LitElement) {
     this.menus = [
       {
         name: 'dashboard',
-        path: 'seller-dashboard',
-        icons: ICONS_DASHBOARD,
+        path: 'mms-dashboard',
+        icons: ICONS_DASHBOARD
       },
       {
         name: 'order',
-        path: 'seller-order',
-        icons: ICONS_ORDER,
+        path: 'mms-order',
+        icons: ICONS_ORDER
       },
       {
         name: 'inventory',
-        path: 'seller-inventory',
-        icons: ICONS_INVENTORY,
+        path: 'mms-inventory',
+        icons: ICONS_INVENTORY
       },
       {
         name: 'catalogue',
-        path: 'seller-catalogue',
-        icons: ICONS_CATALOGUE,
+        path: 'mms-catalogue',
+        icons: ICONS_CATALOGUE
       },
       {
         name: 'reports',
-        path: 'seller-reports',
-        icons: ICONS_REPORTS,
+        path: 'mms-reports',
+        icons: ICONS_REPORTS
       },
       {
         name: 'promotions',
-        path: 'seller-promotions',
-        icons: ICONS_PROMOTIONS,
+        path: 'mms-promotions',
+        icons: ICONS_PROMOTIONS
       },
       {
         name: 'integration',
-        path: 'seller-integration',
-        icons: ICONS_INTEGRATION,
-      },
+        path: 'mms-integration',
+        icons: ICONS_INTEGRATION
+      }
     ]
 
     var page = this.page || ''
@@ -173,7 +173,7 @@ export class MenuTools extends connect(store)(LitElement) {
     return html`
       <ul>
         ${this.menus.map(
-          (menu) => html`
+          menu => html`
             <li>
               <a href=${menu.path} ?active=${!!~page.indexOf(menu.path)}>
                 <img src=${!!~page.indexOf(menu.path) ? menu.icons[1] : menu.icons[0]} />

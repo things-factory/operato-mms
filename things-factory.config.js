@@ -5,33 +5,33 @@ export default {
   route,
   routes: [
     {
-      tagname: 'seller-catalogue',
-      page: 'seller-catalogue',
+      tagname: 'mms-catalogue',
+      page: 'mms-catalogue'
     },
     {
-      tagname: 'seller-dashboard',
-      page: 'seller-dashboard',
+      tagname: 'mms-dashboard',
+      page: 'mms-dashboard'
     },
     {
-      tagname: 'seller-integration',
-      page: 'seller-integration',
+      tagname: 'mms-integration',
+      page: 'mms-integration'
     },
     {
-      tagname: 'seller-inventory',
-      page: 'seller-inventory',
+      tagname: 'mms-inventory',
+      page: 'mms-inventory'
     },
     {
-      tagname: 'seller-order',
-      page: 'seller-order',
+      tagname: 'mms-order',
+      page: 'mms-order'
     },
     {
-      tagname: 'seller-promotions',
-      page: 'seller-promotions',
+      tagname: 'mms-promotions',
+      page: 'mms-promotions'
     },
     {
-      tagname: 'seller-reports',
-      page: 'seller-reports',
-    },
+      tagname: 'mms-reports',
+      page: 'mms-reports'
+    }
   ],
-  bootstrap,
+  bootstrap
 }

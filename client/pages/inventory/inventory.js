@@ -5,13 +5,13 @@ import { store, PageView } from '@things-factory/shell'
 class Inventory extends connect(store)(PageView) {
   static get properties() {
     return {
-      operatoSeller: String,
+      operatoMMS: String
     }
   }
 
   get context() {
     return {
-      title: 'inventory',
+      title: 'inventory'
     }
   }
 
@@ -26,4 +26,4 @@ class Inventory extends connect(store)(PageView) {
   stateChanged(state) {}
 }
 
-customElements.define('seller-inventory', Inventory)
+customElements.define('mms-inventory', Inventory)

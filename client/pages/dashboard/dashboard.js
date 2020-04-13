@@ -5,13 +5,13 @@ import { store, PageView } from '@things-factory/shell'
 class Dashboard extends connect(store)(PageView) {
   static get properties() {
     return {
-      operatoSeller: String,
+      operatoMMS: String
     }
   }
 
   get context() {
     return {
-      title: 'dashboard',
+      title: 'dashboard'
     }
   }
 
@@ -26,4 +26,4 @@ class Dashboard extends connect(store)(PageView) {
   stateChanged(state) {}
 }
 
-customElements.define('seller-dashboard', Dashboard)
+customElements.define('mms-dashboard', Dashboard)

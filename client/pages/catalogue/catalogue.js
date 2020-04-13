@@ -5,13 +5,13 @@ import { store, PageView } from '@things-factory/shell'
 class Catalogue extends connect(store)(PageView) {
   static get properties() {
     return {
-      operatoSeller: String,
+      operatoMMS: String
     }
   }
 
   get context() {
     return {
-      title: 'catalogue',
+      title: 'catalogue'
     }
   }
 
@@ -26,4 +26,4 @@ class Catalogue extends connect(store)(PageView) {
   stateChanged(state) {}
 }
 
-customElements.define('seller-catalogue', Catalogue)
+customElements.define('mms-catalogue', Catalogue)

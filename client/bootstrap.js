@@ -6,7 +6,7 @@ import {
   updateViewpart,
   toggleOverlay,
   TOOL_POSITION,
-  VIEWPART_POSITION,
+  VIEWPART_POSITION
 } from '@things-factory/layout-base'
 import { APPEND_APP_TOOL } from '@things-factory/apptool-base'
 import { ADD_SETTING } from '@things-factory/setting-base'
@@ -26,11 +26,11 @@ import './viewparts/dashboard-setting-let'
 
 console.log(
   `%c
-  ▄▄  ▄▄▄  ▄▄▄ ▄▄▄   ▄▄  ▄▄▄  ▄▄      ▄▄▄  ▄▄▄ ▄   ▄   ▄▄▄ ▄▄▄ 
- ▓  ▓ ▓  ▓ ▓   ▓  ▓ ▓  ▓  ▓  ▓  ▓    ▓   ▀ ▓   ▓   ▓   ▓   ▓  ▓
- ▓  ▓ ▓▀▀  ▓▀▀ ▓▀▀▄ ▓▀▀▓  ▓  ▓  ▓ ▀▀ ▀▀▄▄  ▓▀▀ ▓   ▓   ▓▀▀ ▓▀▀▄
- ▓  ▓ ▓    ▓   ▓  ▓ ▓  ▓  ▓  ▓  ▓    ▄   ▓ ▓   ▓   ▓   ▓   ▓  ▓
-  ▀▀  ▀    ▀▀▀ ▀  ▀ ▀  ▀  ▀   ▀▀      ▀▀▀  ▀▀▀ ▀▀▀ ▀▀▀ ▀▀▀ ▀  ▀
+  ▄▄  ▄▄▄  ▄▄▄ ▄▄▄   ▄▄  ▄▄▄  ▄▄     ▄     ▄ ▄     ▄  ▄▄▄ 
+ ▓  ▓ ▓  ▓ ▓   ▓  ▓ ▓  ▓  ▓  ▓  ▓    ▓▀▄ ▄▀▓ ▓▀▄ ▄▀▓ ▓   ▀
+ ▓  ▓ ▓▀▀  ▓▀▀ ▓▀▀▄ ▓▀▀▓  ▓  ▓  ▓ ▀▀ ▓  ▀  ▓ ▓  ▀  ▓ ▀▀▄▄ 
+ ▓  ▓ ▓    ▓   ▓  ▓ ▓  ▓  ▓  ▓  ▓    ▓     ▓ ▓     ▓ ▄   ▓
+  ▀▀  ▀    ▀▀▀ ▀  ▀ ▀  ▀  ▀   ▀▀     ▀     ▀ ▀     ▀  ▀▀▀ 
 `,
   'background: #222; color: #bada55'
 )
@@ -48,16 +48,18 @@ export default function bootstrap() {
       settings: settings.reduce((settings, setting) => {
         settings[setting.name] = setting
         return settings
-      }, {}),
+      }, {})
     })
   })
 
   store.dispatch({
     type: APPEND_APP_TOOL,
     tool: {
-      template: html` <span style="font-size: 1.2em;">Operato Seller</span> `,
-      position: TOOL_POSITION.FRONT,
-    },
+      template: html`
+        <span style="font-size: 1.2em;">Operato MMS</span>
+      `,
+      position: TOOL_POSITION.FRONT
+    }
   })
 
   /* append viewpart anchor to asidebar */
@@ -66,21 +68,23 @@ export default function bootstrap() {
     viewpart: {
       show: false,
       hovering: 'edge',
-      backdrop: true,
+      backdrop: true
     },
-    position: VIEWPART_POSITION.ASIDEBAR,
+    position: VIEWPART_POSITION.ASIDEBAR
   })
 
   /* append top-menu to layout */
   var width
 
   appendViewpart({
-    name: 'seller-topmenu',
+    name: 'mms-topmenu',
     viewpart: {
       show: true,
-      template: html` <menu-tools></menu-tools> `,
+      template: html`
+        <menu-tools></menu-tools>
+      `
     },
-    position: VIEWPART_POSITION.NAVBAR,
+    position: VIEWPART_POSITION.NAVBAR
   })
 
   store.subscribe(async () => {
@@ -92,8 +96,8 @@ export default function bootstrap() {
 
     width = state.layout.width
 
-    updateViewpart('seller-topmenu', {
-      position: width == 'WIDE' ? VIEWPART_POSITION.NAVBAR : VIEWPART_POSITION.FOOTERBAR,
+    updateViewpart('mms-topmenu', {
+      position: width == 'WIDE' ? VIEWPART_POSITION.NAVBAR : VIEWPART_POSITION.FOOTERBAR
     })
   })
 
@@ -103,7 +107,7 @@ export default function bootstrap() {
     tool: {
       template: html`
         <notification-badge
-          @click=${(e) => {
+          @click=${e => {
             toggleOverlay('notification', {
               // backdrop: true
             })
@@ -111,8 +115,8 @@ export default function bootstrap() {
         >
         </notification-badge>
       `,
-      position: TOOL_POSITION.REAR,
-    },
+      position: TOOL_POSITION.REAR
+    }
   })
 
   appendViewpart({
@@ -120,17 +124,21 @@ export default function bootstrap() {
     viewpart: {
       show: false,
       hovering: 'edge',
-      template: html` <notification-list style="min-width: 300px;"></notification-list> `,
+      template: html`
+        <notification-list style="min-width: 300px;"></notification-list>
+      `
     },
-    position: VIEWPART_POSITION.ASIDEBAR,
+    position: VIEWPART_POSITION.ASIDEBAR
   })
 
   store.dispatch({
     type: APPEND_APP_TOOL,
     tool: {
-      template: html` <user-circle> </user-circle> `,
-      position: TOOL_POSITION.REAR,
-    },
+      template: html`
+        <user-circle> </user-circle>
+      `,
+      position: TOOL_POSITION.REAR
+    }
   })
 
   /* for settings */
@@ -138,15 +146,19 @@ export default function bootstrap() {
     type: ADD_SETTING,
     setting: {
       seq: 10,
-      template: html` <domain-switch-let></domain-switch-let> `,
-    },
+      template: html`
+        <domain-switch-let></domain-switch-let>
+      `
+    }
   })
 
   store.dispatch({
     type: ADD_SETTING,
     setting: {
       seq: 20,
-      template: html` <dashboard-setting-let></dashboard-setting-let> `,
-    },
+      template: html`
+        <dashboard-setting-let></dashboard-setting-let>
+      `
+    }
   })
 }

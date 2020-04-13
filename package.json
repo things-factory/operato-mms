@@ -1,5 +1,5 @@
 {
-  "name": "@things-factory/operato-seller",
+  "name": "@things-factory/operato-mms",
   "version": "1.0.0",
   "main": "dist-server/index.js",
   "browser": "client/index.js",
@@ -7,8 +7,8 @@
   "license": "MIT",
   "author": "heartyoh",
   "scripts": {
-    "serve": "things-factory operato-seller",
-    "serve:dev": "npm run build:server && things-factory-dev operato-seller",
+    "serve": "things-factory operato-mms",
+    "serve:dev": "npm run build:server && things-factory-dev operato-mms",
     "start:app": "things-factory-app",
     "start:app:android": "things-factory-app --platform=android",
     "emulate:app": "things-factory-app --emulate",
@@ -27,7 +27,7 @@
     "migration:run": "node ./node_modules/typeorm/cli.js migration:run",
     "migration:revert": "node ./node_modules/typeorm/cli.js migration:revert",
     "stop:dev": "kill $(lsof -t -i:3000,3001)",
-    "stop": "things-factory-stop operato-seller"
+    "stop": "things-factory-stop operato-mms"
   },
   "dependencies": {
     "@material/mwc-formfield": "^0.14.1",
