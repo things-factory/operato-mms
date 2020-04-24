@@ -2,6 +2,7 @@ import { css, html, LitElement } from 'lit-element'
 import { connect } from 'pwa-helpers'
 
 import { store } from '@things-factory/shell'
+import { appendViewpart, removeViewpart, VIEWPART_POSITION } from '@things-factory/layout-base'
 
 import {
   ICONS_DASHBOARD,
@@ -10,8 +11,17 @@ import {
   ICONS_CATALOGUE,
   ICONS_REPORTS,
   ICONS_PROMOTIONS,
-  ICONS_INTEGRATION,
+  ICONS_INTEGRATION
 } from '../icons/menu-icons'
+
+import './submenu-part'
+
+import './submenus/submenu-order'
+import './submenus/submenu-catalogue'
+import './submenus/submenu-inventory'
+import './submenus/submenu-promotions'
+import './submenus/submenu-integration'
+import './submenus/submenu-reports'
 
 export class MenuTools extends connect(store)(LitElement) {
   static get properties() {
@@ -19,8 +29,8 @@ export class MenuTools extends connect(store)(LitElement) {
       page: String,
       width: {
         type: String,
-        reflect: true,
-      },
+        reflect: true
+      }
     }
   }
 
@@ -124,7 +134,7 @@ export class MenuTools extends connect(store)(LitElement) {
         div {
           font-size: 0.6em;
         }
-      `,
+      `
     ]
   }
 
@@ -133,38 +143,38 @@ export class MenuTools extends connect(store)(LitElement) {
       {
         name: 'dashboard',
         path: 'mms-dashboard',
-        icons: ICONS_DASHBOARD,
+        icons: ICONS_DASHBOARD
       },
       {
         name: 'order',
         path: 'mms-order',
-        icons: ICONS_ORDER,
+        icons: ICONS_ORDER
       },
       {
         name: 'inventory',
         path: 'mms-inventory',
-        icons: ICONS_INVENTORY,
+        icons: ICONS_INVENTORY
       },
       {
         name: 'catalogue',
         path: 'mms-catalogue',
-        icons: ICONS_CATALOGUE,
+        icons: ICONS_CATALOGUE
       },
       {
         name: 'reports',
         path: 'mms-reports',
-        icons: ICONS_REPORTS,
+        icons: ICONS_REPORTS
       },
       {
         name: 'promotions',
         path: 'mms-promotions',
-        icons: ICONS_PROMOTIONS,
+        icons: ICONS_PROMOTIONS
       },
       {
         name: 'integration',
         path: 'mms-integration',
-        icons: ICONS_INTEGRATION,
-      },
+        icons: ICONS_INTEGRATION
+      }
     ]
 
     var page = this.page || ''
@@ -172,9 +182,9 @@ export class MenuTools extends connect(store)(LitElement) {
     return html`
       <ul>
         ${this.menus.map(
-          (menu) => html`
+          menu => html`
             <li>
-              <a href=${menu.path} ?active=${!!~page.indexOf(menu.path)}>
+              <a href=${menu.path} ?active=${!!~page.indexOf(menu.path)} @click=${e => this.onclick(menu)}>
                 <img src=${!!~page.indexOf(menu.path) ? menu.icons[1] : menu.icons[0]} />
                 <div>${menu.name}</div>
               </a>
@@ -183,6 +193,34 @@ export class MenuTools extends connect(store)(LitElement) {
         )}
       </ul>
     `
+  }
+
+  onclick(menu) {
+    if (menu.name == 'dashboard') {
+      removeViewpart('mms-submenu')
+    } else {
+      appendViewpart({
+        name: 'mms-submenu',
+        viewpart: {
+          show: true,
+          template: html`
+            <submenu-part>
+              <span slot="title">${menu.name}</span>
+              ${this.submenu(menu)}
+            </submenu-part>
+          `
+        },
+        position: VIEWPART_POSITION.NAVBAR
+      })
+    }
+  }
+
+  submenu(menu) {
+    var tag = 'SUBMENU-' + menu.name.toUpperCase()
+    var element = document.createElement(tag)
+    element.setAttribute('slot', 'submenu')
+
+    return element
   }
 
   stateChanged(state) {

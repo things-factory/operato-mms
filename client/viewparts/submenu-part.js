@@ -7,7 +7,7 @@ import '@material/mwc-icon'
 export class SubmenuPart extends connect(store)(LitElement) {
   static get properties() {
     return {
-      page: String,
+      page: String
     }
   }
 
@@ -18,7 +18,7 @@ export class SubmenuPart extends connect(store)(LitElement) {
           display: flex;
 
           flex-direction: column;
-          width: initial;
+          width: 200px;
           height: 100%;
         }
 
@@ -29,25 +29,27 @@ export class SubmenuPart extends connect(store)(LitElement) {
 
         div[title] mwc-icon {
           position: absolute;
-          right: 0;
+          right: 2px;
+          top: 2px;
+          font-size: 1em;
           border-radius: 50%;
           border: 2px solid #73ad21;
         }
 
-        div[submenu] {
+        slot[submenu] {
           flex: 1;
         }
-      `,
+      `
     ]
   }
 
   render() {
     return html`
       <div title>
-        <span>TITLE</span>
+        <slot name="title"></slot>
         <mwc-icon>keyboard_arrow_left</mwc-icon>
       </div>
-      <div submenu></div>
+      <slot name="submenu"> </slot>
     `
   }
 
