@@ -10,7 +10,7 @@ import {
   ICONS_CATALOGUE,
   ICONS_REPORTS,
   ICONS_PROMOTIONS,
-  ICONS_INTEGRATION
+  ICONS_INTEGRATION,
 } from '../icons/menu-icons'
 
 export class MenuTools extends connect(store)(LitElement) {
@@ -19,8 +19,8 @@ export class MenuTools extends connect(store)(LitElement) {
       page: String,
       width: {
         type: String,
-        reflect: true
-      }
+        reflect: true,
+      },
     }
   }
 
@@ -115,7 +115,6 @@ export class MenuTools extends connect(store)(LitElement) {
           display: block;
           width: 30px;
           padding: 5px 10px 0px 10px;
-          vertical-align: bottom;
         }
 
         :host([width='NARROW']) img {
@@ -125,7 +124,7 @@ export class MenuTools extends connect(store)(LitElement) {
         div {
           font-size: 0.6em;
         }
-      `
+      `,
     ]
   }
 
@@ -134,38 +133,38 @@ export class MenuTools extends connect(store)(LitElement) {
       {
         name: 'dashboard',
         path: 'mms-dashboard',
-        icons: ICONS_DASHBOARD
+        icons: ICONS_DASHBOARD,
       },
       {
         name: 'order',
         path: 'mms-order',
-        icons: ICONS_ORDER
+        icons: ICONS_ORDER,
       },
       {
         name: 'inventory',
         path: 'mms-inventory',
-        icons: ICONS_INVENTORY
+        icons: ICONS_INVENTORY,
       },
       {
         name: 'catalogue',
         path: 'mms-catalogue',
-        icons: ICONS_CATALOGUE
+        icons: ICONS_CATALOGUE,
       },
       {
         name: 'reports',
         path: 'mms-reports',
-        icons: ICONS_REPORTS
+        icons: ICONS_REPORTS,
       },
       {
         name: 'promotions',
         path: 'mms-promotions',
-        icons: ICONS_PROMOTIONS
+        icons: ICONS_PROMOTIONS,
       },
       {
         name: 'integration',
         path: 'mms-integration',
-        icons: ICONS_INTEGRATION
-      }
+        icons: ICONS_INTEGRATION,
+      },
     ]
 
     var page = this.page || ''
@@ -173,7 +172,7 @@ export class MenuTools extends connect(store)(LitElement) {
     return html`
       <ul>
         ${this.menus.map(
-          menu => html`
+          (menu) => html`
             <li>
               <a href=${menu.path} ?active=${!!~page.indexOf(menu.path)}>
                 <img src=${!!~page.indexOf(menu.path) ? menu.icons[1] : menu.icons[0]} />
