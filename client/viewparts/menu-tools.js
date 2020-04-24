@@ -14,6 +14,44 @@ import {
   ICONS_INTEGRATION
 } from '../icons/menu-icons'
 
+const MENUS = [
+  {
+    name: 'dashboard',
+    path: 'mms-dashboard',
+    icons: ICONS_DASHBOARD
+  },
+  {
+    name: 'order',
+    path: 'mms-order',
+    icons: ICONS_ORDER
+  },
+  {
+    name: 'inventory',
+    path: 'mms-inventory',
+    icons: ICONS_INVENTORY
+  },
+  {
+    name: 'catalogue',
+    path: 'mms-catalogue',
+    icons: ICONS_CATALOGUE
+  },
+  {
+    name: 'reports',
+    path: 'mms-reports',
+    icons: ICONS_REPORTS
+  },
+  {
+    name: 'promotions',
+    path: 'mms-promotions',
+    icons: ICONS_PROMOTIONS
+  },
+  {
+    name: 'integration',
+    path: 'mms-integration',
+    icons: ICONS_INTEGRATION
+  }
+]
+
 import './submenu-part'
 
 import './submenus/submenu-order'
@@ -139,49 +177,11 @@ export class MenuTools extends connect(store)(LitElement) {
   }
 
   render() {
-    this.menus = [
-      {
-        name: 'dashboard',
-        path: 'mms-dashboard',
-        icons: ICONS_DASHBOARD
-      },
-      {
-        name: 'order',
-        path: 'mms-order',
-        icons: ICONS_ORDER
-      },
-      {
-        name: 'inventory',
-        path: 'mms-inventory',
-        icons: ICONS_INVENTORY
-      },
-      {
-        name: 'catalogue',
-        path: 'mms-catalogue',
-        icons: ICONS_CATALOGUE
-      },
-      {
-        name: 'reports',
-        path: 'mms-reports',
-        icons: ICONS_REPORTS
-      },
-      {
-        name: 'promotions',
-        path: 'mms-promotions',
-        icons: ICONS_PROMOTIONS
-      },
-      {
-        name: 'integration',
-        path: 'mms-integration',
-        icons: ICONS_INTEGRATION
-      }
-    ]
-
     var page = this.page || ''
 
     return html`
       <ul>
-        ${this.menus.map(
+        ${MENUS.map(
           menu => html`
             <li>
               <a href=${menu.path} ?active=${!!~page.indexOf(menu.path)} @click=${e => this.onclick(menu)}>

@@ -30,7 +30,10 @@ export class SubmenuInventory extends connect(store)(LitElement) {
   }
 
   render() {
-    return html` <div>Inventory</div> `
+    return html`
+      <div>All stores</div>
+      <div>Bulk activities</div>
+    `
   }
 
   stateChanged(state) {

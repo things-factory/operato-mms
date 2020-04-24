@@ -30,7 +30,14 @@ export class SubmenuIntegration extends connect(store)(LitElement) {
   }
 
   render() {
-    return html` <div>Integration</div> `
+    return html`
+      <div>ecommerce channels</div>
+      <div>offline stores</div>
+      <div>wareo integration</div>
+      <div>shipping carriers management</div>
+      <div>accounting tools</div>
+      <div>bulk activities</div>
+    `
   }
 
   stateChanged(state) {

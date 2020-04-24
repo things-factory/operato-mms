@@ -30,7 +30,16 @@ export class SubmenuReports extends connect(store)(LitElement) {
   }
 
   render() {
-    return html` <div>Reports</div> `
+    return html`
+      <div>total sales</div>
+      <div>total orders</div>
+      <div>daily sales average</div>
+      <div>total sales by store</div>
+      <div>sales by promotion</div>
+      <div>current inventory stock value</div>
+      <div>top selling products</div>
+      <div>generated reports</div>
+    `
   }
 
   stateChanged(state) {

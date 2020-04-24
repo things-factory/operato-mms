@@ -30,7 +30,10 @@ export class SubmenuPromotions extends connect(store)(LitElement) {
   }
 
   render() {
-    return html` <div>Promotions</div> `
+    return html`
+      <div>all promotions</div>
+      <div>bulk activities</div>
+    `
   }
 
   stateChanged(state) {
