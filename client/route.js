@@ -15,6 +15,30 @@ export default function route(page) {
       import('./pages/integration/integration')
       return page
 
+    case 'mms-integration-channels':
+      import('./pages/integration/channels')
+      return page
+
+    case 'mms-integration-offline-stores':
+      import('./pages/integration/offline-stores')
+      return page
+
+    case 'mms-integration-wareo':
+      import('./pages/integration/wareo')
+      return page
+
+    case 'mms-integration-shipping-carriers':
+      import('./pages/integration/shipping-carriers')
+      return page
+
+    case 'mms-integration-accounting':
+      import('./pages/integration/accounting')
+      return page
+
+    case 'mms-integration-activities':
+      import('./pages/integration/activities')
+      return page
+
     case 'mms-inventory':
       import('./pages/inventory/inventory')
       return page

@@ -17,6 +17,30 @@ export default {
       page: 'mms-integration'
     },
     {
+      tagname: 'mms-integration-channels',
+      page: 'mms-integration-channels'
+    },
+    {
+      tagname: 'mms-integration-offline-stores',
+      page: 'mms-integration-offline-stores'
+    },
+    {
+      tagname: 'mms-integration-wareo',
+      page: 'mms-integration-wareo'
+    },
+    {
+      tagname: 'mms-integration-shipping-carriers',
+      page: 'mms-integration-shipping-carriers'
+    },
+    {
+      tagname: 'mms-integration-accounting',
+      page: 'mms-integration-accounting'
+    },
+    {
+      tagname: 'mms-integration-activities',
+      page: 'mms-integration-activities'
+    },
+    {
       tagname: 'mms-inventory',
       page: 'mms-inventory'
     },
