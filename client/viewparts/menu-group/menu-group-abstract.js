@@ -4,23 +4,11 @@ import { connect } from 'pwa-helpers'
 import { store } from '@things-factory/shell'
 import '@material/mwc-icon'
 
-const MENUS = [
-  {
-    name: 'promotions',
-    path: 'mms-promotion-promotions',
-    icon: 'storage'
-  },
-  {
-    name: 'bulk activities',
-    path: 'mms-promotion-activities',
-    icon: 'local_activity'
-  }
-]
-
-export class MenuGroupPromotions extends connect(store)(LitElement) {
+export class MenuGroupAbstract extends connect(store)(LitElement) {
   static get properties() {
     return {
-      page: String
+      page: String,
+      resourceId: String
     }
   }
 
@@ -60,18 +48,21 @@ export class MenuGroupPromotions extends connect(store)(LitElement) {
     ]
   }
 
-  render() {
-    var page = this.page
+  renderMenus(menus, fullPath) {
+    if (!menus || menus.length == 0) {
+      return
+    }
 
     return html`
       <ul>
-        ${MENUS.map(
+        ${menus.map(
           menu => html`
-            <li ?active=${!!~page.indexOf(menu.path)}>
+            <li ?active=${menu.path == fullPath}>
               <a href=${menu.path}>
                 <mwc-icon>${menu.icon}</mwc-icon>
                 ${menu.name}
               </a>
+              ${menu.menus ? this.renderMenus(menu.menus, fullPath) : html``}
             </li>
           `
         )}
@@ -79,9 +70,15 @@ export class MenuGroupPromotions extends connect(store)(LitElement) {
     `
   }
 
+  render() {
+    var fullPath = this.resourceId ? `${this.page}/${this.resourceId}` : this.page
+    return this.renderMenus(this.getMenus(), fullPath)
+  }
+
+  getMenus() {}
+
   stateChanged(state) {
     this.page = state.route.page
+    this.resourceId = state.route.resourceId
   }
 }
-
-customElements.define('menu-group-promotions', MenuGroupPromotions)

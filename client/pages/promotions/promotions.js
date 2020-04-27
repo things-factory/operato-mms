@@ -5,7 +5,7 @@ import { store, PageView } from '@things-factory/shell'
 class Promotions extends connect(store)(PageView) {
   static get properties() {
     return {
-      operatoMMS: String
+      promotionType: String
     }
   }
 
@@ -16,11 +16,19 @@ class Promotions extends connect(store)(PageView) {
   }
 
   render() {
+    var promotion = this.promotionType || 'all'
+
     return html`
       <section>
-        <h2>Promotions</h2>
+        <h2>Promotions - ${promotion}</h2>
       </section>
     `
+  }
+
+  async pageUpdated(changes, lifecycle) {
+    if (this.active) {
+      this.promotionType = lifecycle.resourceId
+    }
   }
 
   stateChanged(state) {}

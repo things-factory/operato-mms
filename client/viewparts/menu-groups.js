@@ -14,7 +14,7 @@ import {
   ICONS_INTEGRATION
 } from '../icons/menu-icons'
 
-const MENUS = [
+const MENUGROUPS = [
   {
     name: 'dashboard',
     defaultPath: 'mms-dashboard',
@@ -60,12 +60,12 @@ const MENUS = [
 
 import './menu-group-view'
 
-import './menu-group/menu-group-order'
-import './menu-group/menu-group-catalogue'
-import './menu-group/menu-group-inventory'
-import './menu-group/menu-group-promotions'
-import './menu-group/menu-group-integration'
-import './menu-group/menu-group-reports'
+import './menu-group/order'
+import './menu-group/catalogue'
+import './menu-group/inventory'
+import './menu-group/promotions'
+import './menu-group/integration'
+import './menu-group/reports'
 
 export class MenuTools extends connect(store)(LitElement) {
   static get properties() {
@@ -187,7 +187,7 @@ export class MenuTools extends connect(store)(LitElement) {
 
     return html`
       <ul>
-        ${MENUS.map(
+        ${MENUGROUPS.map(
           menu => html`
             <li ?active=${!!~page.indexOf(menu.pathPrefix)} @click=${e => this.onclick(menu)}>
               <img src=${!!~page.indexOf(menu.pathPrefix) ? menu.icons[1] : menu.icons[0]} />
@@ -201,7 +201,7 @@ export class MenuTools extends connect(store)(LitElement) {
 
   updated(changes) {
     if (changes.has('page')) {
-      var menu = MENUS.find(menu => {
+      var menu = MENUGROUPS.find(menu => {
         return !!~this.page.indexOf(menu.pathPrefix)
       })
       if (menu) {
