@@ -23,7 +23,7 @@ const MENUGROUPS = [
   {
     name: 'order',
     pathPrefix: 'mms-order',
-    defaultPath: 'mms-order-stores',
+    defaultPath: 'mms-order-by-store',
     icons: ICONS_ORDER
   },
   {

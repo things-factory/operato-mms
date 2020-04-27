@@ -5,7 +5,7 @@ import { store, PageView } from '@things-factory/shell'
 class CatalogueProducts extends connect(store)(PageView) {
   static get properties() {
     return {
-      operatoMMS: String
+      store: String
     }
   }
 
@@ -18,9 +18,15 @@ class CatalogueProducts extends connect(store)(PageView) {
   render() {
     return html`
       <section>
-        <h2>Catalogue</h2>
+        <h2>Catalogue - ${this.store || 'ALL'}</h2>
       </section>
     `
+  }
+
+  async pageUpdated(changes, lifecycle) {
+    if (this.active) {
+      this.store = lifecycle.resourceId
+    }
   }
 
   stateChanged(state) {}

@@ -7,7 +7,11 @@ import '@material/mwc-icon'
 export class MenuGroupView extends connect(store)(LitElement) {
   static get properties() {
     return {
-      page: String
+      page: String,
+      collapsed: {
+        type: Boolean,
+        reflect: true
+      }
     }
   }
 
@@ -16,18 +20,27 @@ export class MenuGroupView extends connect(store)(LitElement) {
       css`
         :host {
           display: flex;
+          position: relative;
 
           flex-direction: column;
           width: 200px;
           height: 100%;
         }
 
+        :host([collapsed]) {
+          width: 24px;
+        }
+
+        :host([collapsed]) div,
+        :host([collapsed]) slot {
+          display: none;
+        }
+
         div[title] {
-          position: relative;
           background-color: white;
         }
 
-        div[title] mwc-icon {
+        mwc-icon {
           position: absolute;
           right: 2px;
           top: 2px;
@@ -44,13 +57,20 @@ export class MenuGroupView extends connect(store)(LitElement) {
   }
 
   render() {
+    var icon = this.collapsed ? 'keyboard_arrow_right' : 'keyboard_arrow_left'
+
     return html`
       <div title>
         <slot name="title"></slot>
-        <mwc-icon>keyboard_arrow_left</mwc-icon>
       </div>
+      <mwc-icon @click=${e => this.onclick(e)}>${icon}</mwc-icon>
       <slot name="menu-group"> </slot>
     `
+  }
+
+  onclick(e) {
+    this.collapsed = !this.collapsed
+    // this.toggleAttribute('collapsed')
   }
 
   stateChanged(state) {

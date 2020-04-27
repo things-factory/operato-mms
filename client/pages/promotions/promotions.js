@@ -16,7 +16,7 @@ class Promotions extends connect(store)(PageView) {
   }
 
   render() {
-    var promotion = this.promotionType || 'all'
+    var promotion = this.promotionType || 'ALL'
 
     return html`
       <section>

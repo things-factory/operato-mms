@@ -4,7 +4,7 @@ const MENUS = [
   {
     name: 'products',
     path: 'mms-catalogue-products',
-    icon: 'storage'
+    icon: 'border_all'
   },
   {
     name: 'bulk activities',
@@ -19,8 +19,21 @@ const MENUS = [
 ]
 
 export class MenuGroupCatalogue extends MenuGroupAbstract {
+  getStores() {
+    return [
+      {
+        name: 'Lazada Malaysia',
+        path: 'mms-catalogue-products/lazada-malaysia',
+        icon: 'store'
+      }
+    ]
+  }
+
   getMenus() {
-    return MENUS
+    var menus = [...MENUS]
+
+    menus[0].menus = this.getStores()
+    return menus
   }
 }
 

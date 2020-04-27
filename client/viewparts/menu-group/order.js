@@ -3,8 +3,8 @@ import { MenuGroupAbstract } from './menu-group-abstract'
 const MENUS = [
   {
     name: 'stores',
-    path: 'mms-order-stores',
-    icon: 'storage'
+    path: 'mms-order-by-store',
+    icon: 'store'
   },
   {
     name: 'bulk activities',
@@ -14,8 +14,21 @@ const MENUS = [
 ]
 
 export class MenuGroupOrder extends MenuGroupAbstract {
+  getStores() {
+    return [
+      {
+        name: 'Lazada Malaysia',
+        path: 'mms-order-by-store/lazada-malaysia',
+        icon: 'store'
+      }
+    ]
+  }
+
   getMenus() {
-    return MENUS
+    var menus = [...MENUS]
+
+    menus[0].menus = this.getStores()
+    return menus
   }
 }
 

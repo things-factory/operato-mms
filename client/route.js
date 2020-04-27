@@ -51,8 +51,8 @@ export default function route(page) {
       import('./pages/inventory/activities')
       return page
 
-    case 'mms-order-stores':
-      import('./pages/order/stores')
+    case 'mms-order-by-store':
+      import('./pages/order/order-by-store')
       return page
 
     case 'mms-order-activities':

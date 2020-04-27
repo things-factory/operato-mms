@@ -53,8 +53,8 @@ export default {
       page: 'mms-inventory-activities'
     },
     {
-      tagname: 'mms-order-stores',
-      page: 'mms-order-stores'
+      tagname: 'mms-order-by-store',
+      page: 'mms-order-by-store'
     },
     {
       tagname: 'mms-order-activities',
