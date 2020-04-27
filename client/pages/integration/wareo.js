@@ -4,9 +4,7 @@ import { store, PageView } from '@things-factory/shell'
 
 class IntegrationWareo extends connect(store)(PageView) {
   static get properties() {
-    return {
-      operatoMMS: String
-    }
+    return {}
   }
 
   get context() {
