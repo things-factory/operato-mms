@@ -7,42 +7,42 @@ import '@material/mwc-icon'
 const MENUS = [
   {
     name: 'total sales',
-    path: 'mms-reports-total-sales',
+    path: 'mms-report-total-sales',
     icon: 'storage'
   },
   {
     name: 'total orders',
-    path: 'mms-reports-total-orders',
+    path: 'mms-report-total-orders',
     icon: 'store'
   },
   {
     name: 'daily sales average',
-    path: 'mms-reports-daily-sales-average',
+    path: 'mms-report-daily-sales-average',
     icon: 'shop'
   },
   {
     name: 'total sales by store',
-    path: 'mms-reports-total-sales-by-store',
+    path: 'mms-report-sales-by-store',
     icon: 'shopping_basket'
   },
   {
     name: 'sales by promotion',
-    path: 'mms-reports-sales-by-promotion',
+    path: 'mms-report-sales-by-promotion',
     icon: 'account_box'
   },
   {
     name: 'current inventory stock value',
-    path: 'mms-reports-inventory',
+    path: 'mms-report-inventory',
     icon: 'local_activity'
   },
   {
     name: 'top selling products',
-    path: 'mms-reports-top-selling',
+    path: 'mms-report-top-selling',
     icon: 'local_activity'
   },
   {
     name: 'generated reports',
-    path: 'mms-reports-custom',
+    path: 'mms-report-custom',
     icon: 'local_activity'
   }
 ]

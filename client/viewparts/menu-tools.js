@@ -1,7 +1,7 @@
 import { css, html, LitElement } from 'lit-element'
 import { connect } from 'pwa-helpers'
 
-import { store } from '@things-factory/shell'
+import { store, navigate } from '@things-factory/shell'
 import { appendViewpart, removeViewpart, VIEWPART_POSITION } from '@things-factory/layout-base'
 
 import {
@@ -17,37 +17,43 @@ import {
 const MENUS = [
   {
     name: 'dashboard',
-    path: 'mms-dashboard',
+    defaultPath: 'mms-dashboard',
     icons: ICONS_DASHBOARD
   },
   {
     name: 'order',
-    path: 'mms-order',
+    pathPrefix: 'mms-order',
+    defaultPath: 'mms-order-stores',
     icons: ICONS_ORDER
   },
   {
     name: 'inventory',
-    path: 'mms-inventory',
+    pathPrefix: 'mms-inventory',
+    defaultPath: 'mms-inventory-products',
     icons: ICONS_INVENTORY
   },
   {
     name: 'catalogue',
-    path: 'mms-catalogue',
+    pathPrefix: 'mms-catalogue',
+    defaultPath: 'mms-catalogue-products',
     icons: ICONS_CATALOGUE
   },
   {
     name: 'reports',
-    path: 'mms-reports',
+    pathPrefix: 'mms-report',
+    defaultPath: 'mms-report-total-sales',
     icons: ICONS_REPORTS
   },
   {
     name: 'promotions',
-    path: 'mms-promotions',
+    pathPrefix: 'mms-promotion',
+    defaultPath: 'mms-promotion-promotions',
     icons: ICONS_PROMOTIONS
   },
   {
     name: 'integration',
-    path: 'mms-integration',
+    pathPrefix: 'mms-integration',
+    defaultPath: 'mms-integration-channels',
     icons: ICONS_INTEGRATION
   }
 ]
@@ -121,7 +127,7 @@ export class MenuTools extends connect(store)(LitElement) {
           border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         }
 
-        a {
+        li {
           display: flex;
           flex-direction: column;
           padding: 5px 0px;
@@ -134,7 +140,7 @@ export class MenuTools extends connect(store)(LitElement) {
           border-left: 2px solid transparent;
         }
 
-        a[active] {
+        li[active] {
           opacity: 1;
           color: var(--menu-tools-active-color);
           font-weight: bold;
@@ -142,7 +148,7 @@ export class MenuTools extends connect(store)(LitElement) {
           border-left: 2px solid var(--menu-tools-active-color);
         }
 
-        :host([width='NARROW']) a {
+        :host([width='NARROW']) li {
           padding: 0px 0px 5px 0px;
           opacity: 0.8;
           color: var(--menu-tools-color);
@@ -150,7 +156,7 @@ export class MenuTools extends connect(store)(LitElement) {
           border-top: 2px solid transparent;
         }
 
-        :host([width='NARROW']) a[active] {
+        :host([width='NARROW']) li[active] {
           opacity: 1;
           color: var(--menu-tools-active-color);
           font-weight: bold;
@@ -183,11 +189,9 @@ export class MenuTools extends connect(store)(LitElement) {
       <ul>
         ${MENUS.map(
           menu => html`
-            <li>
-              <a href=${menu.path} ?active=${!!~page.indexOf(menu.path)} @click=${e => this.onclick(menu)}>
-                <img src=${!!~page.indexOf(menu.path) ? menu.icons[1] : menu.icons[0]} />
-                <div>${menu.name}</div>
-              </a>
+            <li ?active=${!!~page.indexOf(menu.pathPrefix)} @click=${e => this.onclick(menu)}>
+              <img src=${!!~page.indexOf(menu.pathPrefix) ? menu.icons[1] : menu.icons[0]} />
+              <div>${menu.name}</div>
             </li>
           `
         )}
@@ -195,23 +199,38 @@ export class MenuTools extends connect(store)(LitElement) {
     `
   }
 
-  onclick(menu) {
-    if (menu.name == 'dashboard') {
-      removeViewpart('mms-submenu')
-    } else {
-      appendViewpart({
-        name: 'mms-submenu',
-        viewpart: {
-          show: true,
-          template: html`
-            <submenu-part>
-              <span slot="title">${menu.name}</span>
-              ${this.submenu(menu)}
-            </submenu-part>
-          `
-        },
-        position: VIEWPART_POSITION.NAVBAR
+  updated(changes) {
+    if (changes.has('page')) {
+      var menu = MENUS.find(menu => {
+        return !!~this.page.indexOf(menu.pathPrefix)
       })
+      if (menu) {
+        appendViewpart({
+          name: 'mms-submenu',
+          viewpart: {
+            show: true,
+            template: html`
+              <submenu-part>
+                <span slot="title">${menu.name}</span>
+                ${this.submenu(menu)}
+              </submenu-part>
+            `
+          },
+          position: VIEWPART_POSITION.NAVBAR
+        })
+      } else {
+        removeViewpart('mms-submenu')
+      }
+    }
+  }
+
+  onclick(menu) {
+    var { pathPrefix, defaultPath } = menu
+
+    if (!!~this.page.indexOf(pathPrefix)) {
+      // 현재 페이지와 메뉴 그룹이 동일하면, 아무것도 하지 않는다.
+    } else {
+      navigate(defaultPath)
     }
   }
 

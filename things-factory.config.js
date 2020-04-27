@@ -5,16 +5,20 @@ export default {
   route,
   routes: [
     {
-      tagname: 'mms-catalogue',
-      page: 'mms-catalogue'
+      tagname: 'mms-catalogue-products',
+      page: 'mms-catalogue-products'
+    },
+    {
+      tagname: 'mms-catalogue-activities',
+      page: 'mms-catalogue-activities'
+    },
+    {
+      tagname: 'mms-catalogue-cross-list',
+      page: 'mms-catalogue-cross-list'
     },
     {
       tagname: 'mms-dashboard',
       page: 'mms-dashboard'
-    },
-    {
-      tagname: 'mms-integration',
-      page: 'mms-integration'
     },
     {
       tagname: 'mms-integration-channels',
@@ -41,20 +45,60 @@ export default {
       page: 'mms-integration-activities'
     },
     {
-      tagname: 'mms-inventory',
-      page: 'mms-inventory'
+      tagname: 'mms-inventory-products',
+      page: 'mms-inventory-products'
     },
     {
-      tagname: 'mms-order',
-      page: 'mms-order'
+      tagname: 'mms-inventory-activities',
+      page: 'mms-inventory-activities'
     },
     {
-      tagname: 'mms-promotions',
-      page: 'mms-promotions'
+      tagname: 'mms-order-stores',
+      page: 'mms-order-stores'
     },
     {
-      tagname: 'mms-reports',
-      page: 'mms-reports'
+      tagname: 'mms-order-activities',
+      page: 'mms-order-activities'
+    },
+    {
+      tagname: 'mms-promotion-promotions',
+      page: 'mms-promotion-promotions'
+    },
+    {
+      tagname: 'mms-promotion-activities',
+      page: 'mms-promotion-activities'
+    },
+    {
+      tagname: 'mms-report-total-sales',
+      page: 'mms-report-total-sales'
+    },
+    {
+      tagname: 'mms-report-total-orders',
+      page: 'mms-report-total-orders'
+    },
+    {
+      tagname: 'mms-report-daily-sales-average',
+      page: 'mms-report-daily-sales-average'
+    },
+    {
+      tagname: 'mms-report-sales-by-store',
+      page: 'mms-report-sales-by-store'
+    },
+    {
+      tagname: 'mms-report-sales-by-promotion',
+      page: 'mms-report-sales-by-promotion'
+    },
+    {
+      tagname: 'mms-report-inventory',
+      page: 'mms-report-inventory'
+    },
+    {
+      tagname: 'mms-report-top-selling',
+      page: 'mms-report-top-selling'
+    },
+    {
+      tagname: 'mms-report-custom',
+      page: 'mms-report-custom'
     }
   ],
   bootstrap

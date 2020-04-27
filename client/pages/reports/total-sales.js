@@ -2,7 +2,7 @@ import { html } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
 import { store, PageView } from '@things-factory/shell'
 
-class Order extends connect(store)(PageView) {
+class TotalSalesReport extends connect(store)(PageView) {
   static get properties() {
     return {
       operatoMMS: String
@@ -11,14 +11,14 @@ class Order extends connect(store)(PageView) {
 
   get context() {
     return {
-      title: 'order'
+      title: 'reports'
     }
   }
 
   render() {
     return html`
       <section>
-        <h2>Order</h2>
+        <h2>Total Sales Report</h2>
       </section>
     `
   }
@@ -26,4 +26,4 @@ class Order extends connect(store)(PageView) {
   stateChanged(state) {}
 }
 
-customElements.define('mms-order', Order)
+customElements.define('mms-report-total-sales', TotalSalesReport)
