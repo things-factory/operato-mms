@@ -4,7 +4,7 @@ import { connect } from 'pwa-helpers'
 import { store } from '@things-factory/shell'
 import '@material/mwc-icon'
 
-export class SubmenuPart extends connect(store)(LitElement) {
+export class MenuGroupView extends connect(store)(LitElement) {
   static get properties() {
     return {
       page: String
@@ -36,7 +36,7 @@ export class SubmenuPart extends connect(store)(LitElement) {
           border: 2px solid #73ad21;
         }
 
-        slot[submenu] {
+        slot[menu-group] {
           flex: 1;
         }
       `
@@ -49,7 +49,7 @@ export class SubmenuPart extends connect(store)(LitElement) {
         <slot name="title"></slot>
         <mwc-icon>keyboard_arrow_left</mwc-icon>
       </div>
-      <slot name="submenu"> </slot>
+      <slot name="menu-group"> </slot>
     `
   }
 
@@ -58,4 +58,4 @@ export class SubmenuPart extends connect(store)(LitElement) {
   }
 }
 
-customElements.define('submenu-part', SubmenuPart)
+customElements.define('menu-group-view', MenuGroupView)

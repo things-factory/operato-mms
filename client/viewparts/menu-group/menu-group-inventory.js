@@ -6,38 +6,18 @@ import '@material/mwc-icon'
 
 const MENUS = [
   {
-    name: 'ecommerce channels',
-    path: 'mms-integration-channels',
+    name: 'products',
+    path: 'mms-inventory-products',
     icon: 'storage'
   },
   {
-    name: 'offline stores',
-    path: 'mms-integration-offline-stores',
-    icon: 'store'
-  },
-  {
-    name: 'wareo integration',
-    path: 'mms-integration-wareo',
-    icon: 'shop'
-  },
-  {
-    name: 'shipping carriers',
-    path: 'mms-integration-shipping-carriers',
-    icon: 'shopping_basket'
-  },
-  {
-    name: 'accounting tools',
-    path: 'mms-integration-accounting',
-    icon: 'account_box'
-  },
-  {
     name: 'bulk activities',
-    path: 'mms-integration-activities',
+    path: 'mms-inventory-activities',
     icon: 'local_activity'
   }
 ]
 
-export class SubmenuIntegration extends connect(store)(LitElement) {
+export class MenuGroupInventory extends connect(store)(LitElement) {
   static get properties() {
     return {
       page: String
@@ -104,4 +84,4 @@ export class SubmenuIntegration extends connect(store)(LitElement) {
   }
 }
 
-customElements.define('submenu-integration', SubmenuIntegration)
+customElements.define('menu-group-inventory', MenuGroupInventory)

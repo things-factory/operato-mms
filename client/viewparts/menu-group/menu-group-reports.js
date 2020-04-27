@@ -6,18 +6,48 @@ import '@material/mwc-icon'
 
 const MENUS = [
   {
-    name: 'promotions',
-    path: 'mms-promotion-promotions',
+    name: 'total sales',
+    path: 'mms-report-total-sales',
     icon: 'storage'
   },
   {
-    name: 'bulk activities',
-    path: 'mms-promotion-activities',
+    name: 'total orders',
+    path: 'mms-report-total-orders',
+    icon: 'store'
+  },
+  {
+    name: 'daily sales average',
+    path: 'mms-report-daily-sales-average',
+    icon: 'shop'
+  },
+  {
+    name: 'total sales by store',
+    path: 'mms-report-sales-by-store',
+    icon: 'shopping_basket'
+  },
+  {
+    name: 'sales by promotion',
+    path: 'mms-report-sales-by-promotion',
+    icon: 'account_box'
+  },
+  {
+    name: 'current inventory stock value',
+    path: 'mms-report-inventory',
+    icon: 'local_activity'
+  },
+  {
+    name: 'top selling products',
+    path: 'mms-report-top-selling',
+    icon: 'local_activity'
+  },
+  {
+    name: 'generated reports',
+    path: 'mms-report-custom',
     icon: 'local_activity'
   }
 ]
 
-export class SubmenuPromotions extends connect(store)(LitElement) {
+export class MenuGroupReports extends connect(store)(LitElement) {
   static get properties() {
     return {
       page: String
@@ -67,7 +97,7 @@ export class SubmenuPromotions extends connect(store)(LitElement) {
       <ul>
         ${MENUS.map(
           menu => html`
-            <li ?active=${!!~page.indexOf(menu.path)}>
+            <li ?active=${page == menu.path}>
               <a href=${menu.path}>
                 <mwc-icon>${menu.icon}</mwc-icon>
                 ${menu.name}
@@ -84,4 +114,4 @@ export class SubmenuPromotions extends connect(store)(LitElement) {
   }
 }
 
-customElements.define('submenu-promotions', SubmenuPromotions)
+customElements.define('menu-group-reports', MenuGroupReports)

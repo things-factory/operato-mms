@@ -6,23 +6,18 @@ import '@material/mwc-icon'
 
 const MENUS = [
   {
-    name: 'products',
-    path: 'mms-catalogue-products',
+    name: 'promotions',
+    path: 'mms-promotion-promotions',
     icon: 'storage'
   },
   {
     name: 'bulk activities',
-    path: 'mms-catalogue-activities',
-    icon: 'local_activity'
-  },
-  {
-    name: 'cross list',
-    path: 'mms-catalogue-cross-list',
+    path: 'mms-promotion-activities',
     icon: 'local_activity'
   }
 ]
 
-export class SubmenuCatalogue extends connect(store)(LitElement) {
+export class MenuGroupPromotions extends connect(store)(LitElement) {
   static get properties() {
     return {
       page: String
@@ -89,4 +84,4 @@ export class SubmenuCatalogue extends connect(store)(LitElement) {
   }
 }
 
-customElements.define('submenu-catalogue', SubmenuCatalogue)
+customElements.define('menu-group-promotions', MenuGroupPromotions)

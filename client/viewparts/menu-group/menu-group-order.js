@@ -6,18 +6,18 @@ import '@material/mwc-icon'
 
 const MENUS = [
   {
-    name: 'products',
-    path: 'mms-inventory-products',
+    name: 'stores',
+    path: 'mms-order-stores',
     icon: 'storage'
   },
   {
     name: 'bulk activities',
-    path: 'mms-inventory-activities',
+    path: 'mms-order-activities',
     icon: 'local_activity'
   }
 ]
 
-export class SubmenuInventory extends connect(store)(LitElement) {
+export class MenuGroupOrder extends connect(store)(LitElement) {
   static get properties() {
     return {
       page: String
@@ -84,4 +84,4 @@ export class SubmenuInventory extends connect(store)(LitElement) {
   }
 }
 
-customElements.define('submenu-inventory', SubmenuInventory)
+customElements.define('menu-group-order', MenuGroupOrder)

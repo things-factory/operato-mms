@@ -19,7 +19,7 @@ import notification from './reducers/notification'
 import boardSetting from './reducers/board-settings'
 
 import './viewparts/user-circle'
-import './viewparts/menu-tools'
+import './viewparts/menu-groups'
 import './viewparts/notification-badge'
 import './viewparts/notification-list'
 import './viewparts/dashboard-setting-let'
@@ -71,7 +71,7 @@ export default function bootstrap() {
     position: VIEWPART_POSITION.ASIDEBAR
   })
 
-  /* append menu, submenu to layout */
+  /* append menu, menu-group to layout */
   var width
 
   appendViewpart({

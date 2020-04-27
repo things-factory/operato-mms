@@ -58,14 +58,14 @@ const MENUS = [
   }
 ]
 
-import './submenu-part'
+import './menu-group-view'
 
-import './submenus/submenu-order'
-import './submenus/submenu-catalogue'
-import './submenus/submenu-inventory'
-import './submenus/submenu-promotions'
-import './submenus/submenu-integration'
-import './submenus/submenu-reports'
+import './menu-group/menu-group-order'
+import './menu-group/menu-group-catalogue'
+import './menu-group/menu-group-inventory'
+import './menu-group/menu-group-promotions'
+import './menu-group/menu-group-integration'
+import './menu-group/menu-group-reports'
 
 export class MenuTools extends connect(store)(LitElement) {
   static get properties() {
@@ -206,20 +206,20 @@ export class MenuTools extends connect(store)(LitElement) {
       })
       if (menu) {
         appendViewpart({
-          name: 'mms-submenu',
+          name: 'mms-menu-group',
           viewpart: {
             show: true,
             template: html`
-              <submenu-part>
+              <menu-group-view>
                 <span slot="title">${menu.name}</span>
-                ${this.submenu(menu)}
-              </submenu-part>
+                ${this.menuGroup(menu)}
+              </menu-group-view>
             `
           },
           position: VIEWPART_POSITION.NAVBAR
         })
       } else {
-        removeViewpart('mms-submenu')
+        removeViewpart('mms-menu-group')
       }
     }
   }
@@ -234,10 +234,10 @@ export class MenuTools extends connect(store)(LitElement) {
     }
   }
 
-  submenu(menu) {
-    var tag = 'SUBMENU-' + menu.name.toUpperCase()
+  menuGroup(menu) {
+    var tag = 'menu-group-' + menu.name.toUpperCase()
     var element = document.createElement(tag)
-    element.setAttribute('slot', 'submenu')
+    element.setAttribute('slot', 'menu-group')
 
     return element
   }
