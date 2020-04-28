@@ -168,15 +168,11 @@ export class MenuTools extends connect(store)(LitElement) {
         img {
           display: block;
           width: 30px;
-          padding: 5px 10px 0px 10px;
+          padding: 5px 10px 5px 10px;
         }
 
         :host([width='NARROW']) img {
           padding: 0;
-        }
-
-        div {
-          font-size: 0.6em;
         }
       `
     ]
@@ -191,7 +187,6 @@ export class MenuTools extends connect(store)(LitElement) {
           menu => html`
             <li ?active=${!!~page.indexOf(menu.pathPrefix)} @click=${e => this.onclick(menu)}>
               <img src=${!!~page.indexOf(menu.pathPrefix) ? menu.icons[1] : menu.icons[0]} />
-              <div>${menu.name}</div>
             </li>
           `
         )}
