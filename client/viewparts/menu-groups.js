@@ -17,6 +17,7 @@ import {
 const MENUGROUPS = [
   {
     name: 'dashboard',
+    pathPrefix: 'mms-dashboard',
     defaultPath: 'mms-dashboard',
     icons: ICONS_DASHBOARD
   },
@@ -24,36 +25,42 @@ const MENUGROUPS = [
     name: 'order',
     pathPrefix: 'mms-order',
     defaultPath: 'mms-order-by-store',
+    menuGroupTag: 'menu-group-order',
     icons: ICONS_ORDER
   },
   {
     name: 'inventory',
     pathPrefix: 'mms-inventory',
     defaultPath: 'mms-inventory-products',
+    menuGroupTag: 'menu-group-inventory',
     icons: ICONS_INVENTORY
   },
   {
     name: 'catalogue',
     pathPrefix: 'mms-catalogue',
     defaultPath: 'mms-catalogue-products',
+    menuGroupTag: 'menu-group-catalogue',
     icons: ICONS_CATALOGUE
   },
   {
     name: 'reports',
     pathPrefix: 'mms-report',
     defaultPath: 'mms-report-total-sales',
+    menuGroupTag: 'menu-group-reports',
     icons: ICONS_REPORTS
   },
   {
     name: 'promotions',
     pathPrefix: 'mms-promotion',
     defaultPath: 'mms-promotion-promotions',
+    menuGroupTag: 'menu-group-promotions',
     icons: ICONS_PROMOTIONS
   },
   {
     name: 'integration',
     pathPrefix: 'mms-integration',
     defaultPath: 'mms-integration-channels',
+    menuGroupTag: 'menu-group-integration',
     icons: ICONS_INTEGRATION
   }
 ]
@@ -118,6 +125,7 @@ export class MenuTools extends connect(store)(LitElement) {
         :host([width='WIDE']) ul {
           flex-direction: column;
         }
+
         :host([width='NARROW']) li {
           flex: 1;
         }
@@ -172,7 +180,7 @@ export class MenuTools extends connect(store)(LitElement) {
         }
 
         :host([width='NARROW']) img {
-          padding: 0;
+          padding: 8px 0;
         }
       `
     ]
@@ -199,7 +207,7 @@ export class MenuTools extends connect(store)(LitElement) {
       var menu = MENUGROUPS.find(menu => {
         return !!~this.page.indexOf(menu.pathPrefix)
       })
-      if (menu) {
+      if (menu?.menuGroupTag) {
         appendViewpart({
           name: 'mms-menu-group',
           viewpart: {
@@ -230,7 +238,7 @@ export class MenuTools extends connect(store)(LitElement) {
   }
 
   menuGroup(menu) {
-    var tag = 'menu-group-' + menu.name.toUpperCase()
+    var tag = menu.menuGroupTag
     var element = document.createElement(tag)
     element.setAttribute('slot', 'menu-group')
 
