@@ -96,7 +96,7 @@ export class MenuTools extends connect(store)(LitElement) {
           flex-direction: column;
           width: 100%;
           --menu-tools-color: rgba(255, 255, 255, 0.9);
-          --menu-tools-active-color: rgba(107, 178, 249, 1);
+          --menu-tools-active-color: #28b0b8;
         }
 
         :host([width='WIDE']) {
@@ -138,7 +138,8 @@ export class MenuTools extends connect(store)(LitElement) {
         li {
           display: flex;
           flex-direction: column;
-          padding: 5px 0px;
+          position: relative;
+          padding: 9px 0px;
           opacity: 0.7;
           align-items: center;
           text-align: center;
@@ -152,8 +153,19 @@ export class MenuTools extends connect(store)(LitElement) {
           opacity: 1;
           color: var(--menu-tools-active-color);
           font-weight: bold;
-          background-color: rgba(0, 0, 0, 0.15);
+          background-color: rgba(0, 0, 0, 0.2);
           border-left: 2px solid var(--menu-tools-active-color);
+        }
+        li[active]::after {
+          content: '';
+          position: absolute;
+          margin-top: 30%;
+          right: 0;
+          width: 0;
+          height: 0;
+          border-top: 7px solid transparent;
+          border-right: 7px solid #fff;
+          border-bottom: 7px solid transparent;
         }
 
         :host([width='NARROW']) li {

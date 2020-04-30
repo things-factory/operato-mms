@@ -25,6 +25,7 @@ export class MenuGroupView extends connect(store)(LitElement) {
           flex-direction: column;
           width: 200px;
           height: 100%;
+          border-right: var(--border-dark-color);
         }
 
         :host([collapsed]) {
@@ -37,16 +38,29 @@ export class MenuGroupView extends connect(store)(LitElement) {
         }
 
         div[title] {
+          display: block;
+          padding: 12px 10px 7px 10px;
           background-color: white;
+          color: var(--secondary-text-color);
+          font: var(--header-bar-title);
+          text-transform: capitalize;
         }
 
         mwc-icon {
           position: absolute;
-          right: 2px;
-          top: 2px;
+          right: 9px;
+          top: 11px;
           font-size: 1em;
           border-radius: 50%;
-          border: 2px solid #73ad21;
+          border: 1px solid var(--primary-color);
+          color: var(--primary-color);
+          opacity: 0.7;
+          cursor: pointer;
+        }
+        mwc-icon:hover {
+          opacity: 1;
+          background-color: var(--primary-color);
+          color: #fff;
         }
 
         slot[menu-group] {

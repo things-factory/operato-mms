@@ -146,8 +146,8 @@ const ICON_INTEGRATION = `
 `
 
 function icons(template) {
-  return ['#ffffff', '#64A3D9'].map(
-    (color) => 'data:image/svg+xml;charset=UTF-8;base64,' + btoa(template.replace(/{{strokecolor}}/g, color))
+  return ['#fff', '#05d4e1'].map(
+    color => 'data:image/svg+xml;charset=UTF-8;base64,' + btoa(template.replace(/{{strokecolor}}/g, color))
   )
 }
 

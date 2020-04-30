@@ -24,25 +24,48 @@ export class MenuGroupAbstract extends connect(store)(LitElement) {
 
         ul {
           list-style: none;
-          padding: 4px;
+          margin: 0;
+          padding: 0;
         }
-
-        li {
-          margin: 10px 0;
-          color: black;
-        }
-
-        li[active] {
-          opacity: 1;
-          color: tomato;
-          font-weight: bold;
-          background-color: rgba(0, 0, 0, 0.15);
-        }
-
         a {
           display: flex;
           align-items: center;
+          border-bottom: var(--border-dark-color);
+          padding: 9px 0 7px 10px;
           text-decoration: none;
+          font: normal 14px var(--theme-font);
+          color: var(--secondary-color);
+          text-transform: capitalize;
+        }
+        a mwc-icon {
+          margin-right: 4px;
+          font-size: 13px;
+          color: var(--primary-color);
+        }
+        li[active] a {
+          border-bottom: 1px solid var(--primary-color);
+          font-weight: bold;
+          color: var(--primary-color);
+        }
+        li li a,
+        li[active] li a {
+          background-color: #f4f4f4;
+          border-bottom: var(--border-dark-color);
+          padding: 7px 0 7px 20px;
+          font: normal 13px var(--theme-font);
+          color: var(--secondary-color);
+        }
+        li li[active] a {
+          background-color: rgba(var(--primary-color-rgb), 0.15);
+          font: bold 13px var(--theme-font);
+          color: var(--primary-color);
+        }
+        li li a::before {
+          content: '-';
+          margin-right: 4px;
+        }
+        li li a mwc-icon {
+          display: none;
         }
       `
     ]

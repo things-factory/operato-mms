@@ -6,7 +6,7 @@ body {
   --header-bar-height: 45px;
   --header-bar-item-padding: 0px 5px 0 0;
 
-  --nav-bar-background-color: var(--primary-color);
+  --nav-bar-background-color: #fff;
 
   --group-bar-background-color: var(--primary-color);
   --group-bar-textbutton: 16px/32px var(--theme-font);
