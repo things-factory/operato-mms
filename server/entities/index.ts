@@ -1,5 +1,7 @@
 // import { Xxx } from './xxx'
+import { Platform } from './platform'
+import { BizplacePlatform } from './bizplace-platform'
 
-export const entities = []
+export const entities = [Platform, BizplacePlatform]
 
-export {}
+export { Platform, BizplacePlatform }
