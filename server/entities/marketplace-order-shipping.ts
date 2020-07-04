@@ -1,15 +1,6 @@
-import {
-  CreateDateColumn,
-  UpdateDateColumn,
-  Entity,
-  Index,
-  Column,
-  OneToMany,
-  ManyToOne,
-  PrimaryGeneratedColumn
-} from 'typeorm'
-import { Domain } from '@things-factory/shell'
 import { User } from '@things-factory/auth-base'
+import { Domain } from '@things-factory/shell'
+import { Column, CreateDateColumn, Entity, Index, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { MarketplaceOrder } from '../entities'
 
 @Entity()
@@ -29,10 +20,46 @@ export class MarketplaceOrderShipping {
   domain: Domain
 
   @ManyToOne(type => MarketplaceOrder)
-  marketplacceOrder: MarketplaceOrder
+  marketplaceOrder: MarketplaceOrder
 
   @Column()
   name: string
+
+  @Column()
+  address1: string
+
+  @Column()
+  address2: string
+
+  @Column()
+  address3: string
+
+  @Column()
+  address4: string
+
+  @Column()
+  address5: string
+
+  @Column()
+  firstName: string
+
+  @Column()
+  lastName: string
+
+  @Column()
+  city: string
+
+  @Column()
+  postCode: string
+
+  @Column()
+  country: string
+
+  @Column()
+  phone1: string
+
+  @Column()
+  phone2: string
 
   @Column({
     nullable: true

@@ -37,6 +37,16 @@ export class MarketplaceCategory {
   @Column({
     nullable: true
   })
+  parentId: string
+
+  @Column({
+    nullable: true
+  })
+  hasChildren: Boolean
+
+  @Column({
+    nullable: true
+  })
   description: string
 
   @CreateDateColumn()

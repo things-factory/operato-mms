@@ -1,6 +1,6 @@
-import { CreateDateColumn, UpdateDateColumn, Entity, Index, Column, OneToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
-import { Domain } from '@things-factory/shell'
 import { User } from '@things-factory/auth-base'
+import { Domain } from '@things-factory/shell'
+import { Column, CreateDateColumn, Entity, Index, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 
 @Entity()
 @Index('ix_platform_0', (platform: Platform) => [platform.domain, platform.name], { unique: true })
@@ -10,13 +10,13 @@ export class Platform {
 
   @ManyToOne(type => Domain)
   domain: Domain
-  
+
   @Column()
   name: string
-  
+
   @Column()
-  countryCode : string
-   
+  countryCode: string
+
   @Column({
     nullable: true
   })
@@ -24,17 +24,17 @@ export class Platform {
 
   @CreateDateColumn()
   createdAt: Date
-  
+
   @UpdateDateColumn()
   updatedAt: Date
-  
+
   @ManyToOne(type => User, {
     nullable: true
   })
   creator: User
-  
+
   @ManyToOne(type => User, {
     nullable: true
   })
-  updater: User  
+  updater: User
 }

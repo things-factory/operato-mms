@@ -1,17 +1,7 @@
-import {
-  CreateDateColumn,
-  UpdateDateColumn,
-  Entity,
-  Index,
-  Column,
-  OneToMany,
-  ManyToOne,
-  PrimaryGeneratedColumn
-} from 'typeorm'
-import { Domain } from '@things-factory/shell'
 import { User } from '@things-factory/auth-base'
+import { Domain } from '@things-factory/shell'
+import { Column, CreateDateColumn, Entity, Index, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { MarketplaceProduct } from '../entities'
-import { marketplaceProductAttributeResolver } from 'server/graphql/resolvers/marketplace-product-attribute/marketplace-product-attribute'
 
 @Entity()
 @Index(

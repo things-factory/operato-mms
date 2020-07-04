@@ -1,16 +1,7 @@
-import {
-  CreateDateColumn,
-  UpdateDateColumn,
-  Entity,
-  Index,
-  Column,
-  OneToMany,
-  ManyToOne,
-  PrimaryGeneratedColumn
-} from 'typeorm'
-import { Domain } from '@things-factory/shell'
 import { User } from '@things-factory/auth-base'
-import { MarketplaceProductAttribute, MarketplaceProduct, MarketplaceProductCategory } from '../entities'
+import { Domain } from '@things-factory/shell'
+import { Column, CreateDateColumn, Entity, Index, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { MarketplaceProduct } from '../entities'
 @Entity()
 @Index(
   'ix_marketplace-product-variation_0',
