@@ -5,7 +5,6 @@ import { MarketplaceProduct } from './marketplace-product'
 import { MarketplaceProductCategory } from './marketplace-product-category'
 import { MarketplaceProductVariation } from './marketplace-product-variation'
 import { MarketplaceProductAttribute } from './marketplace-product-attribute'
-import { MarketplaceCategory } from './marketplace-category'
 import { MarketplaceOrder } from './marketplace-order'
 import { MarketplaceOrderItem } from './marketplace-order-item'
 import { MarketplaceOrderShipping } from './marketplace-order-shipping'
@@ -17,7 +16,6 @@ export const entities = [
   MarketplaceProductAttribute,
   MarketplaceProductVariation,
   MarketplaceProductCategory,
-  MarketplaceCategory,
   MarketplaceOrder,
   MarketplaceOrderItem,
   MarketplaceOrderShipping
@@ -30,7 +28,6 @@ export {
   MarketplaceProductAttribute,
   MarketplaceProductCategory,
   MarketplaceProductVariation,
-  MarketplaceCategory,
   MarketplaceOrder,
   MarketplaceOrderItem,
   MarketplaceOrderShipping

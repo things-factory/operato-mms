@@ -1,7 +1,7 @@
 import { User } from '@things-factory/auth-base'
 import { Domain } from '@things-factory/shell'
 import { Column, CreateDateColumn, Entity, Index, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
-import { BizplacePlatform, MarketplaceCategory } from '../entities'
+import { BizplacePlatform } from '../entities'
 @Entity()
 @Index(
   'ix_marketplace-product-category_0',
@@ -26,9 +26,6 @@ export class MarketplaceProductCategory {
 
   @ManyToOne(type => BizplacePlatform)
   bizplacePlatform: BizplacePlatform
-
-  @ManyToOne(type => MarketplaceCategory)
-  marketplaceCategory: MarketplaceCategory
 
   @Column({
     nullable: true
