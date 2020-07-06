@@ -61,6 +61,9 @@ export class MarketplaceOrderShipping {
   @Column()
   phone2: string
 
+  @Column()
+  type: string
+
   @Column({
     nullable: true
   })
