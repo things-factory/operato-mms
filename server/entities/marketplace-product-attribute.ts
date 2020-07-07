@@ -1,7 +1,7 @@
 import { User } from '@things-factory/auth-base'
 import { Domain } from '@things-factory/shell'
 import { Column, CreateDateColumn, Entity, Index, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
-import { MarketplaceProduct } from '../entities'
+import { MarketplaceProduct, Platform } from '../entities'
 
 @Entity()
 @Index(
@@ -24,6 +24,39 @@ export class MarketplaceProductAttribute {
 
   @Column()
   name: string
+
+  @Column()
+  categoryId: string
+
+  @ManyToOne(type => MarketplaceProduct)
+  productId: MarketplaceProduct
+
+  @ManyToOne(type => Platform)
+  platformId: Platform
+
+  @Column()
+  attributeId: number
+
+  @Column()
+  attributeName: string
+
+  @Column()
+  isMandatory: boolean
+
+  @Column()
+  attributeType: string
+
+  @Column()
+  inputType: string
+
+  @Column()
+  options: string[]
+
+  @Column()
+  originalValue: string
+
+  @Column()
+  translateValue: string
 
   @Column({
     nullable: true

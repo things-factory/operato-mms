@@ -38,6 +38,57 @@ export class MarketplaceProduct {
     marketplaceProductAttribute => marketplaceProductAttribute.marketplaceProduct
   )
   marketplaceProductAttributes: MarketplaceProductAttribute[]
+
+  @Column()
+  itemId: number
+
+  @Column('float')
+  originalPrice: number
+
+  @Column('float')
+  currentPrice: number
+
+  @Column()
+  stock: number
+
+  @Column()
+  itemSku: string
+
+  @Column('float')
+  weight: number
+
+  @Column()
+  packageLength: number
+
+  @Column()
+  packageWidth: number
+
+  @Column()
+  packageHeight: number
+
+  @Column()
+  status: string
+
+  @Column()
+  currency: string
+
+  @Column()
+  categoryId: number
+
+  @Column()
+  shopId: number
+
+  @Column()
+  partnerId: number
+
+  @Column()
+  condition: string
+
+  @Column()
+  discountId: string
+
+  @Column()
+  isPreOrder: boolean
   @Column()
   name: string
 

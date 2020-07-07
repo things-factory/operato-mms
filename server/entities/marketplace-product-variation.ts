@@ -24,6 +24,30 @@ export class MarketplaceProductVariation {
   @Column()
   name: string
 
+  @Column()
+  variationId: number
+
+  @Column()
+  variationSku: string
+
+  @Column('float')
+  currentPrice: number
+
+  @Column()
+  stock: number
+
+  @Column()
+  status: string
+
+  @Column('float')
+  originalPrice: number
+
+  @Column('float')
+  unflatedOriginalPrice: number
+
+  @Column('float')
+  unflatedCurrentPrice: number
+
   @Column({
     nullable: true
   })
