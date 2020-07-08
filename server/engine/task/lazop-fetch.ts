@@ -20,7 +20,7 @@ async function LazopFetch(step, { logger, data }) {
     method == 'GET' ? await client.get(path, access(accessor, data)) : await client.post(path, access(accessor, data))
 
   return {
-    data: response.json()
+    data: await response.json()
   }
 }
 

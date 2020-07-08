@@ -18,13 +18,13 @@ export class LazopConnector implements Connector {
   }
 
   async connect(connection) {
-    var { endpoint: url, params: { appKey, appSecret } = { appKey: '', appSecret: '' } } = connection
+    var { name, endpoint: url, params: { appKey, appSecret } = { appKey: '', appSecret: '' } } = connection
 
     const client = new LazopClient(url, appKey, appSecret)
 
-    Connections.addConnection(connection.name, client)
+    Connections.addConnection(name, client)
 
-    Connections.logger.info(`lazop-connector connection(${connection.name}:${connection.endpoint}) is connected`)
+    Connections.logger.info(`lazop-connector connection(${name}:${connection.endpoint}) is connected`)
   }
 
   async disconnect(name) {
