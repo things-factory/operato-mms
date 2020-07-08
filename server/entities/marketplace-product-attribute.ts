@@ -50,7 +50,7 @@ export class MarketplaceProductAttribute {
   inputType: string
 
   @Column()
-  options: string[]
+  options: string
 
   @Column()
   originalValue: string
