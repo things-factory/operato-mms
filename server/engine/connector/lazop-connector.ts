@@ -1,5 +1,5 @@
 import { Connections, Connector } from '@things-factory/integration-base'
-// import { LazopClient } from '@things-factory/lazop-api'
+import { LazopClient } from '../../controllers/lazop-api'
 // export const Endpoint = {
 //     SINGAPORE: 'https://api.lazada.sg/rest',
 //     THAILAND: 'https://api.lazada.co.th/rest',
@@ -9,10 +9,6 @@ import { Connections, Connector } from '@things-factory/integration-base'
 //     INDONESIA: 'https://api.lazada.co.id/rest',
 //     AUTH: 'https://auth.lazada.com/rest'
 //   }
-
-class LazopClient {
-  constructor(url, appKey, appSecret) {}
-}
 
 export class LazopConnector implements Connector {
   async ready(connectionConfigs) {
