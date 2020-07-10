@@ -61,7 +61,7 @@ export function makeSystemParameters(
   }
 
   return {
-    ...systemParams,
-    sign: signRequest(appSecret, apiPath, { ...payload, ...systemParams })
+    sign: signRequest(appSecret, apiPath, { ...payload, ...systemParams }),
+    ...systemParams
   }
 }
