@@ -43,6 +43,10 @@ export default function route(page) {
       import('./pages/integration/activities')
       return page
 
+    case 'mms-integration-add-channel':
+      import('./pages/integration/add-channel')
+      return page
+
     case 'mms-inventory-products':
       import('./pages/inventory/products')
       return page

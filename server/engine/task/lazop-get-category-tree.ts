@@ -9,10 +9,11 @@ async function LazopGetCategoryTree(step, { logger, data }) {
     throw new Error(`no connection : ${connection}`)
   }
 
-  var response = await client.get('/category/tree/get', {})
+  // var response = await client.get('/category/tree/get', {})
 
   return {
-    data: await response.json()
+    data: await client.getCategoryTree({})
+    // data: await response.json()
   }
 }
 

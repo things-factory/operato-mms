@@ -17,6 +17,7 @@ class IntegrationChannels extends connect(store)(PageView) {
     return html`
       <section>
         <h2>Integration Channels</h2>
+        <a href="mms-integration-add-channel">add channel</a>
       </section>
     `
   }

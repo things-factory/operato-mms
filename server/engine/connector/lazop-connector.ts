@@ -1,5 +1,6 @@
 import { Connections, Connector } from '@things-factory/integration-base'
 import { LazopClient } from '../../controllers/lazop-api'
+import LazadaAPI from 'lazada-open-platform-sdk'
 // export const Endpoint = {
 //     SINGAPORE: 'https://api.lazada.sg/rest',
 //     THAILAND: 'https://api.lazada.co.th/rest',
@@ -20,7 +21,10 @@ export class LazopConnector implements Connector {
   async connect(connection) {
     var { name, endpoint: url, params: { appKey, appSecret } = { appKey: '', appSecret: '' } } = connection
 
-    const client = new LazopClient(url, appKey, appSecret)
+    // const client = new LazopClient(url, appKey, appSecret)
+    const client = new LazadaAPI(appKey, appSecret, 'MALAYSIA')
+    const { access_token } = await client.generateAccessToken({ code: '0_120961_s2JCjKDb4ZHFcOKBgvPp2A5f42668' })
+    client.accessToken = access_token
 
     Connections.addConnection(name, client)
 

@@ -45,6 +45,10 @@ export default {
       page: 'mms-integration-activities'
     },
     {
+      tagname: 'mms-integration-add-channel',
+      page: 'mms-integration-add-channel'
+    },
+    {
       tagname: 'mms-inventory-products',
       page: 'mms-inventory-products'
     },

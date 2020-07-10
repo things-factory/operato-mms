@@ -18,4 +18,6 @@ process.on('bootstrap-module-route' as any, (app, routes) => {
    * ex) routes.get('/path', async(context, next) => {})
    * ex) routes.post('/path', async(context, next) => {})
    */
+
+  routes.get('callback-lazada', async (context, next) => {})
 })

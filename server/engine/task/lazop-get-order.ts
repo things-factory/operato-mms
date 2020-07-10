@@ -20,12 +20,15 @@ async function LazopGetOrder(step, { logger, data }) {
     throw new Error(`invalid order id (${order_id})`)
   }
 
-  var response = await client.get('/order/get', {
-    order_id
-  })
+  // var response = await client.get('/order/get', {
+  //   order_id
+  // })
 
   return {
-    data: await response.json()
+    data: await client.getOrder({
+      order_id
+    })
+    // data: await response.json()
   }
 }
 
