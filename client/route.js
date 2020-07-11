@@ -47,6 +47,10 @@ export default function route(page) {
       import('./pages/integration/add-channel')
       return page
 
+    case 'mms-add-channel-lazada':
+      import('./pages/integration/add-channel-lazada')
+      return page
+
     case 'mms-inventory-products':
       import('./pages/inventory/products')
       return page

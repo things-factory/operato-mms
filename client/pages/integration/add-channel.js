@@ -1,6 +1,6 @@
 import { html } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
-import { store, PageView } from '@things-factory/shell'
+import { store, PageView, navigate } from '@things-factory/shell'
 
 const PLATFORMS = [
   {
@@ -9,7 +9,8 @@ const PLATFORMS = [
   },
   {
     name: 'lazada',
-    countryCode: ''
+    countryCode: 'Malaysia',
+    page: 'mms-add-channel-lazada'
   }
 ]
 
@@ -32,9 +33,11 @@ class AddChannel extends connect(store)(PageView) {
       <ul>
         ${PLATFORMS.map(
           platform => html`
-            <div>${platform.name}</div>
-            <div>${platform.countryCode}</div>
-            <input type="checkbox" />
+            <li @click=${e => this.addChannel(platform)}>
+              <div>${platform.name}</div>
+              <div>${platform.countryCode}</div>
+              <input type="checkbox" />
+            </li>
           `
         )}
       </ul>
@@ -42,6 +45,10 @@ class AddChannel extends connect(store)(PageView) {
   }
 
   stateChanged(state) {}
+
+  addChannel(platform) {
+    navigate(platform.page)
+  }
 }
 
 customElements.define('mms-integration-add-channel', AddChannel)

@@ -41,15 +41,6 @@ export class BizplacePlatform {
   @Column()
   account: string
 
-  @Column()
-  appInfo: string
-
-  @Column()
-  appKey: string
-
-  @Column()
-  appSecret: string
-
   @Column({
     nullable: true
   })
