@@ -29,6 +29,27 @@ export class BizplacePlatform {
   @Column()
   name: string
 
+  @Column()
+  accessInfo: string
+
+  @Column()
+  accessToken: string
+
+  @Column()
+  refreshToken: string
+
+  @Column()
+  account: string
+
+  @Column()
+  appInfo: string
+
+  @Column()
+  appKey: string
+
+  @Column()
+  appSecret: string
+
   @Column({
     nullable: true
   })
