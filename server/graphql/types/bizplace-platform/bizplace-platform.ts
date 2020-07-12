@@ -6,6 +6,10 @@ export const BizplacePlatform = gql`
     name: String
     domain: Domain
     description: String
+    platform: String
+    countryCode: String
+    status: String
+    accessInfo: String
     updater: User
     creator: User
     updatedAt: String

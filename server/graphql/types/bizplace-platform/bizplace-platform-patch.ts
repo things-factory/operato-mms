@@ -5,6 +5,8 @@ export const BizplacePlatformPatch = gql`
     id: String
     name: String
     description: String
+    platform: String
+    countryCode: String
     cuFlag: String
   }
 `

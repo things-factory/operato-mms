@@ -4,5 +4,7 @@ export const NewBizplacePlatform = gql`
   input NewBizplacePlatform {
     name: String!
     description: String
+    platform: String!
+    countryCode: String!
   }
 `

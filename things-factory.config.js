@@ -45,12 +45,8 @@ export default {
       page: 'mms-integration-activities'
     },
     {
-      tagname: 'mms-integration-add-channel',
-      page: 'mms-integration-add-channel'
-    },
-    {
-      tagname: 'mms-add-channel-lazada',
-      page: 'mms-add-channel-lazada'
+      tagname: 'mms-channel-lazada',
+      page: 'mms-channel-lazada'
     },
     {
       tagname: 'mms-inventory-products',

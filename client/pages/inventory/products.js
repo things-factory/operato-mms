@@ -20,6 +20,7 @@ class InventoryProducts extends localize(i18next)(PageView) {
         :host {
           display: flex;
           flex-direction: column;
+
           overflow: hidden;
         }
 
@@ -27,15 +28,8 @@ class InventoryProducts extends localize(i18next)(PageView) {
           overflow: visible;
         }
 
-        .grist {
-          display: flex;
-          flex-direction: column;
-          flex: 1;
-          overflow-y: auto;
-        }
-
         data-grist {
-          overflow-y: hidden;
+          overflow-y: auto;
           flex: 1;
         }
       `

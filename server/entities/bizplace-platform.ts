@@ -2,7 +2,7 @@ import { User } from '@things-factory/auth-base'
 import { Bizplace } from '@things-factory/biz-base'
 import { Domain } from '@things-factory/shell'
 import { Column, CreateDateColumn, Entity, Index, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
-import { Platform } from './platform'
+// import { Platform } from './platform'
 
 @Entity()
 @Index(
@@ -20,25 +20,38 @@ export class BizplacePlatform {
   @ManyToOne(type => Bizplace)
   bizplace: Bizplace
 
-  @ManyToOne(type => Platform)
-  platform: Platform
+  @Column()
+  platform: string
 
   @Column()
+  countryCode: string
+
+  @Column({
+    nullable: true
+  })
   status: string
 
   @Column()
   name: string
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   accessInfo: string
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   accessToken: string
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   refreshToken: string
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   account: string
 
   @Column({

@@ -6,6 +6,7 @@ import { updateMultipleBizplacePlatform } from './update-multiple-bizplace-platf
 import { createBizplacePlatform } from './create-bizplace-platform'
 import { deleteBizplacePlatform } from './delete-bizplace-platform'
 import { deleteBizplacePlatforms } from './delete-bizplace-platforms'
+import { generateLazadaAccessToken } from './generate-lazada-access-token'
 
 export const Query = {
   ...bizplacePlatformsResolver,
@@ -13,6 +14,7 @@ export const Query = {
 }
 
 export const Mutation = {
+  ...generateLazadaAccessToken,
   ...updateBizplacePlatform,
   ...updateMultipleBizplacePlatform,
   ...createBizplacePlatform,
