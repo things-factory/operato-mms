@@ -114,21 +114,52 @@ class IntegrationChannels extends localize(i18next)(PageView) {
           width: 180
         },
         {
-          type: 'string',
+          type: 'select',
           name: 'platform',
           header: i18next.t('field.platform'),
           record: {
-            editable: true
+            editable: true,
+            options: ['lazada', 'zalora', 'qoo10', 'amazon', 'lelong', 'shopclues', 'magento', 'flipkart']
           },
           sortable: true,
           width: 180
         },
         {
-          type: 'string',
+          type: 'select',
           name: 'countryCode',
           header: i18next.t('field.country-code'),
           record: {
-            editable: true
+            editable: true,
+            options: [
+              {
+                display: '',
+                value: ''
+              },
+              {
+                display: 'Malaysia',
+                value: 'my'
+              },
+              {
+                display: 'Singaport',
+                value: 'sg'
+              },
+              {
+                display: 'Thiland',
+                value: 'th'
+              },
+              {
+                display: 'Vietnam',
+                value: 'vn'
+              },
+              {
+                display: 'Philippines',
+                value: 'ph'
+              },
+              {
+                display: 'Indonesia',
+                value: 'id'
+              }
+            ]
           },
           sortable: true,
           width: 180
@@ -146,7 +177,7 @@ class IntegrationChannels extends localize(i18next)(PageView) {
         {
           type: 'datetime',
           name: 'updatedAt',
-          header: i18next.t('field.updated-at'),
+          header: i18next.t('field.updated_at'),
           record: { align: 'center' },
           sortable: true,
           width: 100

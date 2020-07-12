@@ -63,23 +63,6 @@ class ChannelLazada extends connect(store)(PageView) {
     `
   }
 
-  // authorization() {
-  //   var return_url = 'https://mms.opa-x.com/domain/system/callback-lazada'
-  //   var partner_id = '120961'
-
-  //   var url = new URL('https://auth.lazada.com/oauth/authorize')
-  //   var params = {
-  //     response_type: 'code',
-  //     force_auth: true,
-  //     redirect_uri: return_url,
-  //     client_id: partner_id
-  //   }
-
-  //   Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
-
-  //   fetch(url)
-  // }
-
   stateChanged(state) {}
 
   async pageUpdated(changes, after, before) {
