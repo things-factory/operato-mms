@@ -13,5 +13,12 @@
   "field.hold": "on hold",
   "field.available-to-purchase": "available to purchase",
   "field.sold-stock": "sold stock",
-  "field.actions": "actions"
+  "field.actions": "actions",
+  "field.save": "Save",
+  "text.data_updated_successfully": "Data Updated Succesfully",
+  "button.delete": "Delete",
+  "button.cancel": "Cancel",
+  "text.are_you_sure": "Are you sure",
+  "text.you_wont_be_able_to_revert_this": "You won't be able to revert this",
+  "text.data_deleted_successfully": "Data deleted successfully"
 }
