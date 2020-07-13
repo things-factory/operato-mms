@@ -11,7 +11,7 @@ process.on('bootstrap-module-start' as any, async ({ app, config, client }: any)
   console.log('%%%%%%%%%%%%%%%% TASK ENGINE - BEGIN %%%%%%%%%%%%%%%%')
   try {
     await Connections.ready()
-    // await ScenarioEngine.loadAll()
+    await ScenarioEngine.loadAll()
   } catch (ex) {
     Connections.logger.error(ex)
   }
