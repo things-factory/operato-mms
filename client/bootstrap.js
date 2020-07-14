@@ -6,7 +6,8 @@ import {
   updateViewpart,
   toggleOverlay,
   TOOL_POSITION,
-  VIEWPART_POSITION
+  VIEWPART_POSITION,
+  VIEWPART_LEVEL
 } from '@things-factory/layout-base'
 import { APPEND_APP_TOOL } from '@things-factory/apptool-base'
 import { ADD_MORENDA } from '@things-factory/more-base'
@@ -94,7 +95,8 @@ export default function bootstrap() {
     width = state.layout.width
 
     updateViewpart('mms-topmenu', {
-      position: width == 'WIDE' ? VIEWPART_POSITION.NAVBAR : VIEWPART_POSITION.FOOTERBAR
+      position: width == 'WIDE' ? VIEWPART_POSITION.NAVBAR : VIEWPART_POSITION.FOOTERBAR,
+      level: VIEWPART_LEVEL.TOPMOST
     })
   })
 

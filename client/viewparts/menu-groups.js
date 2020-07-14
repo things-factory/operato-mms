@@ -224,6 +224,8 @@ export class MenuTools extends connect(store)(LitElement) {
           name: 'mms-menu-group',
           viewpart: {
             show: true,
+            /* NARROW 모드에서는 hovering 되도록 하자. */
+            // hovering: 'edge',
             template: html`
               <menu-group-view>
                 <span slot="title">${menu.name}</span>
