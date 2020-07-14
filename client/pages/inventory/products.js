@@ -70,7 +70,7 @@ class InventoryProducts extends localize(i18next)(PageView) {
   }
   async pageInitialized() {
     this.config = {
-      rows: { selectable: { multiple: true }, appendable: false },
+      rows: { selectable: { multiple: true }, appendable: true },
       columns: [
         { type: 'gutter', gutterName: 'dirty' },
         { type: 'gutter', gutterName: 'sequence' },

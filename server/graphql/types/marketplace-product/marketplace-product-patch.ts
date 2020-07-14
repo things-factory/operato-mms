@@ -7,5 +7,6 @@ export const MarketplaceProductPatch = gql`
     description: String
     cuFlag: String
     stock: Int
+    itemSku: String
   }
 `
