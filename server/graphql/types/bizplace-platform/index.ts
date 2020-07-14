@@ -8,11 +8,6 @@ export const Mutation = `
     bizplacePlatform: NewBizplacePlatform!
   ): BizplacePlatform
 
-  generateLazadaAccessToken (
-    id: String!
-    code: String!
-  ): BizplacePlatform
-
   updateBizplacePlatform (
     name: String!
     patch: BizplacePlatformPatch!

@@ -35,7 +35,6 @@
     "@material/mwc-radio": "^0.14.1",
     "@things-factory/apptool-ui": "^2.0.0",
     "@things-factory/attachment-base": "^2.0.0",
-    "@things-factory/auth-base": "^2.0.0",
     "@things-factory/auth-ui-jwt": "^2.0.0",
     "@things-factory/biz-base": "^2.0.0",
     "@things-factory/board-service": "^2.0.0",
@@ -47,9 +46,7 @@
     "@things-factory/integration-ui": "^2.0.0",
     "@things-factory/more-ui": "^2.0.0",
     "@things-factory/resource-ui": "^2.0.0",
-    "@things-factory/setting-base": "^2.0.0",
     "@things-factory/setting-ui": "^2.0.0",
-    "@things-factory/shell": "^2.0.0",
     "@things-factory/system-ui": "^2.0.0",
     "@things-scene/chartjs": "*",
     "@things-scene/clock": "*",
@@ -79,8 +76,7 @@
     "@things-scene/table": "*",
     "@things-scene/timer": "*",
     "@things-scene/visualizer": "*",
-    "@things-scene/wheel-sorter": "*",
-    "lazada-open-platform-sdk": "^2.0.0-0"
+    "@things-scene/wheel-sorter": "*"
   },
   "devDependencies": {}
 }
