@@ -77,9 +77,9 @@ class InventoryProducts extends localize(i18next)(PageView) {
         { type: 'gutter', gutterName: 'row-selector', multiple: true },
         {
           type: 'string',
-          name: 'isku',
+          name: 'itemSku',
           header: i18next.t('field.isku'),
-          record: { editable: true, align: 'left' },
+          record: { editable: true, align: 'center' },
           sortable: true,
           width: 150
           // handlers: {
@@ -92,7 +92,8 @@ class InventoryProducts extends localize(i18next)(PageView) {
           header: i18next.t('field.product-name'),
           sortable: true,
           record: {
-            editable: true
+            editable: true,
+            align: 'center'
           },
           width: 180
         },
@@ -106,12 +107,12 @@ class InventoryProducts extends localize(i18next)(PageView) {
         },
         {
           type: 'integer',
-          name: 'totalStock',
+          name: 'stock',
           header: i18next.t('field.stock'),
-          record: { align: 'left' },
           sortable: true,
           record: {
-            editable: true
+            editable: true,
+            align: 'center'
           },
           width: 100
         },
@@ -201,9 +202,9 @@ class InventoryProducts extends localize(i18next)(PageView) {
           items {
             id
             name
-            isku
+            itemSku
             updatedAt
-            totalStock
+            stock
             stockBuffer
             onHold
             availableToPurchase
@@ -230,7 +231,8 @@ class InventoryProducts extends localize(i18next)(PageView) {
             updateMultipleMarketplaceProduct(${gqlBuilder.buildArgs({
               patches
             })}) {
-              name
+              name 
+              stock
             }
           }
         `
@@ -259,8 +261,8 @@ class InventoryProducts extends localize(i18next)(PageView) {
         if (result.value) {
           const names = this.dataGrist.selected.map(record => record.name)
           if (names && names.length > 0) {
-            const response = await client.query({
-              query: gql`
+            const response = await client.mutate({
+              mutation: gql`
                 mutation($names: [String]!) {
                   deleteMarketplaceProducts(names: $names)
                 }

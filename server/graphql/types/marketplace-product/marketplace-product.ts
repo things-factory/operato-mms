@@ -10,8 +10,8 @@ export const MarketplaceProduct = gql`
     creator: User
     updatedAt: String
     createdAt: String
-    isku: String
-    totalStock: Int
+    itemSku: String
+    stock: Int
     stockBuffer: Int
     onHold: Int
     availableToPurchase: Int
