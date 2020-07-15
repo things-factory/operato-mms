@@ -69,6 +69,15 @@ class InventoryProducts extends localize(i18next)(PageView) {
     `
   }
   async pageInitialized() {
+    this._searchFields = [
+      {
+        label: i18next.t('field.product-name'),
+        name: 'name',
+        type: 'text',
+        props: { searchOper: 'i_like' }
+      }
+    ]
+
     this.config = {
       rows: { selectable: { multiple: true }, appendable: true },
       columns: [
@@ -153,21 +162,12 @@ class InventoryProducts extends localize(i18next)(PageView) {
           name: 'actions',
           header: i18next.t('field.actions'),
           record: { align: 'center' },
-          sortable: true,
+          sortable: false,
           width: 100
         }
       ]
     }
-    this._searchFields = [
-      {
-        label: i18next.t('field.product-name'),
-        name: 'name',
-        type: 'text',
-        queryName: 'items',
-        field: 'name',
-        props: { searchOp: 'i_like' }
-      }
-    ]
+
     await this.updateComplete
 
     this.dataGrist.fetch()
@@ -178,13 +178,12 @@ class InventoryProducts extends localize(i18next)(PageView) {
       this.dataGrist.fetch()
     }
   }
+  get searchForm() {
+    return this.shadowRoot.querySelector('search-form')
+  }
 
   get dataGrist() {
     return this.shadowRoot.querySelector('data-grist')
-  }
-
-  get searchForm() {
-    return this.shadowRoot.querySelector('search-form')
   }
 
   get _columns() {
@@ -195,7 +194,7 @@ class InventoryProducts extends localize(i18next)(PageView) {
       query: gql`
       query {
         marketplaceProducts(${gqlBuilder.buildArgs({
-          filters: await this.searchForm.getQueryFilters(),
+          filters: this.searchForm.queryFilters,
           pagination: { page, limit },
           sortings: sorters
         })}) {
