@@ -1,6 +1,6 @@
 {
   "title.products": "products",
-  "field.product-name": "Product Name",
+  "field.product-name": "product name",
   "button.add-product": "add product",
   "button.sync": "sync stock",
   "field.updater": "last updated",

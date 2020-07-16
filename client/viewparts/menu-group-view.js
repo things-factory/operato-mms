@@ -21,6 +21,7 @@ export class MenuGroupView extends connect(store)(LitElement) {
         :host {
           display: flex;
           position: relative;
+          background-color: white;
 
           flex-direction: column;
           width: 200px;
