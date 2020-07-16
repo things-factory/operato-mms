@@ -1,5 +1,6 @@
 {
   "title.products": "products",
+  "title.dashboard setting": "dashboard setting",
   "field.product-name": "Product Name",
   "button.add-product": "add product",
   "button.sync": "sync stock",

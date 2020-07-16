@@ -5,10 +5,10 @@ import { fetchBoardSettings } from '../../viewparts/fetch-board-settings'
 import { openPopup } from '@things-factory/layout-base'
 import { i18next } from '@things-factory/i18n-base'
 import { client, store } from '@things-factory/shell'
-import { gqlBuilder } from '@things-factory/utils'
+import { gqlBuilder, isMobileDevice } from '@things-factory/utils'
 import gql from 'graphql-tag'
 
-const HOME_BOARD = 'dashboard'
+const HOME_BOARD = isMobileDevice() ? 'dashboard-mobile' : 'dashboard'
 const HOME_DESCRIPTION = 'home dashboard'
 
 class Dashboard extends BoardViewerPage {
