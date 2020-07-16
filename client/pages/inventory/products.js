@@ -110,15 +110,6 @@ class InventoryProducts extends localize(i18next)(PageView) {
           width: 180
         },
         {
-          type: 'datetime',
-          name: 'updatedAt',
-          header: i18next.t('field.updater'),
-          imex: { header: i18next.t('field.updater'), key: 'updatedAt', width: 25, type: 'datetime' },
-          record: { align: 'center' },
-          sortable: true,
-          width: 100
-        },
-        {
           type: 'integer',
           name: 'stock',
           header: i18next.t('field.stock'),
@@ -137,7 +128,7 @@ class InventoryProducts extends localize(i18next)(PageView) {
           imex: { header: i18next.t('field.stcok-buffer'), key: 'stcokBuffer', width: 25, type: 'integer' },
           record: { align: 'left' },
           sortable: true,
-          width: 80
+          width: 100
         },
         {
           type: 'integer',
@@ -173,12 +164,13 @@ class InventoryProducts extends localize(i18next)(PageView) {
           width: 150
         },
         {
-          type: 'string',
-          name: 'actions',
-          header: i18next.t('field.actions'),
-          record: { editable: true, align: 'center' },
-          sortable: false,
-          width: 100
+          type: 'datetime',
+          name: 'updatedAt',
+          header: i18next.t('field.updater'),
+          imex: { header: i18next.t('field.updater'), key: 'updatedAt', width: 25, type: 'datetime' },
+          record: { align: 'center' },
+          sortable: true,
+          width: 180
         }
       ]
     }
