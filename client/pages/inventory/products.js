@@ -52,7 +52,7 @@ class InventoryProducts extends localize(i18next)(PageView) {
       ],
       exportable: {
         name: i18next.t('title.products'),
-        data: null
+        data: this._exportableData.bind(this)
       }
     }
   }
@@ -79,7 +79,7 @@ class InventoryProducts extends localize(i18next)(PageView) {
     ]
 
     this.config = {
-      rows: { selectable: { multiple: true }, appendable: true },
+      rows: { selectable: { multiple: true }, appendable: false },
       columns: [
         { type: 'gutter', gutterName: 'dirty' },
         { type: 'gutter', gutterName: 'sequence' },
@@ -88,9 +88,11 @@ class InventoryProducts extends localize(i18next)(PageView) {
           type: 'string',
           name: 'itemSku',
           header: i18next.t('field.isku'),
+          imex: { header: i18next.t('field.isku'), key: 'itemSku', width: 25, type: 'string' },
           record: { editable: true, align: 'center' },
           sortable: true,
           width: 150
+
           // handlers: {
           //   click: this._showInventoryInfo.bind(this)
           // }
@@ -100,6 +102,7 @@ class InventoryProducts extends localize(i18next)(PageView) {
           name: 'name',
           header: i18next.t('field.product-name'),
           sortable: true,
+          imex: { header: i18next.t('field.product-name'), key: 'name', width: 25, type: 'string' },
           record: {
             editable: true,
             align: 'center'
@@ -110,6 +113,7 @@ class InventoryProducts extends localize(i18next)(PageView) {
           type: 'datetime',
           name: 'updatedAt',
           header: i18next.t('field.updater'),
+          imex: { header: i18next.t('field.updater'), key: 'updatedAt', width: 25, type: 'datetime' },
           record: { align: 'center' },
           sortable: true,
           width: 100
@@ -119,6 +123,7 @@ class InventoryProducts extends localize(i18next)(PageView) {
           name: 'stock',
           header: i18next.t('field.stock'),
           sortable: true,
+          imex: { header: i18next.t('field.stock'), key: 'stock', width: 25, type: 'integer' },
           record: {
             editable: true,
             align: 'center'
@@ -129,6 +134,7 @@ class InventoryProducts extends localize(i18next)(PageView) {
           type: 'integer',
           name: 'stockBuffer',
           header: i18next.t('field.stock-buffer'),
+          imex: { header: i18next.t('field.stcok-buffer'), key: 'stcokBuffer', width: 25, type: 'integer' },
           record: { align: 'left' },
           sortable: true,
           width: 80
@@ -137,6 +143,8 @@ class InventoryProducts extends localize(i18next)(PageView) {
           type: 'integer',
           name: 'onHold',
           header: i18next.t('field.hold'),
+          imex: { header: i18next.t('field.hold'), key: 'onHold', width: 25, type: 'integer' },
+
           record: { align: 'center' },
           sortable: true,
           width: 100
@@ -145,6 +153,12 @@ class InventoryProducts extends localize(i18next)(PageView) {
           type: 'integer',
           name: 'availableToPurchase',
           header: i18next.t('field.available-to-purchase'),
+          imex: {
+            header: i18next.t('field.available-to-purchase'),
+            key: 'availableToPurchase',
+            width: 25,
+            type: 'integer'
+          },
           record: { align: 'center' },
           sortable: true,
           width: 150
@@ -153,6 +167,7 @@ class InventoryProducts extends localize(i18next)(PageView) {
           type: 'integer',
           name: 'soldStock',
           header: i18next.t('field.sold-stock'),
+          imex: { header: i18next.t('field.sold-stock'), key: 'soldStock', width: 25, type: 'integer' },
           record: { align: 'center' },
           sortable: true,
           width: 150
@@ -161,7 +176,7 @@ class InventoryProducts extends localize(i18next)(PageView) {
           type: 'string',
           name: 'actions',
           header: i18next.t('field.actions'),
-          record: { align: 'center' },
+          record: { editable: true, align: 'center' },
           sortable: false,
           width: 100
         }
@@ -199,7 +214,6 @@ class InventoryProducts extends localize(i18next)(PageView) {
           sortings: sorters
         })}) {
           items {
-            id
             name
             itemSku
             updatedAt
@@ -208,6 +222,7 @@ class InventoryProducts extends localize(i18next)(PageView) {
             onHold
             availableToPurchase
             soldStock
+            originalPrice
             actions
           }
           total
@@ -285,6 +300,59 @@ class InventoryProducts extends localize(i18next)(PageView) {
         }
       }
     })
+  }
+  _showToast({ type, message }) {
+    document.dispatchEvent(
+      new CustomEvent('notify', {
+        detail: {
+          type,
+          message
+        }
+      })
+    )
+  }
+  async _exportableData() {
+    try {
+      let records = []
+      let data = []
+
+      var headerSetting = [
+        ...this.dataGrist._config.columns
+          .filter(column => column.type !== 'gutter' && column.record !== undefined && column.imex !== undefined)
+          .map(column => {
+            return column.imex
+          })
+      ]
+
+      if (this.dataGrist.selected && this.dataGrist.selected.length > 0) {
+        records = this.dataGrist.selected
+        data = records
+      } else {
+        const bizplaceFilters = (await this.searchForm.getQueryFilters()).filter(x => x.name === 'bizplaceId')
+        if (bizplaceFilters.length == 0) {
+          throw new Error(`Please select a customer for export.`)
+        }
+        data = await this.fetchInventoriesForExport()
+      }
+
+      data = data.map(item => {
+        return {
+          id: item.id,
+          ...this._columns
+            .filter(column => column.type !== 'gutter' && column.record !== undefined && column.imex !== undefined)
+            .reduce((record, column) => {
+              record[column.imex.key] = column.imex.key
+                .split('.')
+                .reduce((obj, key) => (obj && obj[key] !== 'undefined' ? obj[key] : undefined), item)
+              return record
+            }, {})
+        }
+      })
+
+      return { header: headerSetting, data: data }
+    } catch (e) {
+      this._showToast(e)
+    }
   }
   stateChanged(state) {}
 }

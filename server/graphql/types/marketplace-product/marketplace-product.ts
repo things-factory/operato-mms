@@ -2,7 +2,6 @@ import gql from 'graphql-tag'
 
 export const MarketplaceProduct = gql`
   type MarketplaceProduct {
-    id: String
     name: String
     domain: Domain
     description: String
@@ -17,5 +16,6 @@ export const MarketplaceProduct = gql`
     availableToPurchase: Int
     soldStock: Int
     actions: String
+    originalPrice: Float
   }
 `
