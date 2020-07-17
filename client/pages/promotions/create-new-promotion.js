@@ -1,38 +1,57 @@
 import '@things-factory/form-ui'
 import '@things-factory/grist-ui'
-import { html, css } from 'lit-element'
-import { connect } from 'pwa-helpers/connect-mixin.js'
-import { store, PageView, client, CustomAlert } from '@things-factory/shell'
 import { i18next, localize } from '@things-factory/i18n-base'
-import { gqlBuilder, isMobileDevice } from '@things-factory/utils'
+import { client, CustomAlert, gqlBuilder, isMobileDevice, ScrollbarStyles } from '@things-factory/shell'
 import gql from 'graphql-tag'
-import { getCodeByName } from '@things-factory/code-base'
-import { ScrollbarStyles } from '@things-factory/styles'
-class OrderByStore extends connect(store)(PageView) {
+import { css, html, LitElement } from 'lit-element'
+
+class createNewPromotion extends localize(i18next)(LitElement) {
   static get properties() {
     return {}
   }
   static get styles() {
     return [
-      ScrollbarStyles,
-      css`
-        :host {
-          display: flex;
-          flex-direction: column;
-
-          overflow: hidden;
-        }
-
-        search-form {
-          overflow: visible;
-        }
-
-        data-grist {
-          overflow-y: auto;
-          flex: 1;
-        }
-      `
-    ]
+        ScrollbarStyles,
+        css`
+          :host {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background-color: white;
+          }
+          search-form {
+            overflow: visible;
+          }
+          .grist {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            overflow-y: auto;
+          }
+          data-grist {
+            overflow-y: hidden;
+            flex: 1;
+          }
+          .button-container {
+            padding: 10px 0 12px 0;
+            text-align: center;
+          }
+          .button-container > button {
+            background-color: var(--button-background-color);
+            border: var(--button-border);
+            border-radius: var(--button-border-radius);
+            margin: var(--button-margin);
+            padding: var(--button-padding);
+            color: var(--button-color);
+            font: var(--button-font);
+            text-transform: var(--button-text-transform);
+          }
+          .button-container > button:hover,
+          .button-container > button:active {
+            background-color: var(--button-background-focus-color);
+          }
+        `
+      ]
   }
   static get properties() {
     return {
@@ -43,13 +62,13 @@ class OrderByStore extends connect(store)(PageView) {
   }
   get context() {
     return {
-      title: i18next.t('title.order_by_store'),
+      title: i18next.t('title.promotions'),
       actions: [
-        { title: i18next.t('button.save'), action: [] },
+        { title: i18next.t('button.create_new'), action: this._createNewPromotionPopup.bind(this) },
         { title: i18next.t('button.delete'), action: [] }
       ],
       exportable: {
-        name: i18next.t('title.order_by_store'),
+        name: i18next.t('title.promotions'),
         data: this._exportableData.bind(this)
       }
     }
@@ -57,20 +76,20 @@ class OrderByStore extends connect(store)(PageView) {
 
   render() {
     return html`
-      <search-form id="search-form" .fields=${this._searchFields} @submit=${e => this.dataGrist.fetch()}></search-form>
-      <data-grist
+      <!-- <search-form id="search-form" .fields=${this._searchFields} @submit=${e => this.dataGrist.fetch()}></search-form> -->
+      <!-- <data-grist
         .mode=${isMobileDevice() ? 'LIST' : 'GRID'}
         .config=${this.config}
         .fetchHandler=""
       >
-      </data-grist>
+      </data-grist> -->
     `
   }
   async pageInitialized() {
     this._searchFields = [
       {
-        label: i18next.t('field.order_no'),
-        name: 'orderNo',
+        label: i18next.t('field.name'),
+        name: 'name',
         type: 'text',
         props: { searchOper: 'i_like' }
       }
@@ -84,9 +103,9 @@ class OrderByStore extends connect(store)(PageView) {
         { type: 'gutter', gutterName: 'row-selector', multiple: true },
         {
           type: 'string',
-          name: 'orderNo',
-          header: i18next.t('field.order_no'),
-          imex: { header: i18next.t('field.order_no'), key: 'orderNo', width: 25, type: 'string' },
+          name: 'name',
+          header: i18next.t('field.name'),
+          imex: { header: i18next.t('field.name'), key: 'name', width: 25, type: 'string' },
           record: { editable: true, align: 'center' },
           sortable: true,
           width: 200
@@ -105,10 +124,10 @@ class OrderByStore extends connect(store)(PageView) {
         },
         {
           type: 'string',
-          name: 'productUnits',
-          header: i18next.t('field.product_units'),
+          name: 'type',
+          header: i18next.t('field.type'),
           sortable: true,
-          imex: { header: i18next.t('field.product_units'), key: 'productUnits', width: 25, type: 'integer' },
+          imex: { header: i18next.t('field.type'), key: 'type', width: 25, type: 'integer' },
           record: {
             editable: true,
             align: 'center'
@@ -116,22 +135,31 @@ class OrderByStore extends connect(store)(PageView) {
           width: 100
         },
         {
-          type: 'float',
-          name: 'amount',
-          header: i18next.t('field.amount'),
-          imex: { header: i18next.t('field.amount'), key: 'amount', width: 25, type: 'float' },
+          type: 'string',
+          name: 'criteria',
+          header: i18next.t('field.criteria'),
+          imex: { header: i18next.t('field.criteria'), key: 'criteria', width: 25, type: 'integer' },
           record: { align: 'left' },
           sortable: true,
           width: 100
         },
         {
-          type: 'string',
-          name: 'shippingCarrier',
-          header: i18next.t('field.shipping_carrier'),
-          imex: { header: i18next.t('field.shipping_carrier'), key: 'shippingCarrier', width: 25, type: 'integer' },
+          type: 'datetime',
+          name: 'startingOn',
+          header: i18next.t('field.started_on'),
+          imex: { header: i18next.t('field.started_on'), key: 'startingOn', width: 25, type: 'datetime' },
           record: { align: 'center' },
           sortable: true,
-          width: 180
+          width: 100
+        },
+        {
+          type: 'datetime',
+          name: 'endingOn',
+          header: i18next.t('field.ending_on'),
+          imex: { header: i18next.t('field.ending_on'), key: 'endingOn', width: 25, type: 'datetime' },
+          record: { align: 'center' },
+          sortable: true,
+          width: 100
         },
         {
           type: 'string',
@@ -174,6 +202,19 @@ class OrderByStore extends connect(store)(PageView) {
 
   get _columns() {
     return this.config.columns
+  }
+
+  _createNewPromotionPopup(bizplaceId, bizplaceName) {
+    openPopup(
+      html`
+        <contact-point-list .bizplaceId="${bizplaceId}" .bizplaceName="${bizplaceName}"></contact-point-list>
+      `,
+      {
+        backdrop: true,
+        size: 'large',
+        title: i18next.t('title.create_new_promotion')
+      }
+    )
   }
 
   _showToast({ type, message }) {
@@ -233,4 +274,4 @@ class OrderByStore extends connect(store)(PageView) {
   stateChanged(state) {}
 }
 
-customElements.define('mms-order-by-store', OrderByStore)
+window.customElements.define('create-new-promotion', createNewPromotion)
