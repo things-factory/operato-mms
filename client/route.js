@@ -19,10 +19,6 @@ export default function route(page) {
       import('./pages/dashboard/dashboard')
       return page
 
-    case 'mms-integration-channels':
-      import('./pages/integration/channels')
-      return page
-
     case 'mms-integration-offline-stores':
       import('./pages/integration/offline-stores')
       return page
@@ -41,10 +37,6 @@ export default function route(page) {
 
     case 'mms-integration-activities':
       import('./pages/integration/activities')
-      return page
-
-    case 'mms-channel-lazada':
-      import('./pages/integration/channel-lazada')
       return page
 
     case 'mms-inventory-products':

@@ -3,7 +3,7 @@ import { MenuGroupAbstract } from './menu-group-abstract'
 const MENUS = [
   {
     name: 'ecommerce channels',
-    path: 'mms-integration-channels',
+    path: 'marketplace-stores',
     icon: 'storage'
   },
   {
