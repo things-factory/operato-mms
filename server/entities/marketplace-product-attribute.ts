@@ -1,7 +1,8 @@
 import { User } from '@things-factory/auth-base'
+import { MarketplaceStore } from '@things-factory/marketplace-integration'
 import { Domain } from '@things-factory/shell'
 import { Column, CreateDateColumn, Entity, Index, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
-import { MarketplaceProduct, Platform } from '../entities'
+import { MarketplaceProduct } from '../entities'
 
 @Entity()
 @Index(
@@ -31,8 +32,8 @@ export class MarketplaceProductAttribute {
   @ManyToOne(type => MarketplaceProduct)
   productId: MarketplaceProduct
 
-  @ManyToOne(type => Platform)
-  platformId: Platform
+  @ManyToOne(type => MarketplaceStore)
+  marketplaceStoreId: MarketplaceStore
 
   @Column()
   attributeId: number

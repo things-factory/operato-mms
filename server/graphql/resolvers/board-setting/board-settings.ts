@@ -3,13 +3,12 @@ import { Setting } from '@things-factory/setting-base'
 import { getRepository } from 'typeorm'
 
 const DASHBOARD_BOARD = 'dashboard'
-const MARKER_IW_BOARD_FOR_TRACK = 'infowindow-board-for-track'
-const MARKER_IW_BOARD_FOR_FLEET = 'infowindow-board-for-fleet'
+const DASHBOARD_MOBILE_BOARD = 'dashboard-mobile'
 
 export const boardSettingsResolver = {
   async boardSettings(_: any, params: any, context: any) {
     const queryBuilder = getRepository(Setting).createQueryBuilder()
-    const names = [DASHBOARD_BOARD, MARKER_IW_BOARD_FOR_FLEET, MARKER_IW_BOARD_FOR_TRACK]
+    const names = [DASHBOARD_BOARD, DASHBOARD_MOBILE_BOARD]
 
     var qb = queryBuilder
       .innerJoin(Board, 'Board', 'Setting.value = CAST(Board.id AS char(36))')

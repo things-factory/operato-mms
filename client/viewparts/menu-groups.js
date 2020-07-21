@@ -58,8 +58,8 @@ const MENUGROUPS = [
   },
   {
     name: 'integration',
-    pathPrefix: 'mms-integration',
-    defaultPath: 'mms-integration-channels',
+    pathPrefix: ['marketplace-store', 'mms-integration'],
+    defaultPath: 'marketplace-stores',
     menuGroupTag: 'menu-group-integration',
     icons: ICONS_INTEGRATION
   }
@@ -73,6 +73,14 @@ import './menu-group/inventory'
 import './menu-group/promotions'
 import './menu-group/integration'
 import './menu-group/reports'
+
+function hasGroup(page, prefix) {
+  if (Array.isArray(prefix)) {
+    return !!prefix.find(p => !!~page.indexOf(p))
+  }
+
+  return !!~page.indexOf(prefix)
+}
 
 export class MenuTools extends connect(store)(LitElement) {
   static get properties() {
@@ -205,8 +213,8 @@ export class MenuTools extends connect(store)(LitElement) {
       <ul>
         ${MENUGROUPS.map(
           menu => html`
-            <li ?active=${!!~page.indexOf(menu.pathPrefix)} @click=${e => this.onclick(menu)}>
-              <img src=${!!~page.indexOf(menu.pathPrefix) ? menu.icons[1] : menu.icons[0]} />
+            <li ?active=${hasGroup(page, menu.pathPrefix)} @click=${e => this.onclick(menu)}>
+              <img src=${hasGroup(page, menu.pathPrefix) ? menu.icons[1] : menu.icons[0]} />
             </li>
           `
         )}
@@ -217,7 +225,7 @@ export class MenuTools extends connect(store)(LitElement) {
   updated(changes) {
     if (changes.has('page')) {
       var menu = MENUGROUPS.find(menu => {
-        return !!~this.page.indexOf(menu.pathPrefix)
+        return hasGroup(this.page, menu.pathPrefix)
       })
       if (menu?.menuGroupTag) {
         appendViewpart({
@@ -244,7 +252,7 @@ export class MenuTools extends connect(store)(LitElement) {
   onclick(menu) {
     var { pathPrefix, defaultPath } = menu
 
-    if (!!~this.page.indexOf(pathPrefix)) {
+    if (hasGroup(this.page, pathPrefix)) {
       // 현재 페이지와 메뉴 그룹이 동일하면, 아무것도 하지 않는다.
     } else {
       navigate(defaultPath)

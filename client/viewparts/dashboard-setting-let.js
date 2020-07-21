@@ -10,7 +10,9 @@ import '@things-factory/board-ui'
 import { fetchBoardSettings } from './fetch-board-settings'
 
 const DASHBOARD = 'dashboard'
+const DASHBOARD_MOBILE = 'dashboard-mobile'
 const DASHBOARD_DESCRIPTION = 'dashboard'
+const DASHBOARD_MOBILE_DESCRIPTION = 'dashboard mobile'
 
 export class DashboardSettingLet extends connect(store)(localize(i18next)(LitElement)) {
   static get styles() {
@@ -103,7 +105,8 @@ export class DashboardSettingLet extends connect(store)(localize(i18next)(LitEle
 
   static get properties() {
     return {
-      dashboard: Object
+      dashboard: Object,
+      dashboardMobile: Object
     }
   }
 
@@ -115,10 +118,16 @@ export class DashboardSettingLet extends connect(store)(localize(i18next)(LitEle
         <form slot="content" @submit=${e => this._handleSubmit(e)}>
           ${[
             {
-              title: 'Dashboard',
+              title: 'Dashboard for Desktop',
               board: this.dashboard,
               key: DASHBOARD,
               description: DASHBOARD_DESCRIPTION
+            },
+            {
+              title: 'Dashboard for Mobile',
+              board: this.dashboardMobile,
+              key: DASHBOARD_MOBILE,
+              description: DASHBOARD_MOBILE_DESCRIPTION
             }
           ].map(
             field => html`
@@ -136,7 +145,7 @@ export class DashboardSettingLet extends connect(store)(localize(i18next)(LitEle
                           <a href=${`board-modeller/${field.board.id}`}>
                             <img
                               src=${field.board.thumbnail ||
-                                'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'}
+                              'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'}
                             />
                           </a>
                         `
@@ -153,8 +162,10 @@ export class DashboardSettingLet extends connect(store)(localize(i18next)(LitEle
 
   stateChanged(state) {
     var dashboard = state.boardSetting[DASHBOARD]
+    var dashboardMobile = state.boardSetting[DASHBOARD_MOBILE]
 
     this.dashboard = (dashboard ? dashboard.board : {}) || {}
+    this.dashboardMobile = (dashboardMobile ? dashboardMobile.board : {}) || {}
   }
 
   onClickBoardSelector(name, description) {

@@ -44,13 +44,13 @@ class InventoryProducts extends localize(i18next)(PageView) {
   }
   get context() {
     return {
-      title: i18next.t('title.products'),
+      title: i18next.t('title.inventories'),
       actions: [
         { title: i18next.t('button.save'), action: this._saveMarketplaceProduct.bind(this) },
         { title: i18next.t('button.delete'), action: this._deleteMarketplaceProduct.bind(this) }
       ],
       exportable: {
-        name: i18next.t('title.products'),
+        name: i18next.t('title.inventories'),
         data: this._exportableData.bind(this)
       }
     }
@@ -70,7 +70,7 @@ class InventoryProducts extends localize(i18next)(PageView) {
   async pageInitialized() {
     this._searchFields = [
       {
-        label: i18next.t('field.product-name'),
+        label: i18next.t('field.name'),
         name: 'name',
         type: 'text',
         props: { searchOper: 'i_like' }
@@ -110,9 +110,9 @@ class InventoryProducts extends localize(i18next)(PageView) {
         {
           type: 'string',
           name: 'name',
-          header: i18next.t('field.product-name'),
+          header: i18next.t('field.name'),
           sortable: true,
-          imex: { header: i18next.t('field.product-name'), key: 'name', width: 25, type: 'string' },
+          imex: { header: i18next.t('field.name'), key: 'name', width: 25, type: 'string' },
           record: {
             editable: true,
             align: 'center'
@@ -134,8 +134,8 @@ class InventoryProducts extends localize(i18next)(PageView) {
         {
           type: 'integer',
           name: 'stockBuffer',
-          header: i18next.t('field.stock-buffer'),
-          imex: { header: i18next.t('field.stcok-buffer'), key: 'stcokBuffer', width: 25, type: 'integer' },
+          header: i18next.t('field.stock_buffer'),
+          imex: { header: i18next.t('field.stcok_buffer'), key: 'stcokBuffer', width: 25, type: 'integer' },
           record: { align: 'left' },
           sortable: true,
           width: 100
@@ -143,8 +143,8 @@ class InventoryProducts extends localize(i18next)(PageView) {
         {
           type: 'integer',
           name: 'onHold',
-          header: i18next.t('field.hold'),
-          imex: { header: i18next.t('field.hold'), key: 'onHold', width: 25, type: 'integer' },
+          header: i18next.t('field.on_hold'),
+          imex: { header: i18next.t('field.on_hold'), key: 'onHold', width: 25, type: 'integer' },
 
           record: { align: 'center' },
           sortable: true,
@@ -153,9 +153,9 @@ class InventoryProducts extends localize(i18next)(PageView) {
         {
           type: 'integer',
           name: 'availableToPurchase',
-          header: i18next.t('field.available-to-purchase'),
+          header: i18next.t('field.available_to_purchase'),
           imex: {
-            header: i18next.t('field.available-to-purchase'),
+            header: i18next.t('field.available_to_purchase'),
             key: 'availableToPurchase',
             width: 25,
             type: 'integer'
@@ -167,8 +167,8 @@ class InventoryProducts extends localize(i18next)(PageView) {
         {
           type: 'integer',
           name: 'soldStock',
-          header: i18next.t('field.sold-stock'),
-          imex: { header: i18next.t('field.sold-stock'), key: 'soldStock', width: 25, type: 'integer' },
+          header: i18next.t('field.sold_stock'),
+          imex: { header: i18next.t('field.sold_stock'), key: 'soldStock', width: 25, type: 'integer' },
           record: { align: 'center' },
           sortable: true,
           width: 150
@@ -176,8 +176,8 @@ class InventoryProducts extends localize(i18next)(PageView) {
         {
           type: 'datetime',
           name: 'updatedAt',
-          header: i18next.t('field.updater'),
-          imex: { header: i18next.t('field.updater'), key: 'updatedAt', width: 25, type: 'datetime' },
+          header: i18next.t('field.last_updated'),
+          imex: { header: i18next.t('field.last_updated'), key: 'updatedAt', width: 25, type: 'datetime' },
           record: { align: 'center' },
           sortable: true,
           width: 180

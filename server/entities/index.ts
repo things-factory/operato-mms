@@ -1,16 +1,12 @@
-import { Platform } from './platform'
-import { BizplacePlatform } from './bizplace-platform'
-import { MarketplaceProduct } from './marketplace-product'
-import { MarketplaceProductCategory } from './marketplace-product-category'
-import { MarketplaceProductVariation } from './marketplace-product-variation'
-import { MarketplaceProductAttribute } from './marketplace-product-attribute'
 import { MarketplaceOrder } from './marketplace-order'
 import { MarketplaceOrderItem } from './marketplace-order-item'
 import { MarketplaceOrderShipping } from './marketplace-order-shipping'
+import { MarketplaceProduct } from './marketplace-product'
+import { MarketplaceProductAttribute } from './marketplace-product-attribute'
+import { MarketplaceProductCategory } from './marketplace-product-category'
+import { MarketplaceProductVariation } from './marketplace-product-variation'
 
 export const entities = [
-  Platform,
-  BizplacePlatform,
   MarketplaceProduct,
   MarketplaceProductAttribute,
   MarketplaceProductVariation,
@@ -21,8 +17,6 @@ export const entities = [
 ]
 
 export {
-  Platform,
-  BizplacePlatform,
   MarketplaceProduct,
   MarketplaceProductAttribute,
   MarketplaceProductCategory,

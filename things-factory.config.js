@@ -21,10 +21,6 @@ export default {
       page: 'mms-dashboard'
     },
     {
-      tagname: 'mms-integration-channels',
-      page: 'mms-integration-channels'
-    },
-    {
       tagname: 'mms-integration-offline-stores',
       page: 'mms-integration-offline-stores'
     },
@@ -43,10 +39,6 @@ export default {
     {
       tagname: 'mms-integration-activities',
       page: 'mms-integration-activities'
-    },
-    {
-      tagname: 'mms-channel-lazada',
-      page: 'mms-channel-lazada'
     },
     {
       tagname: 'mms-inventory-products',
