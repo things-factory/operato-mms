@@ -8,7 +8,7 @@ import { gqlBuilder, isMobileDevice } from '@things-factory/utils'
 import gql from 'graphql-tag'
 import { ScrollbarStyles } from '@things-factory/styles'
 import { openPopup } from '@things-factory/layout-base'
-import './product-detail'
+import './product-details'
 class InventoryProducts extends localize(i18next)(PageView) {
   static get properties() {
     return {}
@@ -86,14 +86,6 @@ class InventoryProducts extends localize(i18next)(PageView) {
           type: 'gutter',
           gutterName: 'button',
           icon: 'details',
-          handlers: {
-            click: this._showProductInfo.bind(this)
-          }
-        },
-        {
-          type: 'gutter',
-          gutterName: 'button',
-          icon: 'edit',
           handlers: {
             click: this._showProductInfo.bind(this)
           }
@@ -318,7 +310,7 @@ class InventoryProducts extends localize(i18next)(PageView) {
     openPopup(html`<product-detail .productId="${record.id}"></product-detail>`, {
       backdrop: true,
       size: 'large',
-      title: `${record.name}` + ` ( ${record.itemSku} )`
+      title: `${record.name}` + ` ( ${record.itemSku} ) => (${record.id})`
     })
   }
   async _exportableData() {
