@@ -6,9 +6,9 @@ import { store, PageView, client, CustomAlert } from '@things-factory/shell'
 import { i18next, localize } from '@things-factory/i18n-base'
 import { gqlBuilder, isMobileDevice } from '@things-factory/utils'
 import gql from 'graphql-tag'
-import { getCodeByName } from '@things-factory/code-base'
 import { ScrollbarStyles } from '@things-factory/styles'
-
+import { openPopup } from '@things-factory/layout-base'
+import './product-detail'
 class InventoryProducts extends localize(i18next)(PageView) {
   static get properties() {
     return {}
@@ -48,7 +48,6 @@ class InventoryProducts extends localize(i18next)(PageView) {
       actions: [
         { title: i18next.t('button.save'), action: this._saveMarketplaceProduct.bind(this) },
         { title: i18next.t('button.delete'), action: this._deleteMarketplaceProduct.bind(this) }
-        //{ title: i18next.t('button.more_vert'), action: null }
       ],
       exportable: {
         name: i18next.t('title.products'),
@@ -81,9 +80,24 @@ class InventoryProducts extends localize(i18next)(PageView) {
     this.config = {
       rows: { selectable: { multiple: true }, appendable: false },
       columns: [
-        { type: 'gutter', gutterName: 'dirty' },
         { type: 'gutter', gutterName: 'sequence' },
         { type: 'gutter', gutterName: 'row-selector', multiple: true },
+        {
+          type: 'gutter',
+          gutterName: 'button',
+          icon: 'details',
+          handlers: {
+            click: this._showProductInfo.bind(this)
+          }
+        },
+        {
+          type: 'gutter',
+          gutterName: 'button',
+          icon: 'edit',
+          handlers: {
+            click: this._showProductInfo.bind(this)
+          }
+        },
         {
           type: 'string',
           name: 'itemSku',
@@ -92,10 +106,6 @@ class InventoryProducts extends localize(i18next)(PageView) {
           record: { editable: true, align: 'center' },
           sortable: true,
           width: 150
-
-          // handlers: {
-          //   click: this._showInventoryInfo.bind(this)
-          // }
         },
         {
           type: 'string',
@@ -119,7 +129,7 @@ class InventoryProducts extends localize(i18next)(PageView) {
             editable: true,
             align: 'center'
           },
-          width: 100
+          width: 80
         },
         {
           type: 'integer',
@@ -138,7 +148,7 @@ class InventoryProducts extends localize(i18next)(PageView) {
 
           record: { align: 'center' },
           sortable: true,
-          width: 100
+          width: 80
         },
         {
           type: 'integer',
@@ -206,6 +216,7 @@ class InventoryProducts extends localize(i18next)(PageView) {
           sortings: sorters
         })}) {
           items {
+            id
             name
             itemSku
             updatedAt
@@ -302,6 +313,13 @@ class InventoryProducts extends localize(i18next)(PageView) {
         }
       })
     )
+  }
+  _showProductInfo(columns, data, column, record, rowIndex) {
+    openPopup(html`<product-detail .productId="${record.id}"></product-detail>`, {
+      backdrop: true,
+      size: 'large',
+      title: `${record.name}` + ` ( ${record.itemSku} )`
+    })
   }
   async _exportableData() {
     try {
