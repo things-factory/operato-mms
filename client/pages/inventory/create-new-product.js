@@ -66,35 +66,35 @@ class createNewProduct extends localize(i18next)(LitElement) {
         <fieldset>
           <legend>${'01. ' + i18next.t('title.product_details')}</legend>
           <label>${i18next.t('label.product_name')}</label>
-          <input name="name" value="" />
+          <input name="name" />
           <label>${i18next.t('label.isku')}</label>
-          <input name="description" ?hidden="" />
+          <input name="description" />
           <br />
           <br />
           <label>${i18next.t('label.description')}</label>
-          <input name="itemSku" ?hidden="" />
+          <input name="itemSku" />
         </fieldset>
         <br />
         <fieldset>
           <legend>${'02. ' + i18next.t('title.dimensions')}</legend>
           <label>${i18next.t('label.weight')}</label>
-          <input name="name" ?hidden="" />
+          <input name="weight" />
           <label>${i18next.t('label.height')}</label>
-          <input name="name" ?hidden="" />
+          <input name="packageHeight" />
           <label>${i18next.t('label.width')}</label>
-          <input name="name" ?hidden="" />
+          <input name="packageWidth" />
           <label>${i18next.t('label.length')}</label>
-          <input name="name" ?hidden="" />
+          <input name="packageLength" />
         </fieldset>
         <br />
         <fieldset>
           <legend>${'03. ' + i18next.t('title.stock_details')}</legend>
           <label>${i18next.t('label.total_stock')}</label>
-          <input name="name" ?hidden="" />
+          <input name="stock" />
           <label>${i18next.t('label.buffer_stock')}</label>
-          <input name="name" ?hidden="" />
+          <input name="stockBuffer" />
           <label>${i18next.t('label.available_stock')}</label>
-          <input name="name" ?hidden="" />
+          <input name="availableToPurchase" />
         </fieldset>
       </form>
       <br />
