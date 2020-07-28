@@ -9,6 +9,8 @@ import gql from 'graphql-tag'
 import { ScrollbarStyles } from '@things-factory/styles'
 import { openPopup } from '@things-factory/layout-base'
 import './product-details'
+import './create-new-product'
+
 class InventoryProducts extends localize(i18next)(PageView) {
   static get properties() {
     return {}
@@ -47,7 +49,8 @@ class InventoryProducts extends localize(i18next)(PageView) {
       title: i18next.t('title.inventories'),
       actions: [
         { title: i18next.t('button.save'), action: this._saveMarketplaceProduct.bind(this) },
-        { title: i18next.t('button.delete'), action: this._deleteMarketplaceProduct.bind(this) }
+        { title: i18next.t('button.delete'), action: this._deleteMarketplaceProduct.bind(this) },
+        { title: i18next.t('button.create_new'), action: this._createNewProduct.bind(this) }
       ],
       exportable: {
         name: i18next.t('title.inventories'),
@@ -127,7 +130,7 @@ class InventoryProducts extends localize(i18next)(PageView) {
           type: 'integer',
           name: 'stockBuffer',
           header: i18next.t('field.stock_buffer'),
-          imex: { header: i18next.t('field.stcok_buffer'), key: 'stcokBuffer', width: 25, type: 'integer' },
+          imex: { header: i18next.t('field.stock_buffer'), key: 'stcokBuffer', width: 25, type: 'integer' },
           record: { align: 'left' },
           sortable: true,
           width: 100
@@ -310,7 +313,14 @@ class InventoryProducts extends localize(i18next)(PageView) {
     openPopup(html`<product-detail .productId="${record.id}"></product-detail>`, {
       backdrop: true,
       size: 'large',
-      title: `${record.name}` + ` ( ${record.itemSku} ) => (${record.id})`
+      title: `${record.name}` + ` ( ${record.itemSku} )`
+    })
+  }
+  _createNewProduct(columns, data, column, record, rowIndex) {
+    openPopup(html`<create-new-product></create-new-product>`, {
+      backdrop: true,
+      size: 'large',
+      title: `New Product`
     })
   }
   async _exportableData() {
