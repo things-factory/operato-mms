@@ -6,6 +6,7 @@ import * as MarketplaceProduct from './marketplace-product'
 import * as MarketplaceProductAttribute from './marketplace-product-attribute'
 import * as MarketplaceProductCategory from './marketplace-product-category'
 import * as MarketplaceProductVariation from './marketplace-product-variation'
+import * as ShipmentProvider from './shipment-provider'
 
 export const queries = [
   BoardSetting.Query,
@@ -15,7 +16,8 @@ export const queries = [
   MarketplaceOrderShipping.Query,
   MarketplaceProductAttribute.Query,
   MarketplaceProductCategory.Query,
-  MarketplaceProductVariation.Query
+  MarketplaceProductVariation.Query,
+  ShipmentProvider.Query
 ]
 
 export const mutations = [
@@ -25,7 +27,6 @@ export const mutations = [
   MarketplaceOrderShipping.Mutation,
   MarketplaceProductAttribute.Mutation,
   MarketplaceProductCategory.Mutation,
-  MarketplaceProductVariation.Mutation
+  MarketplaceProductVariation.Mutation,
+  ShipmentProvider.Mutation
 ]
-
-// export const subscriptions = [Scenario.Subscription]
