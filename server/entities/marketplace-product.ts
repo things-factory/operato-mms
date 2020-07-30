@@ -10,7 +10,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm'
-import { MarketplaceProductAttribute, MarketplaceProductCategory, MarketplaceProductVariation } from '../entities'
+import { MarketplaceProductCategory, MarketplaceProductVariation } from '../entities'
+import { MarketplaceStore } from '@things-factory/marketplace-integration'
 @Entity()
 @Index(
   'ix_marketplace-product_0',
@@ -33,23 +34,14 @@ export class MarketplaceProduct {
   )
   marketplaceProductVariations: MarketplaceProductVariation[]
 
-  @OneToMany(
-    type => MarketplaceProductAttribute,
-    marketplaceProductAttribute => marketplaceProductAttribute.marketplaceProduct
-  )
-  marketplaceProductAttributes: MarketplaceProductAttribute[]
-
   @Column()
-  itemId: number
+  itemId: string
 
   @Column('float')
   originalPrice: number
 
   @Column('float')
   currentPrice: number
-
-  @Column()
-  stock: number
 
   @Column()
   itemSku: string
@@ -89,6 +81,7 @@ export class MarketplaceProduct {
 
   @Column()
   isPreOrder: boolean
+
   @Column()
   name: string
 

@@ -34,9 +34,6 @@ export class MarketplaceProductVariation {
   currentPrice: number
 
   @Column()
-  stock: number
-
-  @Column()
   status: string
 
   @Column('float')

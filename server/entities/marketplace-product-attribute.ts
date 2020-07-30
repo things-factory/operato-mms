@@ -20,7 +20,7 @@ export class MarketplaceProductAttribute {
   @ManyToOne(type => Domain)
   domain: Domain
 
-  @ManyToOne(type => MarketplaceProduct, marketplaceProduct => marketplaceProduct.marketplaceProductAttributes)
+  @ManyToOne(type => MarketplaceProduct)
   marketplaceProduct: MarketplaceProduct
 
   @Column()

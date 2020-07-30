@@ -3,6 +3,7 @@ import * as MarketplaceOrder from './marketplace-order'
 import * as MarketplaceOrderItem from './marketplace-order-item'
 import * as MarketplaceOrderShipping from './marketplace-order-shipping'
 import * as MarketplaceProduct from './marketplace-product'
+import * as MarketplaceStoreProduct from './marketplace-store-product'
 import * as MarketplaceProductAttribute from './marketplace-product-attribute'
 import * as MarketplaceProductCategory from './marketplace-product-category'
 import * as MarketplaceProductVariation from './marketplace-product-variation'
@@ -11,6 +12,7 @@ import * as ShipmentProvider from './shipment-provider'
 export const queries = [
   BoardSetting.Query,
   MarketplaceProduct.Query,
+  MarketplaceStoreProduct.Query,
   MarketplaceOrder.Query,
   MarketplaceOrderItem.Query,
   MarketplaceOrderShipping.Query,
@@ -22,6 +24,7 @@ export const queries = [
 
 export const mutations = [
   MarketplaceProduct.Mutation,
+  MarketplaceStoreProduct.Mutation,
   MarketplaceOrder.Mutation,
   MarketplaceOrderItem.Mutation,
   MarketplaceOrderShipping.Mutation,
@@ -34,6 +37,7 @@ export const mutations = [
 export const types = [
   ...BoardSetting.Types,
   ...MarketplaceProduct.Types,
+  ...MarketplaceStoreProduct.Types,
   ...MarketplaceOrder.Types,
   ...MarketplaceOrderItem.Types,
   ...MarketplaceOrderShipping.Types,
