@@ -10,7 +10,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm'
-import { MarketplaceProductAttribute, MarketplaceProductCategory, MarketplaceProductVariation } from '../entities'
+import { MarketplaceProductCategory, MarketplaceProductVariation } from '../entities'
+import { MarketplaceStore } from '@things-factory/marketplace-integration'
 @Entity()
 @Index(
   'ix_marketplace-product_0',
@@ -33,23 +34,31 @@ export class MarketplaceProduct {
   )
   marketplaceProductVariations: MarketplaceProductVariation[]
 
+<<<<<<< HEAD
   @OneToMany(
     type => MarketplaceProductAttribute,
     marketplaceProductAttribute => marketplaceProductAttribute.marketplaceProduct
   )
   marketplaceProductAttributes: MarketplaceProductAttribute[]
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   itemId: number
+=======
+  @Column()
+  itemId: string
+>>>>>>> 436f28c89a534aa7321dbb342498b1cf69b6609f
 
-  @Column('float')
+  @Column('float', {
+    nullable: true
+  })
   originalPrice: number
 
-  @Column('float')
+  @Column('float', {
+    nullable: true
+  })
   currentPrice: number
-
-  @Column()
-  stock: number
 
   @Column()
   itemSku: string
@@ -66,29 +75,46 @@ export class MarketplaceProduct {
   @Column()
   packageHeight: number
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   status: string
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   currency: string
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   categoryId: number
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   shopId: number
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   partnerId: number
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   condition: string
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   discountId: string
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   isPreOrder: boolean
+
   @Column()
   name: string
 

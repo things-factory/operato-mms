@@ -220,7 +220,6 @@ class InventoryProducts extends localize(i18next)(PageView) {
             onHold
             availableToPurchase
             soldStock
-            originalPrice
             actions
           }
           total

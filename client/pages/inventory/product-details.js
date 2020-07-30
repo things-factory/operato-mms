@@ -131,6 +131,7 @@ class productDetails extends localize(i18next)(LitElement) {
           items {
             id
             name
+            description
             itemSku
             updatedAt
             stock

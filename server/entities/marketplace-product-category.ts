@@ -22,9 +22,6 @@ export class MarketplaceProductCategory {
   @ManyToOne(type => MarketplaceProduct)
   productId: MarketplaceProduct
 
-  @ManyToOne(type => MarketplaceStore)
-  marketplaceStoreId: MarketplaceStore
-
   @Column()
   name: string
 

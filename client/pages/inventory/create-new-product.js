@@ -51,55 +51,86 @@ class createNewProduct extends localize(i18next)(LitElement) {
     return {
       config: Object,
       data: Object,
-      _inputFields: Array
+      _inputFields: Object,
+      productInformation: Object
     }
   }
-
+  get dataGrist() {
+    return this.shadowRoot.querySelector('data-grist')
+  }
+  get inputForm() {
+    return this.shadowRoot.querySelector('form#input-form')
+  }
+  get productNameInput() {
+    return this.shadowRoot.querySelector('input[name=name]')
+  }
+  get productDescriptionInput() {
+    return this.shadowRoot.querySelector('input[name=description]')
+  }
+  get itemSkuInput() {
+    return this.shadowRoot.querySelector('input[name=itemSku]')
+  }
+  get productWeightInput() {
+    return this.shadowRoot.querySelector('input[name=weight]')
+  }
+  get packageWidthInput() {
+    return this.shadowRoot.querySelector('input[name=packageWidth]')
+  }
+  get packageHeightInput() {
+    return this.shadowRoot.querySelector('input[name=packageHeight]')
+  }
+  get packageLengthInput() {
+    return this.shadowRoot.querySelector('input[name=packageLength]')
+  }
+  get productStockInput() {
+    return this.shadowRoot.querySelector('input[name=stock]')
+  }
+  get stockBufferInput() {
+    return this.shadowRoot.querySelector('input[name=stockBuffer]')
+  }
+  get availableToPurchaseInput() {
+    return this.shadowRoot.querySelector('input[name=availableToPurchase]')
+  }
   render() {
     return html`
-      <form
-        id="input-form"
-        class="single-column-form"
-        .fields=${this._inputFields}
-        @submit=${e => this.inputForm.fetch()}
-      >
+      <form id="input-form" class="single-column-form">
         <fieldset>
           <legend>${'01. ' + i18next.t('title.product_details')}</legend>
           <label>${i18next.t('label.product_name')}</label>
-          <input name="name" />
+          <input name="name" required />
           <label>${i18next.t('label.isku')}</label>
-          <input name="description" />
+          <input name="itemSku" required />
           <br />
           <br />
           <label>${i18next.t('label.description')}</label>
-          <input name="itemSku" />
+          <input name="description" />
         </fieldset>
         <br />
         <fieldset>
           <legend>${'02. ' + i18next.t('title.dimensions')}</legend>
           <label>${i18next.t('label.weight')}</label>
-          <input name="weight" />
+          <input type="number" min="0" name="weight" required />
           <label>${i18next.t('label.height')}</label>
-          <input name="packageHeight" />
+          <input type="number" min="0" name="packageHeight" required />
           <label>${i18next.t('label.width')}</label>
-          <input name="packageWidth" />
+          <input type="number" min="0" name="packageWidth" required />
           <label>${i18next.t('label.length')}</label>
-          <input name="packageLength" />
+          <input type="number" min="0" name="packageLength" required />
         </fieldset>
         <br />
         <fieldset>
           <legend>${'03. ' + i18next.t('title.stock_details')}</legend>
           <label>${i18next.t('label.total_stock')}</label>
-          <input name="stock" />
+          <input type="number" min="1" name="stock" required />
           <label>${i18next.t('label.buffer_stock')}</label>
-          <input name="stockBuffer" />
+          <input type="number" name="stockBuffer" />
           <label>${i18next.t('label.available_stock')}</label>
-          <input name="availableToPurchase" />
+          <input type="number" name="availableToPurchase" />
         </fieldset>
       </form>
       <br />
       <div class="button-container">
-        <mwc-button @click=${this._saveMarketplaceProduct.bind(this)}>${i18next.t('button.save')}</mwc-button>
+        <mwc-button @click=${this._inspecting.bind(this)}>${i18next.t('button.save')}</mwc-button>
       </div>
     `
   }
@@ -177,10 +208,109 @@ class createNewProduct extends localize(i18next)(LitElement) {
   get dataGrist() {
     return this.shadowRoot.querySelector('data-grist')
   }
-  get inputForm() {
-    return this.shadowRoot.querySelector('form#input-form')
+
+  async _inspecting(e) {
+    try {
+      await this._validateNewProduct()
+      const marketplaceProduct = {
+        name: this.productNameInput.value,
+        availableToPurchase: parseInt(this.availableToPurchaseInput.value),
+        itemSku: this.itemSkuInput.value,
+        packageHeight: parseInt(this.packageHeightInput.value),
+        packageLength: parseInt(this.packageLengthInput.value),
+        packageWidth: parseInt(this.packageWidthInput.value),
+        description: parseInt(this.productDescriptionInput.value),
+        stock: parseInt(this.productStockInput.value),
+        weight: parseFloat(this.productWeightInput.value),
+        soldStock: parseInt(this.stockBufferInput.value)
+      }
+      const response = await client.query({
+        query: gql`
+            mutation {
+              createMarketplaceProduct(${gqlBuilder.buildArgs({
+                marketplaceProduct
+              })}){
+                name
+                description
+                availableToPurchase
+                itemSku
+                packageHeight
+                packageWidth
+                packageLength
+                stock
+                weight
+                soldStock
+              }
+            }
+          `
+      })
+      if (!response.errors) {
+        //resetting the values
+        this.availableToPurchaseInput.value = ''
+        this.itemSkuInput.value = ''
+        this.packageHeightInput.value = ''
+        this.packageLengthInput.value = ''
+        this.packageWidthInput.value = ''
+        this.productNameInput.value = ''
+        this.productStockInput.value = ''
+        this.productWeightInput.value = ''
+        this.stockBufferInput.value = ''
+        this.productDescriptionInput.value = ''
+        document.dispatchEvent(
+          new CustomEvent('notify', {
+            detail: {
+              message: i18next.t('text.data_updated_successfully')
+            }
+          })
+        )
+      }
+    } catch (e) {
+      this._showToast(e)
+    }
   }
 
+  _focusOnInput(target) {
+    setTimeout(() => target.focus(), 100)
+  }
+
+  async _validateNewProduct() {
+    //validate the input
+    //product name
+    if (!this.productNameInput.value) {
+      this._focusOnInput(this.productNameInput)
+      throw new Error(i18next.t('text.product_name_is_empty'))
+    }
+    //product ISKU
+    if (!this.itemSkuInput.value) {
+      this._focusOnInput(this.itemSkuInput)
+      throw new Error(i18next.t('text.isku_is_empty'))
+    }
+    //product weight
+    if (!this.productWeightInput.value) {
+      this._focusOnInput(this.productWeightInput)
+      throw new Error(i18next.t('text.product_weight_is_empty'))
+    }
+    //package height
+    if (!this.packageHeightInput.value) {
+      this._focusOnInput(this.packageHeightInput)
+      throw new Error(i18next.t('text.package_height_is_empty'))
+    }
+    //package width
+    if (!this.packageWidthInput.value) {
+      this._focusOnInput(this.packageWidthInput)
+      throw new Error(i18next.t('text.package_width_is_empty'))
+    }
+    //package length
+    if (!this.packageLengthInput.value) {
+      this._focusOnInput(this.packageLengthInput)
+      throw new Error(i18next.t('text.package_length_is_empty'))
+    }
+    //product stock
+    if (!this.productStockInput.value) {
+      this._focusOnInput(this.productStockInput)
+      throw new Error(i18next.t('text.product_stock_is_empty'))
+    }
+  }
   async fetchHandler({ page, limit, sorters = [] }) {
     try {
       const response = await client.query({
@@ -249,7 +379,7 @@ class createNewProduct extends localize(i18next)(LitElement) {
         document.dispatchEvent(
           new CustomEvent('notify', {
             detail: {
-              message: i18next.t('text.data_updated_successfully')
+              message: i18next.t('text.product_added_successfully')
             }
           })
         )
