@@ -11,7 +11,6 @@ import {
   UpdateDateColumn
 } from 'typeorm'
 import { MarketplaceProductCategory, MarketplaceProductVariation } from '../entities'
-import { MarketplaceStore } from '@things-factory/marketplace-integration'
 @Entity()
 @Index(
   'ix_marketplace-product_0',
@@ -37,50 +36,11 @@ export class MarketplaceProduct {
   @Column()
   itemId: string
 
-  @Column('float')
-  originalPrice: number
-
-  @Column('float')
-  currentPrice: number
-
   @Column()
-  itemSku: string
-
-  @Column('float')
-  weight: number
-
-  @Column()
-  packageLength: number
-
-  @Column()
-  packageWidth: number
-
-  @Column()
-  packageHeight: number
+  sku: string
 
   @Column()
   status: string
-
-  @Column()
-  currency: string
-
-  @Column()
-  categoryId: number
-
-  @Column()
-  shopId: number
-
-  @Column()
-  partnerId: number
-
-  @Column()
-  condition: string
-
-  @Column()
-  discountId: string
-
-  @Column()
-  isPreOrder: boolean
 
   @Column()
   name: string
@@ -89,6 +49,51 @@ export class MarketplaceProduct {
     nullable: true
   })
   description: string
+
+  @Column()
+  currency: string
+
+  @Column()
+  hasVariation: boolean
+
+  @Column('float')
+  costPrice: number
+
+  @Column('float')
+  sellPrice: number
+
+  @Column('float')
+  weight: number
+
+  @Column()
+  categoryId: number
+
+  @Column('float')
+  packageLength: number
+
+  @Column('float')
+  packageWidth: number
+
+  @Column('float')
+  packageHeight: number
+
+  @Column('float')
+  afterTaxCostPrice: number
+
+  @Column('float')
+  afterTaxSalesPrice: number
+
+  @Column()
+  condition: string
+
+  @Column()
+  daysToShip: number
+
+  @Column()
+  discountId: string
+
+  @Column()
+  isPreOrder: boolean
 
   @CreateDateColumn()
   createdAt: Date

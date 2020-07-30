@@ -22,33 +22,36 @@ export class MarketplaceProductVariation {
   marketplaceProduct: MarketplaceProduct
 
   @Column()
-  name: string
-
-  @Column()
   variationId: number
 
   @Column()
-  variationSku: string
-
-  @Column('float')
-  currentPrice: number
+  sku: string
 
   @Column()
-  status: string
-
-  @Column('float')
-  originalPrice: number
-
-  @Column('float')
-  unflatedOriginalPrice: number
-
-  @Column('float')
-  unflatedCurrentPrice: number
+  name: string
 
   @Column({
     nullable: true
   })
   description: string
+
+  @Column('float')
+  costPrice: number
+
+  @Column('float')
+  sellPrice: number
+
+  @Column()
+  discountId: number
+
+  @Column()
+  status: string
+
+  @Column('float')
+  afterTaxCostPrice: number
+
+  @Column('float')
+  afterTaxSalesPrice: number
 
   @CreateDateColumn()
   createdAt: Date

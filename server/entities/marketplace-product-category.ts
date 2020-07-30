@@ -20,7 +20,7 @@ export class MarketplaceProductCategory {
   domain: Domain
 
   @ManyToOne(type => MarketplaceProduct)
-  productId: MarketplaceProduct
+  marketplaceProduct: MarketplaceProduct
 
   @Column()
   name: string
