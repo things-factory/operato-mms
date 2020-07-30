@@ -4,6 +4,7 @@ export const MarketplaceProduct = gql`
   type MarketplaceProduct {
     id: String
     name: String
+    itemId: Int
     domain: Domain
     description: String
     updater: User
@@ -18,5 +19,9 @@ export const MarketplaceProduct = gql`
     soldStock: Int
     actions: String
     originalPrice: Float
+    weight: Float
+    packageWidth: Int
+    packageLength: Int
+    packageHeight: Int
   }
 `

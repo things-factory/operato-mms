@@ -47,5 +47,13 @@
   "button.create_new": "create new",
   "text.are_you_sure": "are you sure",
   "text.you_wont_be_able_to_revert_this": "you won't be able to revert this",
-  "text.data_deleted_successfully": "data deleted successfully"
+  "text.data_deleted_successfully": "data deleted successfully",
+  "text.product_added_successfully": "product added successfully",
+  "text.product_name_is_empty": "product name is empty",
+  "text.isku_is_empty": "isku is empty",
+  "text.product_weight_is_empty": "product weight is empty",
+  "text.product_stock_is_empty": "product is empty",
+  "text.package_length_is_empty": "package length is empty",
+  "text.package_height_is_empty": "package height is empty",
+  "text.package_width_is_empty": "package width is empty"
 }

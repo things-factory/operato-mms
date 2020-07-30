@@ -65,7 +65,9 @@ export class MarketplaceProduct {
   @Column('float')
   weight: number
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   categoryId: number
 
   @Column('float')
@@ -83,7 +85,9 @@ export class MarketplaceProduct {
   @Column('float')
   afterTaxSalesPrice: number
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   condition: string
 
   @Column()
