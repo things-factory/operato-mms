@@ -34,17 +34,8 @@ export class MarketplaceProduct {
   )
   marketplaceProductVariations: MarketplaceProductVariation[]
 
-<<<<<<< HEAD
-  @OneToMany(
-    type => MarketplaceProductAttribute,
-    marketplaceProductAttribute => marketplaceProductAttribute.marketplaceProduct
-  )
-  marketplaceProductAttributes: MarketplaceProductAttribute[]
-
-  @Column({
-    nullable: true
-  })
-  itemId: number
+  @Column()
+  itemId: string
 =======
   @Column()
   itemId: string
