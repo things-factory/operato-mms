@@ -6,17 +6,26 @@ export const NewMarketplaceProduct = gql`
     itemId: Int
     name: String
     description: String
-    itemSku: String
-    stock: Int
-    stockBuffer: Int
-    onHold: Int
-    availableToPurchase: Int
-    soldStock: Int
-    actions: String
-    originalPrice: Float
+    marketplaceProductVariations: [NewMarketplaceProductVariation]
+    marketplaceProductAttribute: NewMarketplaceProductAttribute
+    marketplaceProductCategory: NewMarketplaceProductCategory
+    itemId: String
+    sku: String
+    status: String
+    currency: String
+    hasVariation: Boolean
+    costPrice: Float
+    sellPrice: Float
     weight: Float
-    packageWidth: Int
-    packageLength: Int
-    packageHeight: Int
+    categoryId: String
+    packageLength: Float
+    packageWidth: Float
+    packageHeight: Float
+    afterTaxCostPrice: Float
+    afterTaxSalesPrice: Float
+    condition: String
+    daysToShip: String
+    discountId: String
+    isPreOrder: Boolean
   }
 `

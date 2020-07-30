@@ -7,7 +7,7 @@ import { MarketplaceProduct } from '../entities'
   'ix_marketplace-product-variation_0',
   (marketplaceProductVariation: MarketplaceProductVariation) => [
     marketplaceProductVariation.domain,
-    marketplaceProductVariation.name
+    marketplaceProductVariation.id
   ],
   { unique: true }
 )

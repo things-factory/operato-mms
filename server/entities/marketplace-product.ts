@@ -14,7 +14,7 @@ import { MarketplaceProductCategory, MarketplaceProductVariation } from '../enti
 @Entity()
 @Index(
   'ix_marketplace-product_0',
-  (marketplaceProduct: MarketplaceProduct) => [marketplaceProduct.domain, marketplaceProduct.name],
+  (marketplaceProduct: MarketplaceProduct) => [marketplaceProduct.domain, marketplaceProduct.id],
   { unique: true }
 )
 export class MarketplaceProduct {
