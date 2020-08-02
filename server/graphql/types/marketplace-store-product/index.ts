@@ -18,11 +18,11 @@ export const Mutation = `
   ): [MarketplaceStoreProduct]
 
   deleteMarketplaceStoreProduct (
-    name: String!
+    id: String!
   ): Boolean
 
   deleteMarketplaceStoreProducts (
-    names: [String]!
+    ids: [String]!
   ): Boolean
 `
 
@@ -31,4 +31,9 @@ export const Query = `
   marketplaceStoreProduct(name: String!): MarketplaceStoreProduct
 `
 
-export const Types = [MarketplaceStoreProduct, NewMarketplaceStoreProduct, MarketplaceStoreProductPatch, MarketplaceStoreProductList]
+export const Types = [
+  MarketplaceStoreProduct,
+  NewMarketplaceStoreProduct,
+  MarketplaceStoreProductPatch,
+  MarketplaceStoreProductList
+]

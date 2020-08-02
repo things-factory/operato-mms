@@ -55,9 +55,6 @@ export class MarketplaceOrder {
   voucherCode: string
 
   @Column()
-  shippingProvider: string
-
-  @Column()
   status: string
 
   @CreateDateColumn()

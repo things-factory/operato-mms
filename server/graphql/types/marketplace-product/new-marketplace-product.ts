@@ -3,7 +3,6 @@ import gql from 'graphql-tag'
 export const NewMarketplaceProduct = gql`
   input NewMarketplaceProduct {
     id: String
-    itemId: Int
     name: String
     description: String
     marketplaceProductVariations: [NewMarketplaceProductVariation]
