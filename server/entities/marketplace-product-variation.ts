@@ -35,6 +35,9 @@ export class MarketplaceProductVariation {
   })
   description: string
 
+  @Column()
+  type: string
+
   @Column('float')
   costPrice: number
 

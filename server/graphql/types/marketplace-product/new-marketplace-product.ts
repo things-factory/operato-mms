@@ -5,6 +5,7 @@ export const NewMarketplaceProduct = gql`
     id: String
     name: String
     description: String
+    type: String
     marketplaceProductVariations: [NewMarketplaceProductVariation]
     marketplaceProductAttribute: NewMarketplaceProductAttribute
     marketplaceProductCategory: NewMarketplaceProductCategory

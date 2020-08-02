@@ -10,6 +10,7 @@ export const MarketplaceProductPatch = gql`
     status: String
     name: String
     description: String
+    type: String
     currency: String
     hasVariation: Boolean
     costPrice: Float

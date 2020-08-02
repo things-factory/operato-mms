@@ -10,6 +10,7 @@ export const MarketplaceProduct = gql`
     sku: String
     status: String
     name: String
+    type: String
     description: String
     currency: String
     hasVariation: Boolean

@@ -45,6 +45,9 @@ export class MarketplaceProduct {
   @Column()
   name: string
 
+  @Column()
+  type: string
+
   @Column({
     nullable: true
   })

@@ -8,6 +8,7 @@ export const MarketplaceProductVariation = gql`
     variationId: String
     sku: String
     name: String
+    type: String
     description: String
     costPrice: Float
     sellPrice: Float

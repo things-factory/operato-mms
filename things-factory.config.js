@@ -41,8 +41,8 @@ export default {
       page: 'mms-integration-activities'
     },
     {
-      tagname: 'mms-inventory-products',
-      page: 'mms-inventory-products'
+      tagname: 'mms-inventory',
+      page: 'mms-inventory'
     },
     {
       tagname: 'mms-inventory-activities',
