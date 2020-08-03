@@ -1,17 +1,18 @@
 import '@material/mwc-button/mwc-button'
 import '@things-factory/grist-ui'
 import { i18next, localize } from '@things-factory/i18n-base'
-import { openPopup } from '@things-factory/layout-base'
 import { client } from '@things-factory/shell'
-import { gqlBuilder, isMobileDevice } from '@things-factory/utils'
-import { ScrollbarStyles } from '@things-factory/styles'
+import { MultiColumnFormStyles, SingleColumnFormStyles } from '@things-factory/form-ui'
+import { gqlBuilder } from '@things-factory/utils'
 import gql from 'graphql-tag'
 import { css, html, LitElement } from 'lit-element'
+import { PRODUCT_TYPE } from './constants'
 
-class createNewProduct extends localize(i18next)(LitElement) {
+class CreateNewProdutPopup extends localize(i18next)(LitElement) {
   static get styles() {
     return [
-      ScrollbarStyles,
+      MultiColumnFormStyles,
+      SingleColumnFormStyles,
       css`
         :host {
           padding: 10px;
@@ -19,6 +20,17 @@ class createNewProduct extends localize(i18next)(LitElement) {
           flex-direction: column;
           overflow-x: overlay;
           background-color: var(--main-section-background-color);
+        }
+        .grist {
+          background-color: var(--main-section-background-color);
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+          overflow-y: auto;
+        }
+        data-grist {
+          overflow-y: hidden;
+          flex: 1;
         }
         .button-container {
           padding: var(--button-container-padding);
@@ -46,7 +58,6 @@ class createNewProduct extends localize(i18next)(LitElement) {
       `
     ]
   }
-
   static get properties() {
     return {
       config: Object,
@@ -93,44 +104,62 @@ class createNewProduct extends localize(i18next)(LitElement) {
   }
   render() {
     return html`
-      <form id="input-form" class="single-column-form">
+      <form id="input-form" class="multi-column-form">
         <fieldset>
-          <legend>${'01. ' + i18next.t('title.product_details')}</legend>
+          <legend>${i18next.t('title.select_product_type')}</legend>
+          ${PRODUCT_TYPE.map(
+            (product, idx) => html`
+              <input
+                id="product-type-${idx}"
+                type="radio"
+                name="productType"
+                value="${product.value}"
+                ?checked="${idx === 0}"
+              />
+              <label for="product-type-${idx}">${i18next.t(product.name)}</label>
+            `
+          )}
+        </fieldset>
+
+        <fieldset>
+          <legend>${i18next.t('title.product_details')}</legend>
           <label>${i18next.t('label.product_name')}</label>
           <input name="name" required />
+
           <label>${i18next.t('label.isku')}</label>
-          <input name="itemSku" required />
-          <br />
-          <br />
-          <label>${i18next.t('label.description')}</label>
-          <input name="description" />
-        </fieldset>
-        <br />
-        <fieldset>
-          <legend>${'02. ' + i18next.t('title.dimensions')}</legend>
-          <label>${i18next.t('label.weight')}</label>
+          <input name="sku" required />
+
+          <label>${i18next.t('label.weight') + ' (kg)'}</label>
           <input type="number" min="0" name="weight" required />
-          <label>${i18next.t('label.height')}</label>
+
+          <label>${i18next.t('label.height') + ' (cm)'}</label>
           <input type="number" min="0" name="packageHeight" required />
-          <label>${i18next.t('label.width')}</label>
+
+          <label>${i18next.t('label.width') + ' (cm)'}</label>
           <input type="number" min="0" name="packageWidth" required />
-          <label>${i18next.t('label.length')}</label>
+
+          <label>${i18next.t('label.length') + ' (cm)'}</label>
           <input type="number" min="0" name="packageLength" required />
+
+          <label>${i18next.t('label.cost_price')}</label>
+          <input type="number" min="0" name="costPrice" required />
         </fieldset>
-        <br />
+
         <fieldset>
-          <legend>${'03. ' + i18next.t('title.stock_details')}</legend>
+          <legend>${i18next.t('title.store_sku_details')}</legend>
           <label>${i18next.t('label.total_stock')}</label>
           <input type="number" min="1" name="stock" required />
+
           <label>${i18next.t('label.buffer_stock')}</label>
           <input type="number" name="stockBuffer" />
+
           <label>${i18next.t('label.available_stock')}</label>
           <input type="number" name="availableToPurchase" />
         </fieldset>
       </form>
-      <br />
+
       <div class="button-container">
-        <mwc-button @click=${this._inspecting.bind(this)}>${i18next.t('button.save')}</mwc-button>
+        <button @click=${this._inspecting.bind(this)}>${i18next.t('button.create')}</button>
       </div>
     `
   }
@@ -205,6 +234,7 @@ class createNewProduct extends localize(i18next)(LitElement) {
       ]
     }
   }
+
   get dataGrist() {
     return this.shadowRoot.querySelector('data-grist')
   }
@@ -269,10 +299,6 @@ class createNewProduct extends localize(i18next)(LitElement) {
     }
   }
 
-  _focusOnInput(target) {
-    setTimeout(() => target.focus(), 100)
-  }
-
   async _validateNewProduct() {
     //validate the input
     //product name
@@ -311,43 +337,7 @@ class createNewProduct extends localize(i18next)(LitElement) {
       throw new Error(i18next.t('text.product_stock_is_empty'))
     }
   }
-  async fetchHandler({ page, limit, sorters = [] }) {
-    try {
-      const response = await client.query({
-        query: gql`
-      query {
-        marketplaceProducts(${gqlBuilder.buildArgs({
-          filters: null,
-          pagination: { page, limit },
-          sortings: sorters
-        })}) {
-          items {
-            id
-            name
-            itemSku
-            updatedAt
-            stock
-            stockBuffer
-            onHold
-            availableToPurchase
-            soldStock
-            originalPrice
-            actions
-          }
-          total
-        }
-      }`
-      })
-      if (!response.errors) {
-        return {
-          total: response.data.marketplaceProducts.total || 0,
-          records: response.data.marketplaceProducts.items || []
-        }
-      }
-    } catch (e) {
-      this._showToast(e)
-    }
-  }
+
   _showToast({ type, message }) {
     document.dispatchEvent(
       new CustomEvent('notify', {
@@ -358,34 +348,6 @@ class createNewProduct extends localize(i18next)(LitElement) {
       })
     )
   }
-  async _saveMarketplaceProduct() {
-    let patches = this.inputForm.exportPatchList({ flagName: 'cuFlag' })
-    if (patches && patches.length) {
-      const response = await client.query({
-        query: gql`
-          mutation {
-            updateMultipleMarketplaceProduct(${gqlBuilder.buildArgs({
-              patches
-            })}) {
-              name 
-              stock
-            }
-          }
-        `
-      })
-
-      if (!response.errors) {
-        this.dataGrist.fetch()
-        document.dispatchEvent(
-          new CustomEvent('notify', {
-            detail: {
-              message: i18next.t('text.product_added_successfully')
-            }
-          })
-        )
-      }
-    }
-  }
 }
 
-window.customElements.define('create-new-product', createNewProduct)
+window.customElements.define('create-new-product-popup', CreateNewProdutPopup)

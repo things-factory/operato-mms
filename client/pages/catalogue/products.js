@@ -7,7 +7,7 @@ import { ScrollbarStyles } from '@things-factory/styles'
 import { gqlBuilder, isMobileDevice } from '@things-factory/utils'
 import gql from 'graphql-tag'
 import { css, html } from 'lit-element'
-import './create-new-product'
+import './create-new-product-popup'
 import './product-details'
 
 class Products extends localize(i18next)(PageView) {
@@ -63,7 +63,7 @@ class Products extends localize(i18next)(PageView) {
       <data-grist
         .mode=${isMobileDevice() ? 'LIST' : 'GRID'}
         .config=${this.config}
-        .fetchHandler="${this.fetchHandler.bind(this)}"
+        .fetchHandler="${this._fetchProducts.bind(this)}"
       >
       </data-grist>
     `
@@ -166,7 +166,7 @@ class Products extends localize(i18next)(PageView) {
   get _columns() {
     return this.config.columns
   }
-  async fetchHandler({ page, limit, sorters = [] }) {
+  async _fetchProducts({ page, limit, sorters = [] }) {
     const response = await client.query({
       query: gql`
       query {
@@ -291,12 +291,21 @@ class Products extends localize(i18next)(PageView) {
       title: `${record.name}` + ` ( ${record.itemSku} )`
     })
   }
-  _createNewProduct(columns, data, column, record, rowIndex) {
-    openPopup(html`<create-new-product></create-new-product>`, {
-      backdrop: true,
-      size: 'large',
-      title: `New Product`
-    })
+  _createNewProduct() {
+    openPopup(
+      html`
+        <create-new-product-popup
+          @completed="${() => {
+            this._fetchProducts()
+          }}"
+        ></create-new-product-popup>
+      `,
+      {
+        backdrop: true,
+        size: 'large',
+        title: i18next.t('title.create_new_product')
+      }
+    )
   }
   async _exportableData() {
     try {
