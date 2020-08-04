@@ -5,6 +5,12 @@ export const MarketplaceProductAttribute = gql`
     id: String
     name: String
     domain: Domain
+    marketplaceProduct: MarketplaceProduct
+    attributeId: String
+    isMandatory: Boolean
+    attributeType: String
+    option: String
+    originalValue: String
     description: String
     updater: User
     creator: User

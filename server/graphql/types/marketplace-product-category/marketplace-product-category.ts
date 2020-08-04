@@ -5,6 +5,9 @@ export const MarketplaceProductCategory = gql`
     id: String
     name: String
     domain: Domain
+    marketplaceProduct: MarketplaceProduct
+    categoryId: String
+    childCategory: Boolean
     description: String
     updater: User
     creator: User

@@ -1,5 +1,4 @@
 import { User } from '@things-factory/auth-base'
-import { MarketplaceStore } from '@things-factory/marketplace-integration'
 import { Domain } from '@things-factory/shell'
 import { Column, CreateDateColumn, Entity, Index, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { MarketplaceProduct } from '../entities'
@@ -20,7 +19,7 @@ export class MarketplaceProductCategory {
   domain: Domain
 
   @ManyToOne(type => MarketplaceProduct)
-  productId: MarketplaceProduct
+  marketplaceProduct: MarketplaceProduct
 
   @Column()
   name: string
@@ -29,7 +28,7 @@ export class MarketplaceProductCategory {
   categoryId: string
 
   @Column()
-  enabled: Boolean
+  childCategory: Boolean
 
   @Column({
     nullable: true

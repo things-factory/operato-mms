@@ -39,6 +39,7 @@
     "@things-factory/biz-base": "^2.0.0",
     "@things-factory/board-service": "^2.0.0",
     "@things-factory/board-ui": "^2.0.0",
+    "@things-factory/code-ui": "^2.0.0",
     "@things-factory/context-ui": "^2.0.0",
     "@things-factory/export-ui": "^2.0.0",
     "@things-factory/grist-ui": "^2.0.0",

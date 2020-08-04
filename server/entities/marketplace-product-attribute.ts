@@ -9,7 +9,7 @@ import { MarketplaceProduct } from '../entities'
   'ix_marketplace-product-attribute_0',
   (marketplaceProductAttribute: MarketplaceProductAttribute) => [
     marketplaceProductAttribute.domain,
-    marketplaceProductAttribute.name
+    marketplaceProductAttribute.id
   ],
   { unique: true }
 )
@@ -24,22 +24,10 @@ export class MarketplaceProductAttribute {
   marketplaceProduct: MarketplaceProduct
 
   @Column()
-  name: string
-
-  @Column()
-  categoryId: string
-
-  @ManyToOne(type => MarketplaceProduct)
-  productId: MarketplaceProduct
-
-  @ManyToOne(type => MarketplaceStore)
-  marketplaceStoreId: MarketplaceStore
-
-  @Column()
   attributeId: number
 
   @Column()
-  attributeName: string
+  name: string
 
   @Column()
   isMandatory: boolean
@@ -48,16 +36,10 @@ export class MarketplaceProductAttribute {
   attributeType: string
 
   @Column()
-  inputType: string
-
-  @Column()
-  options: string
+  option: string
 
   @Column()
   originalValue: string
-
-  @Column()
-  translateValue: string
 
   @Column({
     nullable: true

@@ -11,11 +11,10 @@ import {
   UpdateDateColumn
 } from 'typeorm'
 import { MarketplaceProductCategory, MarketplaceProductVariation } from '../entities'
-import { MarketplaceStore } from '@things-factory/marketplace-integration'
 @Entity()
 @Index(
   'ix_marketplace-product_0',
-  (marketplaceProduct: MarketplaceProduct) => [marketplaceProduct.domain, marketplaceProduct.name],
+  (marketplaceProduct: MarketplaceProduct) => [marketplaceProduct.domain, marketplaceProduct.id],
   { unique: true }
 )
 export class MarketplaceProduct {
@@ -37,78 +36,71 @@ export class MarketplaceProduct {
   @Column()
   itemId: string
 
-  @Column('float', {
-    nullable: true
-  })
-  originalPrice: number
-
-  @Column('float', {
-    nullable: true
-  })
-  currentPrice: number
+  @Column()
+  sku: string
 
   @Column()
-  itemSku: string
+  status: string
+
+  @Column()
+  name: string
+
+  @Column()
+  type: string
+
+  @Column({
+    nullable: true
+  })
+  description: string
+
+  @Column()
+  currency: string
+
+  @Column()
+  hasVariation: boolean
+
+  @Column('float')
+  costPrice: number
+
+  @Column('float')
+  sellPrice: number
 
   @Column('float')
   weight: number
-
-  @Column()
-  packageLength: number
-
-  @Column()
-  packageWidth: number
-
-  @Column()
-  packageHeight: number
-
-  @Column({
-    nullable: true
-  })
-  status: string
-
-  @Column({
-    nullable: true
-  })
-  currency: string
 
   @Column({
     nullable: true
   })
   categoryId: number
 
-  @Column({
-    nullable: true
-  })
-  shopId: number
+  @Column('float')
+  packageLength: number
 
-  @Column({
-    nullable: true
-  })
-  partnerId: number
+  @Column('float')
+  packageWidth: number
+
+  @Column('float')
+  packageHeight: number
+
+  @Column('float')
+  afterTaxCostPrice: number
+
+  @Column('float')
+  afterTaxSalesPrice: number
 
   @Column({
     nullable: true
   })
   condition: string
 
-  @Column({
-    nullable: true
-  })
-  discountId: string
-
-  @Column({
-    nullable: true
-  })
-  isPreOrder: boolean
+  @Column()
+  daysToShip: number
 
   @Column()
-  name: string
+  discountId: string
 
-  @Column({
-    nullable: true
-  })
-  description: string
+  @Column()
+  isPreOrder: boolean
 
   @CreateDateColumn()
   createdAt: Date
