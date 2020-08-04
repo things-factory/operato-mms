@@ -36,10 +36,6 @@ export class MarketplaceProduct {
 
   @Column()
   itemId: string
-=======
-  @Column()
-  itemId: string
->>>>>>> 436f28c89a534aa7321dbb342498b1cf69b6609f
 
   @Column('float', {
     nullable: true
