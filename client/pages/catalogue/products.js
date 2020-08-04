@@ -8,12 +8,13 @@ import { gqlBuilder, isMobileDevice } from '@things-factory/utils'
 import gql from 'graphql-tag'
 import { css, html } from 'lit-element'
 import './create-new-product-popup'
-import './product-details'
+import './product-detail-popup'
 
 class Products extends localize(i18next)(PageView) {
   static get properties() {
     return {}
   }
+
   static get styles() {
     return [
       ScrollbarStyles,
@@ -35,6 +36,7 @@ class Products extends localize(i18next)(PageView) {
       `
     ]
   }
+
   static get properties() {
     return {
       _searchFields: Array,
@@ -42,6 +44,7 @@ class Products extends localize(i18next)(PageView) {
       data: Object
     }
   }
+
   get context() {
     return {
       title: i18next.t('title.products'),
@@ -68,6 +71,7 @@ class Products extends localize(i18next)(PageView) {
       </data-grist>
     `
   }
+
   async pageInitialized() {
     this._searchFields = [
       {
@@ -79,18 +83,14 @@ class Products extends localize(i18next)(PageView) {
     ]
 
     this.config = {
-      rows: { selectable: { multiple: true }, appendable: false },
+      rows: {
+        selectable: { multiple: true },
+        handlers: { click: this._showProductInfo.bind(this) },
+        appendable: false
+      },
       columns: [
         { type: 'gutter', gutterName: 'sequence' },
         { type: 'gutter', gutterName: 'row-selector', multiple: true },
-        {
-          type: 'gutter',
-          gutterName: 'button',
-          icon: 'details',
-          handlers: {
-            click: this._showProductInfo.bind(this)
-          }
-        },
         {
           type: 'string',
           name: 'sku',
@@ -146,15 +146,16 @@ class Products extends localize(i18next)(PageView) {
     }
 
     await this.updateComplete
-
     this.dataGrist.fetch()
   }
+
   async pageUpdated(changes, lifecycle) {
     if (this.active) {
       await this.updateComplete
       this.dataGrist.fetch()
     }
   }
+
   get searchForm() {
     return this.shadowRoot.querySelector('search-form')
   }
@@ -166,6 +167,7 @@ class Products extends localize(i18next)(PageView) {
   get _columns() {
     return this.config.columns
   }
+
   async _fetchProducts({ page, limit, sorters = [] }) {
     const response = await client.query({
       query: gql`
@@ -209,6 +211,7 @@ class Products extends localize(i18next)(PageView) {
       }
     }
   }
+
   async _saveMarketplaceProduct() {
     let patches = this.dataGrist.exportPatchList({ flagName: 'cuFlag' })
     if (patches && patches.length) {
@@ -237,6 +240,7 @@ class Products extends localize(i18next)(PageView) {
       }
     }
   }
+
   async _deleteMarketplaceProduct() {
     CustomAlert({
       title: i18next.t('text.are_you_sure'),
@@ -274,23 +278,25 @@ class Products extends localize(i18next)(PageView) {
       }
     })
   }
-  _showToast({ type, message }) {
-    document.dispatchEvent(
-      new CustomEvent('notify', {
-        detail: {
-          type,
-          message
-        }
-      })
+
+  _showProductInfo(columns, data, column, record, rowIndex) {
+    openPopup(
+      html`
+        <product-detail-popup
+          .productId="${record.id}"
+          @updated="${() => {
+            this._fetchProducts()
+          }}"
+        ></product-detail-popup>
+      `,
+      {
+        backdrop: true,
+        size: 'large',
+        title: `${record.name}` + ` ( ${record.itemSku} )`
+      }
     )
   }
-  _showProductInfo(columns, data, column, record, rowIndex) {
-    openPopup(html`<product-detail .productId="${record.id}"></product-detail>`, {
-      backdrop: true,
-      size: 'large',
-      title: `${record.name}` + ` ( ${record.itemSku} )`
-    })
-  }
+
   _createNewProduct() {
     openPopup(
       html`
@@ -307,6 +313,7 @@ class Products extends localize(i18next)(PageView) {
       }
     )
   }
+
   async _exportableData() {
     try {
       let records = []
@@ -350,7 +357,17 @@ class Products extends localize(i18next)(PageView) {
       this._showToast(e)
     }
   }
-  stateChanged(state) {}
+
+  _showToast({ type, message }) {
+    document.dispatchEvent(
+      new CustomEvent('notify', {
+        detail: {
+          type,
+          message
+        }
+      })
+    )
+  }
 }
 
 customElements.define('mms-catalogue-products', Products)

@@ -1,14 +1,13 @@
 import '@material/mwc-button/mwc-button'
 import '@things-factory/grist-ui'
 import { i18next, localize } from '@things-factory/i18n-base'
-import { openPopup } from '@things-factory/layout-base'
 import { client } from '@things-factory/shell'
-import { gqlBuilder, isMobileDevice } from '@things-factory/utils'
 import { ScrollbarStyles } from '@things-factory/styles'
+import { gqlBuilder, isMobileDevice } from '@things-factory/utils'
 import gql from 'graphql-tag'
 import { css, html, LitElement } from 'lit-element'
 
-class productDetails extends localize(i18next)(LitElement) {
+class ProductDetailPopup extends localize(i18next)(LitElement) {
   static get styles() {
     return [
       ScrollbarStyles,
@@ -50,7 +49,7 @@ class productDetails extends localize(i18next)(LitElement) {
       columns: [
         {
           type: 'string',
-          name: 'itemSku',
+          name: 'sku',
           header: i18next.t('field.isku'),
           imex: { header: i18next.t('field.isku'), key: 'itemSku', width: 25, type: 'string' },
           record: { editable: true, align: 'center' },
@@ -168,4 +167,4 @@ class productDetails extends localize(i18next)(LitElement) {
   }
 }
 
-window.customElements.define('product-detail', productDetails)
+window.customElements.define('product-detail-popup', ProductDetailPopup)
