@@ -22,6 +22,7 @@
   "label.storage_type": "storage type",
   "label.please_select_a_storage_type": "please select a storage type",
   "label.isku": "ISKU",
+  "label.images": "images",
   "label.weight": "weight",
   "label.height": "height",
   "label.width": "width",

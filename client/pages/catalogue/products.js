@@ -1,8 +1,9 @@
+import { getCodeByName } from '@things-factory/code-base'
 import '@things-factory/form-ui'
 import '@things-factory/grist-ui'
 import { i18next, localize } from '@things-factory/i18n-base'
 import { openPopup } from '@things-factory/layout-base'
-import { client, CustomAlert, PageView } from '@things-factory/shell'
+import { client, PageView } from '@things-factory/shell'
 import { ScrollbarStyles } from '@things-factory/styles'
 import { gqlBuilder, isMobileDevice } from '@things-factory/utils'
 import gql from 'graphql-tag'
@@ -48,11 +49,7 @@ class Products extends localize(i18next)(PageView) {
   get context() {
     return {
       title: i18next.t('title.products'),
-      actions: [
-        // { title: i18next.t('button.save'), action: this._saveMarketplaceProduct.bind(this) },
-        // { title: i18next.t('button.delete'), action: this._deleteMarketplaceProduct.bind(this) },
-        { title: i18next.t('button.add'), action: this._createNewProduct.bind(this) }
-      ],
+      actions: [{ title: i18next.t('button.add'), action: this._createNewProduct.bind(this) }],
       exportable: {
         name: i18next.t('title.products'),
         data: this._exportableData.bind(this)
@@ -73,12 +70,29 @@ class Products extends localize(i18next)(PageView) {
   }
 
   async pageInitialized() {
+    const _productStatus = await getCodeByName('PRODUCT_STATUS')
+
     this._searchFields = [
       {
         label: i18next.t('field.name'),
         name: 'name',
         type: 'text',
         props: { searchOper: 'i_like' }
+      },
+      {
+        label: i18next.t('field.status'),
+        name: 'status',
+        type: 'select',
+        options: [
+          { value: '' },
+          ..._productStatus.map(status => {
+            return {
+              name: i18next.t(`label.${status.description}`),
+              value: status.name
+            }
+          })
+        ],
+        props: { searchOper: 'eq' }
       }
     ]
 
@@ -212,78 +226,11 @@ class Products extends localize(i18next)(PageView) {
     }
   }
 
-  async _saveMarketplaceProduct() {
-    let patches = this.dataGrist.exportPatchList({ flagName: 'cuFlag' })
-    if (patches && patches.length) {
-      const response = await client.query({
-        query: gql`
-          mutation {
-            updateMultipleMarketplaceProduct(${gqlBuilder.buildArgs({
-              patches
-            })}) {
-              name 
-              stock
-            }
-          }
-        `
-      })
-
-      if (!response.errors) {
-        this.dataGrist.fetch()
-        document.dispatchEvent(
-          new CustomEvent('notify', {
-            detail: {
-              message: i18next.t('text.data_updated_successfully')
-            }
-          })
-        )
-      }
-    }
-  }
-
-  async _deleteMarketplaceProduct() {
-    CustomAlert({
-      title: i18next.t('text.are_you_sure'),
-      text: i18next.t('text.you_wont_be_able_to_revert_this'),
-      type: 'warning',
-      confirmButton: { text: i18next.t('button.delete'), color: '#22a6a7' },
-      cancelButton: { text: i18next.t('button.cancel'), color: '#cfcfcf' },
-      callback: async result => {
-        if (result.value) {
-          const names = this.dataGrist.selected.map(record => record.name)
-          if (names && names.length > 0) {
-            const response = await client.mutate({
-              mutation: gql`
-                mutation($names: [String]!) {
-                  deleteMarketplaceProducts(names: $names)
-                }
-              `,
-              variables: {
-                names
-              }
-            })
-
-            if (!response.errors) {
-              this.dataGrist.fetch()
-              document.dispatchEvent(
-                new CustomEvent('notify', {
-                  detail: {
-                    message: i18next.t('text.data_deleted_successfully')
-                  }
-                })
-              )
-            }
-          }
-        }
-      }
-    })
-  }
-
   _showProductInfo(columns, data, column, record, rowIndex) {
     openPopup(
       html`
         <product-detail-popup
-          .productId="${record.id}"
+          .productInformation="${record.id}"
           @updated="${() => {
             this._fetchProducts()
           }}"
