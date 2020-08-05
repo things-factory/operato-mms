@@ -9,6 +9,7 @@ import gql from 'graphql-tag'
 import { css, html, LitElement } from 'lit-element'
 import { PRODUCT_TYPE } from './constants'
 import '../components/image-viewer'
+import '../components/category-selector'
 
 class CreateNewProdutPopup extends localize(i18next)(LitElement) {
   static get properties() {
@@ -123,6 +124,9 @@ class CreateNewProdutPopup extends localize(i18next)(LitElement) {
                   html` <option value="${storageType && storageType.name}">${storageType && storageType.name}</option> `
               )}
             </select>
+
+            <label>${i18next.t('label.category')}</label>
+            <category-selector .category=${{}} custom-input></category-selector>
           </fieldset>
 
           <fieldset>
