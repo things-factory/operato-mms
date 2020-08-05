@@ -6,16 +6,13 @@ export const MarketplaceProductPatch = gql`
     marketplaceProductCategory: ObjectRef
     marketplaceProductVariations: [ObjectRef]
     itemId: String
-    sku: String
+    isku: String
     status: String
     name: String
     description: String
     type: String
     currency: String
     hasVariation: Boolean
-    costPrice: Float
-    sellPrice: Float
-    weight: Float
     categoryId: String
     packageLength: Float
     packageWidth: Float

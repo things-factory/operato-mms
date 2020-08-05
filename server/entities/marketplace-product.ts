@@ -37,7 +37,7 @@ export class MarketplaceProduct {
   itemId: string
 
   @Column()
-  sku: string
+  isku: String
 
   @Column()
   status: string
@@ -63,10 +63,16 @@ export class MarketplaceProduct {
   costPrice: number
 
   @Column('float')
+  mrpPrice: number
+
+  @Column('float')
   sellPrice: number
 
   @Column('float')
   weight: number
+
+  @Column('float')
+  qty: number
 
   @Column({
     nullable: true

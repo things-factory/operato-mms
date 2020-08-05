@@ -25,7 +25,10 @@ export class MarketplaceProductVariation {
   variationId: number
 
   @Column()
-  sku: string
+  isku: string
+
+  @Column()
+  channelSku: string
 
   @Column()
   name: string
@@ -35,8 +38,24 @@ export class MarketplaceProductVariation {
   })
   description: string
 
+  @Column('float')
+  qty: number
+
+  @Column({
+    nullable: true
+  })
+  bufferQty: number
+
+  @Column({
+    nullable: true
+  })
+  thresholdQty: number
+
   @Column()
   type: string
+
+  @Column('float')
+  mrpPrice: number
 
   @Column('float')
   costPrice: number

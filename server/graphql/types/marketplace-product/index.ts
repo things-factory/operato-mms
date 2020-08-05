@@ -6,6 +6,7 @@ import { MarketplaceProductList } from './marketplace-product-list'
 export const Mutation = `
   createMarketplaceProduct (
     marketplaceProduct: NewMarketplaceProduct!
+    file: Upload
   ): MarketplaceProduct
 
   updateMarketplaceProduct (

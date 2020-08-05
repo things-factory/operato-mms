@@ -7,7 +7,7 @@ export const MarketplaceProduct = gql`
     marketplaceProductCategory: MarketplaceProductCategory
     marketplaceProductVariations: [MarketplaceProductVariation]
     itemId: String
-    sku: String
+    isku: String
     status: String
     name: String
     type: String
@@ -15,6 +15,7 @@ export const MarketplaceProduct = gql`
     currency: String
     hasVariation: Boolean
     costPrice: Float
+    mrpPrice: Float
     sellPrice: Float
     weight: Float
     categoryId: String

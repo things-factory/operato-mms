@@ -6,12 +6,17 @@ export const MarketplaceProductVariation = gql`
     domain: Domain
     marketplaceProduct: MarketplaceProduct
     variationId: String
-    sku: String
+    isku: String
+    channelSku: String
+    qty: Float
+    bufferQty: Float
+    thresholdQty: Float
     name: String
     type: String
     description: String
     costPrice: Float
     sellPrice: Float
+    mrpPrice: Float
     discountId: String
     status: String
     afterTaxCostPrice: Float

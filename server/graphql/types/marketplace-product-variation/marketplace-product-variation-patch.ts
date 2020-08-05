@@ -5,12 +5,17 @@ export const MarketplaceProductVariationPatch = gql`
     id: String
     marketplaceProduct: ObjectRef
     variationId: String
-    sku: String
+    isku: String
+    channelSku: String
     name: String
     type: String
     description: String
+    qty: Float
+    bufferQty: Float
+    thresholdQty: Float
     costPrice: Float
     sellPrice: Float
+    mrpPrice: Float
     discountId: String
     status: String
     afterTaxCostPrice: Float
