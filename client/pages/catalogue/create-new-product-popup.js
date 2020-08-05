@@ -98,7 +98,7 @@ class CreateNewProdutPopup extends localize(i18next)(LitElement) {
             <input name="name" required />
 
             <label>${i18next.t('label.isku')}</label>
-            <input name="sku" required />
+            <input name="isku" required />
 
             <label>${i18next.t('label.weight') + ' (kg)'}</label>
             <input type="number" min="0" name="weight" required />
@@ -137,7 +137,7 @@ class CreateNewProdutPopup extends localize(i18next)(LitElement) {
           <fieldset>
             <legend>${i18next.t('title.channel_sku_information')}</legend>
             <label>${i18next.t('label.channel_sku')}</label>
-            <input name="qty" />
+            <input name="channelSKU" />
 
             <label>${i18next.t('label.pricing_mrp')}</label>
             <input type="number" min="1" name="mrpPrice" required />
@@ -164,6 +164,17 @@ class CreateNewProdutPopup extends localize(i18next)(LitElement) {
   async _createProduct(e) {
     try {
       this._validateProductInformation()
+
+      const result = await CustomAlert({
+        title: i18next.t('title.are_you_sure'),
+        text: i18next.t('text.create_new_product'),
+        confirmButton: { text: i18next.t('button.confirm') },
+        cancelButton: { text: i18next.t('button.cancel') }
+      })
+      if (!result.value) return
+
+      let marketplaceProduct = this._getFormInfo()
+
       const response = await client.query({
         query: gql`
             mutation {
@@ -194,6 +205,21 @@ class CreateNewProdutPopup extends localize(i18next)(LitElement) {
 
   async _validateProductInformation() {
     if (!this.inputForm.checkValidity()) throw new Error(i18next.t('text.form_is_incomplete'))
+  }
+
+  _getFormInfo() {
+    return this._serializeForm(this.inputForm)
+  }
+
+  _serializeForm(form) {
+    let obj = {}
+    Array.from(form.querySelectorAll('input, select')).forEach(field => {
+      if (!field.hasAttribute('hidden') && field.value) {
+        obj[field.name] = field.type === 'checkbox' ? field.checked : field.value
+      }
+    })
+
+    return obj
   }
 
   _clearView() {

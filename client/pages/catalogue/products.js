@@ -107,9 +107,9 @@ class Products extends localize(i18next)(PageView) {
         { type: 'gutter', gutterName: 'row-selector', multiple: true },
         {
           type: 'string',
-          name: 'sku',
+          name: 'isku',
           header: i18next.t('field.isku'),
-          imex: { header: i18next.t('field.isku'), key: 'sku', width: 25, type: 'string' },
+          imex: { header: i18next.t('field.isku'), key: 'isku', width: 25, type: 'string' },
           record: { editable: true, align: 'center' },
           sortable: true,
           width: 150
@@ -194,10 +194,11 @@ class Products extends localize(i18next)(PageView) {
           items {
             id
             name
-            sku
+            isku
             itemId
             marketplaceProductVariations {
-              sku
+              isku
+              channelSku
             }
             hasVariation
             costPrice
