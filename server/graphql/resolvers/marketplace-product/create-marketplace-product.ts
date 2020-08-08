@@ -1,5 +1,4 @@
 import { getRepository } from 'typeorm'
-import { StoreAPI } from '@things-factory/marketplace-integration'
 import { MarketplaceProduct } from '../../../entities'
 
 export const createMarketplaceProduct = {

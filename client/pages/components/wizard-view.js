@@ -108,7 +108,7 @@ export class WizardView extends localize(i18next)(LitElement) {
         ${this.next
           ? html`<mwc-button
               raised
-              label=${i18next.t('button.next')}
+              label=${i18next.t('button.save')}
               @click=${e => this.gotoStep(this.next)}
             ></mwc-button>`
           : html``}
