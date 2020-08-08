@@ -122,7 +122,12 @@ export class WizardView extends localize(i18next)(LitElement) {
       return
     }
 
-    this.done && this.done()
+    this.dispatchEvent(
+      new CustomEvent('done', {
+        bubbles: true,
+        composed: true
+      })
+    )
   }
 }
 
