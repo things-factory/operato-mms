@@ -8,7 +8,7 @@ import { gqlBuilder, isMobileDevice } from '@things-factory/utils'
 import gql from 'graphql-tag'
 import { getCodeByName } from '@things-factory/code-base'
 import { ScrollbarStyles } from '@things-factory/styles'
-class OrderByStore extends connect(store)(PageView) {
+class StockReplenishmentList extends connect(store)(PageView) {
   static get properties() {
     return {}
   }
@@ -43,15 +43,11 @@ class OrderByStore extends connect(store)(PageView) {
   }
   get context() {
     return {
-      title: i18next.t('title.order_by_store'),
+      title: i18next.t('title.stock_replenishment_list'),
       actions: [
         { title: i18next.t('button.save'), action: [] },
         { title: i18next.t('button.delete'), action: [] }
-      ],
-      exportable: {
-        name: i18next.t('title.order_by_store'),
-        data: this._exportableData.bind(this)
-      }
+      ]
     }
   }
 
@@ -84,19 +80,19 @@ class OrderByStore extends connect(store)(PageView) {
         { type: 'gutter', gutterName: 'row-selector', multiple: true },
         {
           type: 'string',
-          name: 'orderNo',
-          header: i18next.t('field.order_no'),
-          imex: { header: i18next.t('field.order_no'), key: 'orderNo', width: 25, type: 'string' },
+          name: 'name',
+          header: i18next.t('field.name'),
+          imex: { header: i18next.t('field.name'), key: 'name', width: 25, type: 'string' },
           record: { editable: true, align: 'center' },
           sortable: true,
           width: 200
         },
         {
           type: 'string',
-          name: 'storeName',
-          header: i18next.t('field.store_name'),
+          name: 'refNo',
+          header: i18next.t('field.ref_no'),
           sortable: true,
-          imex: { header: i18next.t('field.store_name'), key: 'storeName', width: 25, type: 'string' },
+          imex: { header: i18next.t('field.ref_no'), key: 'refNo', width: 25, type: 'string' },
           record: {
             editable: true,
             align: 'center'
@@ -105,30 +101,18 @@ class OrderByStore extends connect(store)(PageView) {
         },
         {
           type: 'string',
-          name: 'productUnits',
-          header: i18next.t('field.product_units'),
-          sortable: true,
-          imex: { header: i18next.t('field.product_units'), key: 'productUnits', width: 25, type: 'integer' },
-          record: {
-            editable: true,
-            align: 'center'
-          },
-          width: 100
-        },
-        {
-          type: 'float',
-          name: 'amount',
-          header: i18next.t('field.amount'),
-          imex: { header: i18next.t('field.amount'), key: 'amount', width: 25, type: 'float' },
+          name: 'eta',
+          header: i18next.t('field.eta'),
+          imex: { header: i18next.t('field.eta'), key: 'eta', width: 25, type: 'string' },
           record: { align: 'left' },
           sortable: true,
           width: 100
         },
         {
           type: 'string',
-          name: 'shippingCarrier',
-          header: i18next.t('field.shipping_carrier'),
-          imex: { header: i18next.t('field.shipping_carrier'), key: 'shippingCarrier', width: 25, type: 'string' },
+          name: 'importCargo',
+          header: i18next.t('field.import_cargo'),
+          imex: { header: i18next.t('field.import_cargo'), key: 'importCargo', width: 25, type: 'string' },
           record: { align: 'center' },
           sortable: true,
           width: 180
@@ -242,4 +226,4 @@ class OrderByStore extends connect(store)(PageView) {
   stateChanged(state) {}
 }
 
-customElements.define('mms-order-by-store', OrderByStore)
+customElements.define('mms-stock-replenishment-list', StockReplenishmentList)

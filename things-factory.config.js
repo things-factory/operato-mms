@@ -53,6 +53,14 @@ export default {
       page: 'mms-order-by-store'
     },
     {
+      tagname: 'mms-create-stock-replenishment',
+      page: 'mms-create-stock-replenishment'
+    },
+    {
+      tagname: 'mms-stock-replenishment-list',
+      page: 'mms-stock-replenishment-list'
+    },
+    {
       tagname: 'mms-order-activities',
       page: 'mms-order-activities'
     },
