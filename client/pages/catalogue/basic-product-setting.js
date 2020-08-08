@@ -5,7 +5,6 @@ import { client } from '@things-factory/shell'
 import { gqlBuilder } from '@things-factory/utils'
 import gql from 'graphql-tag'
 import { css, html, LitElement } from 'lit-element'
-import { WizardViewStyles } from '../components/wizard-view-styles'
 import { PRODUCT_TYPE } from './constants'
 
 class BasicProductSetting extends localize(i18next)(LitElement) {
@@ -101,7 +100,7 @@ class BasicProductSetting extends localize(i18next)(LitElement) {
     this.storageTypes = await getCodeByName('STORAGE_TYPES')
   }
 
-  async _createProduct() {
+  async commit() {
     try {
       this._validateProductInformation()
 
@@ -118,25 +117,20 @@ class BasicProductSetting extends localize(i18next)(LitElement) {
 
       const response = await client.query({
         query: gql`
-            mutation ($attachments: Upload) {
-              createMarketplaceProduct(${gqlBuilder.buildArgs(args)}, file:$attachments) {
+            mutation {
+              createMarketplaceProduct(${gqlBuilder.buildArgs(args)}) {
                 id
                 name
               }
             }
-          `,
-        variables: {
-          attachments
-        },
-        context: {
-          hasUpload: true
-        }
+          `
       })
       if (!response.errors) {
-        this._clearView()
+        return true
       }
     } catch (e) {
       this._showToast(e)
+      return false
     }
   }
 

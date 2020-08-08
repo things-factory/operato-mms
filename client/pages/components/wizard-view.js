@@ -55,12 +55,15 @@ export class WizardView extends localize(i18next)(LitElement) {
   }
 
   gotoStep(step) {
-    this.current?.removeAttribute('active')
+    // this.current?.removeAttribute('active')
     if (this.current) {
-      this.settings = {
-        ...this.current.settings
+      if (!this.current.commit()) {
+        return
+      } else {
+        this.current?.removeAttribute('active')
       }
     }
+
     this.current =
       typeof step == 'string'
         ? this.querySelector(`[name=${step}]`)
