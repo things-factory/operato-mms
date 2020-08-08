@@ -31,10 +31,9 @@ export class WizardView extends localize(i18next)(LitElement) {
   static get properties() {
     return {
       current: Object,
-      settings: Object,
       prev: String,
       next: String,
-      done: Object
+      done: Function
     }
   }
 
@@ -54,10 +53,9 @@ export class WizardView extends localize(i18next)(LitElement) {
     return i
   }
 
-  gotoStep(step) {
-    // this.current?.removeAttribute('active')
+  async gotoStep(step) {
     if (this.current) {
-      if (!this.current.commit()) {
+      if (!(await this.current.commit())) {
         return
       } else {
         this.current?.removeAttribute('active')
@@ -70,16 +68,13 @@ export class WizardView extends localize(i18next)(LitElement) {
         : typeof step == 'number'
         ? this.querySelector(`:nth-child(${step})`)
         : step
-    if (this.current) {
-      this.current.settings = this.settings
-    }
+
     this.current?.toggleAttribute('active', true)
 
     var index = this.getChildIndex(this.current)
 
     this.prev = this.current?.getAttribute('prev') || this.querySelector(`:nth-child(${index})`)
     this.next = this.current?.getAttribute('next') || this.querySelector(`:nth-child(${index + 2})`)
-    this.done = this.current?.done
 
     this.dispatchEvent(
       new CustomEvent('change', {
@@ -116,18 +111,18 @@ export class WizardView extends localize(i18next)(LitElement) {
             ></mwc-button>`
           : html``}
         ${this.done
-          ? html`<mwc-button
-              raised
-              label=${i18next.t('button.done')}
-              @click=${e => this.finish(this.done)}
-            ></mwc-button>`
+          ? html`<mwc-button raised label=${i18next.t('button.done')} @click=${e => this.finish()}></mwc-button>`
           : html``}
       </div>
     `
   }
 
-  finish(done) {
-    done(this.settings)
+  async finish() {
+    if (this.current && !(await this.current.commit())) {
+      return
+    }
+
+    this.done && this.done()
   }
 }
 

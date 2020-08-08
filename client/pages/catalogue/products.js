@@ -240,12 +240,13 @@ class Products extends localize(i18next)(PageView) {
   }
 
   _createNewProduct() {
-    openPopup(
+    var popup = openPopup(
       html`
         <create-new-product-popup
-          @completed="${() => {
-            this._fetchProducts()
-          }}"
+          @completed=${async () => {
+            await this._fetchProducts()
+            popup.close()
+          }}
         ></create-new-product-popup>
       `,
       {

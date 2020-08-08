@@ -99,19 +99,23 @@ class CreateNewProdutPopup extends localize(i18next)(LitElement) {
           <li ?active=${this.current == 'product-marketplace-setting'}>Marketplace Settings</li>
         </ol>
       </wizard-summary>
-      <wizard-view @change=${e => (this.current = e.detail.active?.getAttribute('name'))}>
+      <wizard-view @change=${e => (this.current = e.detail.active?.getAttribute('name'))} .done=${() => this.done()}>
         <basic-product-setting name="basic-product-setting"></basic-product-setting>
         <product-variation-setting name="product-variation-setting"></product-variation-setting>
-        <product-marketplace-setting
-          name="product-marketplace-setting"
-          .done=${() => this.done()}
-        ></product-marketplace-setting>
+        <product-marketplace-setting name="product-marketplace-setting"></product-marketplace-setting>
       </wizard-view>
     `
   }
 
   done() {
-    this.renderRoot.querySelector('wizard-view').gotoStep(1)
+    // this.renderRoot.querySelector('wizard-view').gotoStep(1)
+    // close dialog
+    this.dispatchEvent(
+      new CustomEvent('completed', {
+        bubbles: true,
+        composed: true
+      })
+    )
   }
 
   _showToast({ type, message }) {
