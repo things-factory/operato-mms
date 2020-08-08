@@ -6,10 +6,6 @@ export const PRODUCT_TYPE = [
     value: 'PRODUCT'
   },
   {
-    name: i18next.t('label.group_product'),
-    value: 'GROUP_PRODUCT'
-  },
-  {
     name: i18next.t('label.bundle_product'),
     value: 'BUNDLING_PRODUCT'
   }

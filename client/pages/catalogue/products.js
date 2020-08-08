@@ -12,10 +12,6 @@ import './create-new-product-popup'
 import './product-detail-popup'
 
 class Products extends localize(i18next)(PageView) {
-  static get properties() {
-    return {}
-  }
-
   static get styles() {
     return [
       ScrollbarStyles,
@@ -159,13 +155,11 @@ class Products extends localize(i18next)(PageView) {
       ]
     }
 
-    await this.updateComplete
     this.dataGrist.fetch()
   }
 
-  async pageUpdated(changes, lifecycle) {
+  async pageUpdated() {
     if (this.active) {
-      await this.updateComplete
       this.dataGrist.fetch()
     }
   }
@@ -231,7 +225,7 @@ class Products extends localize(i18next)(PageView) {
     openPopup(
       html`
         <product-detail-popup
-          .productInformation="${record.id}"
+          .productInformation="${record}"
           @updated="${() => {
             this._fetchProducts()
           }}"
