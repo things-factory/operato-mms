@@ -24,8 +24,22 @@ export class CategorySelectorPopup extends localize(i18next)(LitElement) {
         }
 
         .button-container {
-          display: flex;
-          margin-left: auto;
+          padding: 10px 0 12px 0;
+          text-align: center;
+        }
+        .button-container > button {
+          background-color: var(--button-background-color);
+          border: var(--button-border);
+          border-radius: var(--button-border-radius);
+          margin: var(--button-margin);
+          padding: var(--button-padding);
+          color: var(--button-color);
+          font: var(--button-font);
+          text-transform: var(--button-text-transform);
+        }
+        .button-container > button:hover,
+        .button-container > button:active {
+          background-color: var(--button-background-focus-color);
         }
 
         [path] {
@@ -90,8 +104,8 @@ export class CategorySelectorPopup extends localize(i18next)(LitElement) {
       <div path>${i18next.t('target category')} : ${path.join(' > ')}</div>
       <div categories>${this.renderLevel(categories, path)}</div>
       <div class="button-container">
-        <mwc-button @click=${this.oncancel.bind(this)}>${i18next.t('button.cancel')}</mwc-button>
-        <mwc-button @click=${this.onconfirm.bind(this)}>${i18next.t('button.confirm')}</mwc-button>
+        <button @click=${this.oncancel.bind(this)}>${i18next.t('button.cancel')}</button>
+        <button @click=${this.onconfirm.bind(this)}>${i18next.t('button.confirm')}</button>
       </div>
     `
   }

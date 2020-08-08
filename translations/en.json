@@ -33,6 +33,8 @@
   "label.threshold_value": "threshold value",
   "field.name": "name",
   "button.add_product": "add product",
+  "button.previous": "previous",
+  "button.next": "next",
   "button.sync": "sync stock",
   "field.last_updated": "last updated",
   "field.isku": "ISKU",
