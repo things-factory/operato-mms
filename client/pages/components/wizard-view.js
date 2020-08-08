@@ -55,10 +55,10 @@ export class WizardView extends localize(i18next)(LitElement) {
 
   async gotoStep(step) {
     if (this.current) {
-      if (!(await this.current.commit())) {
+      if (this.current.commit && !(await this.current.commit())) {
         return
       } else {
-        this.current?.removeAttribute('active')
+        this.current.removeAttribute('active')
       }
     }
 
@@ -99,14 +99,14 @@ export class WizardView extends localize(i18next)(LitElement) {
         ${this.prev
           ? html`<mwc-button
               raised
-              label=${i18next.t('button.prev')}
+              label=${i18next.t('button.save-and-prev')}
               @click=${e => this.gotoStep(this.prev)}
             ></mwc-button>`
           : html``}
         ${this.next
           ? html`<mwc-button
               raised
-              label=${i18next.t('button.save')}
+              label=${i18next.t('button.save-and-next')}
               @click=${e => this.gotoStep(this.next)}
             ></mwc-button>`
           : html``}
@@ -118,7 +118,7 @@ export class WizardView extends localize(i18next)(LitElement) {
   }
 
   async finish() {
-    if (this.current && !(await this.current.commit())) {
+    if (this.current && this.current.commit && !(await this.current.commit())) {
       return
     }
 
