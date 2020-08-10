@@ -9,18 +9,13 @@ const MENUS = [
   {
     name: 'create stock replenishment',
     path: 'mms-create-stock-replenishment',
-    icon: 'stock'
-  },
-  {
-    name: 'bulk activities',
-    path: 'mms-stock-replenishment-activities',
-    icon: 'local_activity'
+    icon: 'add'
   }
 ]
 
 export class MenuGroupStockReplenishment extends MenuGroupAbstract {
   getMenus() {
-    return menus
+    return MENUS
   }
 }
 

@@ -62,10 +62,6 @@ export default function route(page) {
     case 'mms-stock-replenishment-list':
       import('./pages/stock-replenishment/stock-replenishment-list')
       return page
-
-    case 'mms-stock-replenishment-activities':
-      import('./pages/stock-replenishment/activities')
-      return page
       
     case 'mms-promotion-promotions':
       import('./pages/promotions/promotions')

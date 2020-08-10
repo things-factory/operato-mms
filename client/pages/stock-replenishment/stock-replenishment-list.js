@@ -15,7 +15,6 @@ class StockReplenishmentList extends connect(store)(PageView) {
         :host {
           display: flex;
           flex-direction: column;
-
           overflow: hidden;
         }
 

@@ -65,10 +65,6 @@ export default {
       page: 'mms-stock-replenishment-list'
     },
     {
-      tagname: 'mms-stock-replenishment-activities',
-      page: 'mms-stock-replenishment-activities'
-    },
-    {
       tagname: 'mms-promotion-promotions',
       page: 'mms-promotion-promotions'
     },
