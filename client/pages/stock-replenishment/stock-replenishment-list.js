@@ -2,16 +2,12 @@ import '@things-factory/form-ui'
 import '@things-factory/grist-ui'
 import { html, css } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
-import { store, PageView, client, CustomAlert } from '@things-factory/shell'
-import { i18next, localize } from '@things-factory/i18n-base'
-import { gqlBuilder, isMobileDevice } from '@things-factory/utils'
-import gql from 'graphql-tag'
-import { getCodeByName } from '@things-factory/code-base'
+import { store, PageView  } from '@things-factory/shell'
+import { i18next } from '@things-factory/i18n-base'
+import { isMobileDevice } from '@things-factory/utils'
 import { ScrollbarStyles } from '@things-factory/styles'
+
 class StockReplenishmentList extends connect(store)(PageView) {
-  static get properties() {
-    return {}
-  }
   static get styles() {
     return [
       ScrollbarStyles,
@@ -34,6 +30,7 @@ class StockReplenishmentList extends connect(store)(PageView) {
       `
     ]
   }
+
   static get properties() {
     return {
       _searchFields: Array,
@@ -41,6 +38,7 @@ class StockReplenishmentList extends connect(store)(PageView) {
       data: Object
     }
   }
+
   get context() {
     return {
       title: i18next.t('title.stock_replenishment_list'),
@@ -62,6 +60,7 @@ class StockReplenishmentList extends connect(store)(PageView) {
       </data-grist>
     `
   }
+
   async pageInitialized() {
     this._searchFields = [
       {
@@ -148,15 +147,16 @@ class StockReplenishmentList extends connect(store)(PageView) {
     }
 
     await this.updateComplete
-
     this.dataGrist.fetch()
   }
+
   async pageUpdated(changes, lifecycle) {
     if (this.active) {
       await this.updateComplete
       this.dataGrist.fetch()
     }
   }
+
   get searchForm() {
     return this.shadowRoot.querySelector('search-form')
   }
@@ -223,6 +223,7 @@ class StockReplenishmentList extends connect(store)(PageView) {
       this._showToast(e)
     }
   }
+
   stateChanged(state) {}
 }
 

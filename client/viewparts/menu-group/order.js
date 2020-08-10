@@ -7,16 +7,6 @@ const MENUS = [
     icon: 'store'
   },
   {
-    name: 'create-stock-replenishment',
-    path: 'mms-create-stock-replenishment',
-    icon: 'stock'
-  },
-  {
-    name: 'stock-replenishment-list',
-    path: 'mms-stock-replenishment-list',
-    icon: 'list'
-  },
-  {
     name: 'bulk activities',
     path: 'mms-order-activities',
     icon: 'local_activity'

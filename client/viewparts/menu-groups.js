@@ -8,6 +8,7 @@ import {
   ICONS_DASHBOARD,
   ICONS_ORDER,
   ICONS_INVENTORY,
+  ICONS_STOCK,
   ICONS_CATALOGUE,
   ICONS_REPORTS,
   ICONS_PROMOTIONS,
@@ -34,6 +35,13 @@ const MENUGROUPS = [
     defaultPath: 'mms-inventory-products',
     menuGroupTag: 'menu-group-inventory',
     icons: ICONS_INVENTORY
+  },
+  {
+    name: 'stock replenishment',
+    pathPrefix: 'mms-stock-replenishment',
+    defaultPath: 'mms-stock-replenishment-list',
+    menuGroupTag: 'menu-group-stock-replenishment',
+    icons: ICONS_STOCK
   },
   {
     name: 'catalogue',
@@ -70,6 +78,7 @@ import './menu-group-view'
 import './menu-group/order'
 import './menu-group/catalogue'
 import './menu-group/inventory'
+import './menu-group/stock-replenishment'
 import './menu-group/promotions'
 import './menu-group/integration'
 import './menu-group/reports'

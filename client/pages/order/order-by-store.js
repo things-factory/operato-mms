@@ -8,10 +8,17 @@ import { gqlBuilder, isMobileDevice } from '@things-factory/utils'
 import gql from 'graphql-tag'
 import { getCodeByName } from '@things-factory/code-base'
 import { ScrollbarStyles } from '@things-factory/styles'
-class OrderByStore extends connect(store)(PageView) {
+
+class OrderByStore extends connect(store)(PageView) {  
   static get properties() {
-    return {}
+    return {
+      _searchFields: Array,
+      config: Object,
+      data: Object
+    }
   }
+
+
   static get styles() {
     return [
       ScrollbarStyles,
@@ -34,13 +41,7 @@ class OrderByStore extends connect(store)(PageView) {
       `
     ]
   }
-  static get properties() {
-    return {
-      _searchFields: Array,
-      config: Object,
-      data: Object
-    }
-  }
+
   get context() {
     return {
       title: i18next.t('title.order_by_store'),
@@ -66,6 +67,7 @@ class OrderByStore extends connect(store)(PageView) {
       </data-grist>
     `
   }
+
   async pageInitialized() {
     this._searchFields = [
       {
@@ -167,12 +169,14 @@ class OrderByStore extends connect(store)(PageView) {
 
     this.dataGrist.fetch()
   }
+
   async pageUpdated(changes, lifecycle) {
     if (this.active) {
       await this.updateComplete
       this.dataGrist.fetch()
     }
   }
+
   get searchForm() {
     return this.shadowRoot.querySelector('search-form')
   }
@@ -239,6 +243,7 @@ class OrderByStore extends connect(store)(PageView) {
       this._showToast(e)
     }
   }
+
   stateChanged(state) {}
 }
 

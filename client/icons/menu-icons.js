@@ -145,6 +145,32 @@ const ICON_INTEGRATION = `
 </svg>
 `
 
+const ICON_STOCK = `
+<svg version="1.1" id="Layer_3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+   <style type="text/css">
+      .st0{fill:#C3C9D0;}
+   </style>
+   <g>
+      <path class="st0" d="M501.6,90.3l-80-80C420.2,8.9,418.2,8,416,8H208c-4.4,0-8,3.6-8,8v271.9l-68-38.9c-2.5-1.4-5.5-1.4-7.9,0
+         l-112,64c-2.5,1.4-4,4.1-4,6.9v112c0,2.9,1.5,5.5,4,6.9l112,64c1.2,0.7,2.6,1.1,4,1.1s2.7-0.4,4-1.1l112-64c2.5-1.4,4-4.1,4-6.9
+         v-24h160v64c0,17.6,14.4,32,32,32s32-14.4,32-32v-64h24c4.4,0,8-3.6,8-8V96C504,93.8,503.1,91.8,501.6,90.3z M424,35.3L476.7,88
+         H424V35.3z M128,265.2l95.9,54.8L199,334.2l-95.9-54.8L128,265.2z M172,353.1l-98.8-56.5l13.9-7.9l105,60v30.4l-16,8V360
+         C176,357.1,174.5,354.5,172,353.1L172,353.1z M57,305.8l95.9,54.8L128,374.8L32.1,320L57,305.8z M24,333.8l96,54.9v93.6l-96-54.9
+         V333.8z M136,482.2v-93.6l24-13.7V400c0,2.8,1.4,5.3,3.8,6.8c1.3,0.8,2.7,1.2,4.2,1.2c1.2,0,2.4-0.3,3.6-0.8l32-16
+         c2.7-1.4,4.4-4.1,4.4-7.2v-36.5l24-13.7v93.6L136,482.2z M432,276.3V440h-8V270.9L432,276.3z M448,276.3l8-5.3V440h-8V276.3z
+         M440,262.4l-14.3-9.5l14.3-38.1l14.3,38.1L440,262.4z M440,488c-8.8,0-16-7.2-16-16v-16h32v16C456,480.8,448.8,488,440,488z
+         M488,392h-16V256c0-1-0.2-1.9-0.5-2.8l-24-64c-1.2-3.1-4.2-5.2-7.5-5.2s-6.3,2.1-7.5,5.2l-24,64c-0.3,0.9-0.5,1.8-0.5,2.8v136H248
+         v-72c0-2.9-1.5-5.5-4-6.9l-28-16V24h192v72c0,4.4,3.6,8,8,8h72V392z"></path>
+      <path class="st0" d="M232,120h16v16h-16V120z"></path>
+      <path class="st0" d="M264,120h208v16H264V120z"></path>
+      <path class="st0" d="M456,152h16v16h-16V152z"></path>
+      <path class="st0" d="M232,152h208v16H232V152z"></path>
+      <path class="st0" d="M232,184h160v16H232V184z"></path>
+      <path class="st0" d="M232,216h160v16H232V216z"></path>
+   </g>
+</svg>
+`
+
 function icons(template) {
   return ['#fff', '#05d4e1'].map(
     color => 'data:image/svg+xml;charset=UTF-8;base64,' + btoa(template.replace(/{{strokecolor}}/g, color))
@@ -158,3 +184,5 @@ export const ICONS_CATALOGUE = icons(ICON_CATALOGUE)
 export const ICONS_REPORTS = icons(ICON_REPORTS)
 export const ICONS_PROMOTIONS = icons(ICON_PROMOTIONS)
 export const ICONS_INTEGRATION = icons(ICON_INTEGRATION)
+export const ICONS_STOCK = icons(ICON_STOCK)
+
