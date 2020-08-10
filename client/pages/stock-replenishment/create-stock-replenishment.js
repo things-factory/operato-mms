@@ -233,4 +233,4 @@ class CreateStockReplenishment extends connect(store)(PageView) {
   }
 }
 
-customElements.define('mms-create-stock-replenishment', CreateStockReplenishment)
+customElements.define('mms-stock-replenishment-create', CreateStockReplenishment)

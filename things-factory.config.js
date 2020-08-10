@@ -57,8 +57,8 @@ export default {
       page: 'mms-order-activities'
     },
     {
-      tagname: 'mms-create-stock-replenishment',
-      page: 'mms-create-stock-replenishment'
+      tagname: 'mms-stock-replenishment-create',
+      page: 'mms-stock-replenishment-create'
     },
     {
       tagname: 'mms-stock-replenishment-list',

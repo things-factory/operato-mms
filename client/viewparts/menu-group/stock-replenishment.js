@@ -2,13 +2,13 @@ import { MenuGroupAbstract } from './menu-group-abstract'
 
 const MENUS = [
   {
-    name: 'stock replenishment list',
+    name: 'replenishment list',
     path: 'mms-stock-replenishment-list',
     icon: 'list'
   },
   {
-    name: 'create stock replenishment',
-    path: 'mms-create-stock-replenishment',
+    name: 'create order',
+    path: 'mms-stock-replenishment-create',
     icon: 'add'
   }
 ]
