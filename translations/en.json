@@ -75,6 +75,7 @@
   "text.package_height_is_empty": "package height is empty",
   "text.package_width_is_empty": "package width is empty",
   "title.stock_replenishment_list": "stock replenishment list",
+  "title.stock_replenishment": "stock replenishment",
   "title.create_stock_replenishment": "create stock replenishment",
   "field.eta_date": "eta date",
   "field.import_cargo": "import cargo",
@@ -84,5 +85,8 @@
   "label.upload_documents": "upload documents",
   "label.import_cargo": "import cargo",
   "title.product": "product",
-  "title.vas": "vas"
+  "title.vas": "vas",
+  "label.select_file": "select file",
+  "button.submit": "submit",
+  "button.clear_all": "clear all"
 }

@@ -1,11 +1,12 @@
 import '@things-factory/form-ui'
 import '@things-factory/grist-ui'
-import { html, css } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
-import { store, PageView  } from '@things-factory/shell'
+import { getCodeByName } from '@things-factory/code-base'
+import { html, css } from 'lit-element'
 import { i18next } from '@things-factory/i18n-base'
 import { isMobileDevice } from '@things-factory/utils'
 import { ScrollbarStyles } from '@things-factory/styles'
+import { store, PageView  } from '@things-factory/shell'
 
 class StockReplenishmentList extends connect(store)(PageView) {
   static get styles() {
@@ -61,12 +62,47 @@ class StockReplenishmentList extends connect(store)(PageView) {
   }
 
   async pageInitialized() {
+    const _orderStatus = await getCodeByName('ORDER_STATUS')
     this._searchFields = [
       {
         label: i18next.t('field.order_no'),
         name: 'orderNo',
         type: 'text',
         props: { searchOper: 'i_like' }
+      },
+      {
+        label: i18next.t('field.ref_no'),
+        name: 'refNo',
+        type: 'text',
+        props: { searchOper: 'i_like' }
+      },
+      {
+        label: i18next.t('field.eta_date'),
+        name: 'etaDate',
+        type: 'date',
+        props: { searchOper: 'eq' }
+      },
+      {
+        label: i18next.t('field.status'),
+        name: 'status',
+        type: 'select',
+        options: [
+          { value: '' },
+          ..._orderStatus.map(status => {
+            return {
+              name: i18next.t(`label.${status.description}`),
+              value: status.name
+            }
+          })
+        ],
+        props: { searchOper: 'eq' }
+      },
+      {
+        label: i18next.t('field.import_cargo'),
+        name: 'importCargo',
+        type: 'checkbox',
+        props: { searchOper: 'eq' },
+        attrs: ['indeterminate']
       }
     ]
 
@@ -98,7 +134,7 @@ class StockReplenishmentList extends connect(store)(PageView) {
           width: 180
         },
         {
-          type: 'string',
+          type: 'date',
           name: 'eta',
           header: i18next.t('field.eta_date'),
           imex: { header: i18next.t('field.eta_date'), key: 'eta', width: 25, type: 'string' },
