@@ -100,8 +100,8 @@ class StockReplenishmentList extends connect(store)(PageView) {
         {
           type: 'string',
           name: 'eta',
-          header: i18next.t('field.eta'),
-          imex: { header: i18next.t('field.eta'), key: 'eta', width: 25, type: 'string' },
+          header: i18next.t('field.eta_date'),
+          imex: { header: i18next.t('field.eta_date'), key: 'eta', width: 25, type: 'string' },
           record: { align: 'left' },
           sortable: true,
           width: 100

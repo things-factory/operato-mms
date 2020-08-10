@@ -73,5 +73,16 @@
   "text.product_stock_is_empty": "product is empty",
   "text.package_length_is_empty": "package length is empty",
   "text.package_height_is_empty": "package height is empty",
-  "text.package_width_is_empty": "package width is empty"
+  "text.package_width_is_empty": "package width is empty",
+  "title.stock_replenishment_list": "stock replenishment list",
+  "title.create_stock_replenishment": "create stock replenishment",
+  "field.eta_date": "eta date",
+  "field.import_cargo": "import cargo",
+  "field.ref_no": "ref no.",
+  "label.ref_no": "ref no.",
+  "label.eta_date": "eta date",
+  "label.upload_documents": "upload documents",
+  "label.import_cargo": "import cargo",
+  "title.product": "product",
+  "title.vas": "vas"
 }
