@@ -73,8 +73,8 @@ class CreateStockReplenishment extends connect(store)(PageView) {
     return {
       title: i18next.t('title.create_stock_replenishment'),
       actions: [
-        { title: i18next.t('button.save'), action: [] },
-        { title: i18next.t('button.delete'), action: [] }
+        { title: i18next.t('button.submit'), action: [] },
+        { title: i18next.t('button.clear_all'), action: [] }
       ]
     }
   }
@@ -93,34 +93,14 @@ class CreateStockReplenishment extends connect(store)(PageView) {
 
   render() {
     return html`
-      <form name="arrivalNotice" class="multi-column-form" autocomplete="off">
+      <form name="stockReplenishment" class="multi-column-form" autocomplete="off">
         <fieldset>
-          <legend>${i18next.t('title.arrival_notice')}</legend>
+          <legend>${i18next.t('title.stock_replenishment')}</legend>
           <label>${i18next.t('label.ref_no')}</label>
           <input name="refNo" />
 
-          <label ?hidden="${!this._ownTransport}">${i18next.t('label.do_no')}</label>
-          <input name="deliveryOrderNo" ?hidden="${!this._ownTransport}" />
-
-          <label ?hidden="${!this._ownTransport}">${i18next.t('label.truck_no')}</label>
-          <input ?hidden="${!this._ownTransport}" name="truckNo" />
-
           <label>${i18next.t('label.eta_date')}</label>
           <input name="etaDate" type="date" min="${this._getStdDate()}" required />
-
-          <label ?hidden="${!this._hasContainer}">${i18next.t('label.container_no')}</label>
-          <input ?hidden="${!this._hasContainer}" type="text" name="containerNo" />
-
-          <label ?hidden="${!this._hasContainer}">${i18next.t('label.container_size')}</label>
-          <select name="containerSize" ?hidden="${!this._hasContainer}">
-            <option value="">--${i18next.t('label.please_select_a_container_size')}--</option>
-            ${(this.containerSizes || []).map(
-              containerSize =>
-                html`
-                  <option value="${containerSize && containerSize.name}">${containerSize && containerSize.name}</option>
-                `
-            )}
-          </select>
 
           <label>${i18next.t('label.upload_documents')}</label>
           <file-uploader
@@ -131,20 +111,6 @@ class CreateStockReplenishment extends connect(store)(PageView) {
             multiple="true"
             custom-input
           ></file-uploader>
-
-          <input
-            id="container"
-            type="checkbox"
-            name="container"
-            ?checked="${this._hasContainer}"
-            @change="${e => {
-              this._hasContainer = e.currentTarget.checked
-            }}"
-          />
-          <label for="container">${i18next.t('label.container')}</label>
-
-          <input id="looseItem" type="checkbox" name="looseItem" ?checked="${this._looseItem}" />
-          <label for="looseItem">${i18next.t('label.loose_item')}</label>
 
           <input
             id="importedOrder"
@@ -161,15 +127,6 @@ class CreateStockReplenishment extends connect(store)(PageView) {
           />
           <label for="importedOrder">${i18next.t('label.import_cargo')}</label>
 
-          <input
-            id="ownTransport"
-            type="checkbox"
-            name="ownTransport"
-            ?checked="${this._ownTransport}"
-            @change="${e => (this._ownTransport = e.currentTarget.checked)}"
-            ?hidden="${this._importedOrder}"
-          />
-          <label for="ownTransport" ?hidden="${this._importedOrder}">${i18next.t('label.own_transport')}</label>
         </fieldset>
       </form>
 
@@ -205,7 +162,7 @@ class CreateStockReplenishment extends connect(store)(PageView) {
   _validateVas() {}
 
   _getFormInfo() {
-    const formData = this._serializeForm(this.arrivalNoticeForm)
+    const formData = this._serializeForm(this.stockReplenishmentForm)
     delete formData.importedOrder
     return formData
   }
