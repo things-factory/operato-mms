@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit-element'
-import './varient-option-editor'
+import './variant-option-editor'
 
-export class VarientOptionsEditor extends LitElement {
+export class VariantOptionsEditor extends LitElement {
   static get styles() {
     return [
       css`
@@ -33,7 +33,7 @@ export class VarientOptionsEditor extends LitElement {
         ${options.map(
           (option, index) => html`
             <label>Option #${index}<span @click=${e => this.onclickDelete(e, index)}>&nbsp;X</span></label>
-            <varient-option-editor .types=${this.types} .value=${option}></varient-option-editor>
+            <variant-option-editor .types=${this.types} .value=${option}></variant-option-editor>
           `
         )}
       </div>
@@ -44,7 +44,7 @@ export class VarientOptionsEditor extends LitElement {
   onclickAddNew(e) {
     e.stopPropagation()
 
-    const options = Array.from(this.renderRoot.querySelectorAll('varient-option-editor')).map(element => element.value)
+    const options = Array.from(this.renderRoot.querySelectorAll('variant-option-editor')).map(element => element.value)
 
     this.value = [...options, {}]
   }
@@ -52,11 +52,11 @@ export class VarientOptionsEditor extends LitElement {
   onclickDelete(e, index) {
     e.stopPropagation()
 
-    const options = Array.from(this.renderRoot.querySelectorAll('varient-option-editor')).map(element => element.value)
+    const options = Array.from(this.renderRoot.querySelectorAll('variant-option-editor')).map(element => element.value)
     options.splice(index, 1)
 
     this.value = [...options]
   }
 }
 
-customElements.define('varient-options-editor', VarientOptionsEditor)
+customElements.define('variant-options-editor', VariantOptionsEditor)

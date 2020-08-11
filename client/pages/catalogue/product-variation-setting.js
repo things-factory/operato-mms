@@ -4,8 +4,7 @@ import { client } from '@things-factory/shell'
 import { gqlBuilder } from '@things-factory/utils'
 import gql from 'graphql-tag'
 import { css, html, LitElement } from 'lit-element'
-import { WizardViewStyles } from '../components/wizard-view-styles'
-import '../components/varient-options-editor'
+import '../components/variant-options-editor'
 
 const TYPES = ['Color', 'Size']
 
@@ -74,7 +73,7 @@ class ProductVariationSetting extends localize(i18next)(LitElement) {
           </fieldset>
 
           <fieldset>
-            <varient-options-editor .types=${TYPES} .value=${sampleOptions}></varient-options-editor>
+            <variant-options-editor .types=${TYPES} .value=${sampleOptions}></variant-options-editor>
           </fieldset>
         </form>
       </div>
@@ -95,6 +94,7 @@ class ProductVariationSetting extends localize(i18next)(LitElement) {
 
       let marketplaceProductVariation = this._getFormInfo()
       const args = marketplaceProductVariation
+      args.marketplaceProduct = this.productInfo
 
       const response = await client.query({
         query: gql`
@@ -114,7 +114,7 @@ class ProductVariationSetting extends localize(i18next)(LitElement) {
       })
       if (!response.errors) {
         this._showToast({ message: i18next.t('text.draft_variation_has_been_created_successfully') })
-        this.dispatch(new CustomEvent('submit', { marketplaceProduct }))
+        this.dispatch(new CustomEvent('submit', { marketplaceProductVariation, marketplaceProduct }))
         return true
       }
     } catch (e) {

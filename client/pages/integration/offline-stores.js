@@ -1,7 +1,7 @@
 import { html } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
 import { store, PageView } from '@things-factory/shell'
-import '../components/varient-options-editor'
+import '../components/variant-options-editor'
 
 const TYPES = ['Color', 'Size', 'Weight']
 
@@ -31,7 +31,7 @@ class IntegrationOfflineStore extends connect(store)(PageView) {
 
     return html`
       <h2>Integration Offline Stores</h2>
-      <varient-options-editor .types=${TYPES} .value=${options}></varient-options-editor>
+      <variant-options-editor .types=${TYPES} .value=${options}></variant-options-editor>
     `
   }
 

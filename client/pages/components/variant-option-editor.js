@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit-element'
 
-export class VarientOptionEditor extends LitElement {
+export class VariantOptionEditor extends LitElement {
   static get styles() {
     return [
       css`
@@ -110,4 +110,4 @@ export class VarientOptionEditor extends LitElement {
   }
 }
 
-customElements.define('varient-option-editor', VarientOptionEditor)
+customElements.define('variant-option-editor', VariantOptionEditor)
