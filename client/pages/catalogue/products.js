@@ -190,6 +190,7 @@ class Products extends localize(i18next)(PageView) {
             name
             isku
             itemId
+            type
             marketplaceProductVariations {
               isku
               channelSku
@@ -251,6 +252,7 @@ class Products extends localize(i18next)(PageView) {
       `,
       {
         backdrop: true,
+        escapable: false,
         size: 'large',
         title: i18next.t('title.create_new_product')
       }
