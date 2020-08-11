@@ -7,6 +7,7 @@ import { MarketplaceProductAttribute } from './marketplace-product-attribute'
 import { MarketplaceProductCategory } from './marketplace-product-category'
 import { MarketplaceProductVariation } from './marketplace-product-variation'
 import { ShipmentProvider } from './shipment-provider'
+import { StockReplenishment } from './stock-replenishment'
 
 export const entities = [
   MarketplaceProduct,
@@ -17,7 +18,8 @@ export const entities = [
   MarketplaceOrder,
   MarketplaceOrderItem,
   MarketplaceOrderShipping,
-  ShipmentProvider
+  ShipmentProvider,
+  StockReplenishment
 ]
 
 export {
@@ -29,5 +31,6 @@ export {
   MarketplaceOrder,
   MarketplaceOrderItem,
   MarketplaceOrderShipping,
-  ShipmentProvider
+  ShipmentProvider,
+  StockReplenishment
 }
