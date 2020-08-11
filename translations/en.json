@@ -84,6 +84,7 @@
   "title.stock_replenishment_list": "stock replenishment list",
   "title.stock_replenishment": "stock replenishment",
   "title.create_stock_replenishment": "create stock replenishment",
+  "title.product_images": "product images",
   "field.eta_date": "eta date",
   "field.import_cargo": "import cargo",
   "field.ref_no": "ref no.",

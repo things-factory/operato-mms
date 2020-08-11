@@ -21,7 +21,7 @@ export async function createMarketplaceProduct(
   const marketplaceProdRepo: Repository<MarketplaceProduct> =
     trxMgr?.getRepository(MarketplaceProduct) || getRepository(MarketplaceProduct)
 
-  await marketplaceProdRepo.save({
+  const createdProd: MarketplaceProduct = await marketplaceProdRepo.save({
     ...marketplaceProduct,
     domain,
     status: PRODUCT_STATUS.DRAFT,
@@ -29,4 +29,6 @@ export async function createMarketplaceProduct(
     creator: user,
     updater: user
   })
+
+  return createdProd
 }

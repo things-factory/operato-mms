@@ -6,11 +6,13 @@ import { MarketplaceProductList } from './marketplace-product-list'
 export const Mutation = `
   createMarketplaceProduct (
     marketplaceProduct: NewMarketplaceProduct!
+    file: Upload
   ): MarketplaceProduct
 
   updateMarketplaceProduct (
     foundProduct: NewMarketplaceProduct!
     marketplaceProduct: MarketplaceProductPatch!
+    file: Upload
   ): MarketplaceProduct
 
   upsertMarketplaceProduct (
@@ -28,7 +30,7 @@ export const Mutation = `
 
 export const Query = `
   marketplaceProducts(filters: [Filter], pagination: Pagination, sortings: [Sorting]): MarketplaceProductList
-  marketplaceProduct(name: String!): MarketplaceProduct
+  marketplaceProduct(name: String!, isku: String!): MarketplaceProduct
 `
 
 export const Types = [MarketplaceProduct, NewMarketplaceProduct, MarketplaceProductPatch, MarketplaceProductList]

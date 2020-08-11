@@ -29,6 +29,7 @@ export const MarketplaceProduct = gql`
     daysToShip: String
     discountId: String
     isPreOrder: Boolean
+    attachments: [Attachment]
     updater: User
     creator: User
     updatedAt: String
