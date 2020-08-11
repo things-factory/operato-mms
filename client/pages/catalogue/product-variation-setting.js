@@ -4,6 +4,10 @@ import { client } from '@things-factory/shell'
 import { gqlBuilder } from '@things-factory/utils'
 import gql from 'graphql-tag'
 import { css, html, LitElement } from 'lit-element'
+import { WizardViewStyles } from '../components/wizard-view-styles'
+import '../components/varient-options-editor'
+
+const TYPES = ['Color', 'Size']
 
 class ProductVariationSetting extends localize(i18next)(LitElement) {
   static get properties() {
@@ -35,6 +39,13 @@ class ProductVariationSetting extends localize(i18next)(LitElement) {
   }
 
   render() {
+    const sampleOptions = [
+      {
+        type: 'Color',
+        options: ['Red', 'Blue']
+      }
+    ]
+
     return html`
       <div class="form-container">
         <form id="input-form" class="multi-column-form">
@@ -60,6 +71,10 @@ class ProductVariationSetting extends localize(i18next)(LitElement) {
 
             <label>${i18next.t('label.images')}</label>
             <file-uploader custom-input required name="prodImg" ._files=""></file-uploader>
+          </fieldset>
+
+          <fieldset>
+            <varient-options-editor .types=${TYPES} .value=${sampleOptions}></varient-options-editor>
           </fieldset>
         </form>
       </div>
