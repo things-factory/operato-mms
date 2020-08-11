@@ -1,12 +1,14 @@
 import '@things-factory/form-ui'
 import '@things-factory/grist-ui'
 import { connect } from 'pwa-helpers/connect-mixin.js'
+import { getCodeByName } from '@things-factory/code-base'
 import { gqlBuilder, isMobileDevice } from '@things-factory/utils'
 import { html, css } from 'lit-element'
 import { i18next, localize } from '@things-factory/i18n-base'
 import { MultiColumnFormStyles } from '@things-factory/form-ui'
 import { ScrollbarStyles } from '@things-factory/styles'
 import { store, PageView, client, CustomAlert } from '@things-factory/shell'
+import gql from 'graphql-tag'
 
 class CreateStockReplenishment extends connect(store)(PageView) {
   static get styles() {
@@ -73,22 +75,98 @@ class CreateStockReplenishment extends connect(store)(PageView) {
     return {
       title: i18next.t('title.create_stock_replenishment'),
       actions: [
-        { title: i18next.t('button.submit'), action: [] },
-        { title: i18next.t('button.clear_all'), action: [] }
+        { title: i18next.t('button.submit'), action: this._generateStockReplenishment.bind(this) },
+        { title: i18next.t('button.clear_form'), action: [] }
       ]
     }
   }
 
   async pageInitialized() {
-    this.productGristConfig = {}
+    this.productGristConfig = {
+      pagination: { infinite: true },
+      list: { fields: ['batch_no', 'product', 'packingType', 'totalWeight'] },
+      columns: [
+        { type: 'gutter', gutterName: 'sequence' },
+        {
+          type: 'gutter',
+          gutterName: 'button',
+          icon: 'close',
+          handlers: {
+            click: (columns, data, column, record, rowIndex) => {
+              this.productData = {
+                ...this.productData,
+                records: data.records.filter((_, idx) => idx !== rowIndex)
+              }
+              this._updateVasTargets()
+            }
+          }
+        },
+        {
+          type: 'string',
+          name: 'batchId',
+          header: i18next.t('field.batch_no'),
+          record: { editable: true, align: 'center' },
+          width: 150
+        },
+        {
+          type: 'object',
+          name: 'product',
+          header: i18next.t('field.product'),
+          record: {
+            editable: true,
+            align: 'center',
+            options: {
+              queryName: 'marketplaceProducts',
+              nameField: 'name',
+              descriptionField: 'description',
+              list: { fields: ['name', 'description'] }
+            }
+          },
+          width: 350
+        },
+        {
+          type: 'code',
+          name: 'packingType',
+          header: i18next.t('field.packing_type'),
+          record: {
+            editable: true,
+            align: 'center',
+            codeName: 'PACKING_TYPES'
+          },
+          width: 150
+        },
+        {
+          type: 'integer',
+          name: 'packQty',
+          header: i18next.t('field.pack_qty'),
+          record: { editable: true, align: 'center', options: { min: 0 } },
+          width: 80
+        },
+        {
+          type: 'float',
+          name: 'weight',
+          header: i18next.t('field.pack_weight'),
+          record: { editable: true, align: 'center', options: { min: 0 } },
+          width: 100
+        },
+        {
+          type: 'code',
+          name: 'unit',
+          header: i18next.t('field.unit'),
+          record: { editable: true, align: 'center', codeName: 'WEIGHT_UNITS' },
+          width: 80
+        },
+        {
+          type: 'float',
+          name: 'totalWeight',
+          header: i18next.t('field.total_weight'),
+          record: { align: 'center' },
+          width: 120
+        }
+      ]
+    }
 
     this.vasGristConfig = {}
-  }
-
-  _getStdDate() {
-    let date = new Date()
-    date.setDate(date.getDate())
-    return date.toISOString().split('T')[0]
   }
 
   render() {
@@ -155,17 +233,107 @@ class CreateStockReplenishment extends connect(store)(PageView) {
     `
   }
 
-  _validateForm() {}
+  constructor() {
+    super()
+    this.productData = { records: [] }
+    this.vasData = { records: [] }
+    this._importedOrder = false
+  }
+
+  get stockReplenishmentForm() {
+    return this.shadowRoot.querySelector('form[name=stockReplenishment]')
+  }
+
+  get productGrist() {
+    return this.shadowRoot.querySelector('data-grist#product-grist')
+  }
+
+  get vasGrist() {
+    return this.shadowRoot.querySelector('data-grist#vas-grist')
+  }
+
+  get _document() {
+    return this.shadowRoot.querySelector('#uploadDocument')
+  }
+
+  _getStdDate() {
+    let date = new Date()
+    date.setDate(date.getDate())
+    return date.toISOString().split('T')[0]
+  }
+
+  _getFormInfo() {
+    const formData = this._serializeForm(this.stockReplenishmentForm)
+    return formData
+  }
+
+  _getOrderProducts() {
+    return this.productGrist.dirtyData.records.map(record => {
+      let orderProduct = {
+        batchId: record.batchId,
+        product: { id: record.product.id },
+        packingType: record.packingType,
+        weight: record.weight,
+        unit: record.unit,
+        packQty: record.packQty,
+        totalWeight: record.totalWeight
+      }
+      
+      return orderProduct
+    })
+  }
+
+  async _generateStockReplenishment() {
+    try {
+      this._validateForm()
+      this._validateProducts()
+      this._validateVas()
+
+      const result = await CustomAlert({
+        title: i18next.t('title.are_you_sure'),
+        text: i18next.t('text.submit_stock_replenishment'),
+        confirmButton: { text: i18next.t('button.confirm') },
+        cancelButton: { text: i18next.t('button.cancel') }
+      })
+
+      if (!result.value) return
+
+      let stockReplenishment = this._getFormInfo()
+      let attachments = this._document.files || null
+      stockReplenishment.orderProduct = this._getOrderProducts()
+
+      const response = await client.query({
+        query: gql`
+            mutation ($attachments: Upload) {
+              generateStockReplenishment(${gqlBuilder.buildArgs(stockReplenishment)}, file:$attachments) {
+                id
+                name
+              }
+            }
+          `,
+        variables: {
+          attachments
+        },
+        context: {
+          hasUpload: true
+        }
+      })
+
+
+    } catch (error) {
+      this._showToast(error)
+    }
+  }
+
+  _updateVasTargets() {}
+
+  _validateForm() {
+    if (!this.stockReplenishmentForm.checkValidity()) throw new Error(i18next.t('text.stock_replenishment_form_invalid'))
+  }
 
   _validateProducts() {}
 
   _validateVas() {}
-
-  _getFormInfo() {
-    const formData = this._serializeForm(this.stockReplenishmentForm)
-    delete formData.importedOrder
-    return formData
-  }
 
   _serializeForm(form) {
     let obj = {}

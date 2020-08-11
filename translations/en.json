@@ -93,5 +93,14 @@
   "title.vas": "vas",
   "label.select_file": "select file",
   "button.submit": "submit",
-  "button.clear_all": "clear all"
+  "button.clear_form": "clear form",
+  "field.total_weight": "total weight",
+  "field.pack_qty": "pack qty",
+  "field.unit": "unit",
+  "field.pack_weight": "pack weight",
+  "field.packing_type": "packing type",
+  "field.product": "product",
+  "field.batch_no": "batch no",
+  "text.submit_stock_replenishment": "submit stock replenishment",
+  "text.stock_replenishment_form_invalid": "stock replenishment form invalid"
 }
