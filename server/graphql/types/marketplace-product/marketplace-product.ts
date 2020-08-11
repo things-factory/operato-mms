@@ -11,6 +11,7 @@ export const MarketplaceProduct = gql`
     status: String
     name: String
     type: String
+    storageType: String
     description: String
     currency: String
     hasVariation: Boolean

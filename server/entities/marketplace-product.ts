@@ -17,6 +17,11 @@ import { MarketplaceProductCategory, MarketplaceProductVariation } from '../enti
   (marketplaceProduct: MarketplaceProduct) => [marketplaceProduct.domain, marketplaceProduct.id],
   { unique: true }
 )
+@Index(
+  'ix_marketplace-product_1',
+  (marketplaceProduct: MarketplaceProduct) => [marketplaceProduct.name, marketplaceProduct.isku],
+  { unique: true }
+)
 export class MarketplaceProduct {
   @PrimaryGeneratedColumn('uuid')
   id: string
@@ -24,16 +29,23 @@ export class MarketplaceProduct {
   @ManyToOne(type => Domain)
   domain: Domain
 
-  @ManyToOne(type => MarketplaceProductCategory)
+  @ManyToOne(type => MarketplaceProductCategory, {
+    nullable: true
+  })
   marketplaceProductCategory: MarketplaceProductCategory
 
   @OneToMany(
     type => MarketplaceProductVariation,
-    marketplaceProductVariation => marketplaceProductVariation.marketplaceProduct
+    marketplaceProductVariation => marketplaceProductVariation.marketplaceProduct,
+    {
+      nullable: true
+    }
   )
   marketplaceProductVariations: MarketplaceProductVariation[]
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   itemId: string
 
   @Column()
@@ -53,25 +65,37 @@ export class MarketplaceProduct {
   })
   description: string
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   currency: string
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   hasVariation: boolean
 
-  @Column('float')
+  @Column('float', {
+    nullable: true
+  })
   costPrice: number
 
-  @Column('float')
+  @Column('float', {
+    nullable: true
+  })
   mrpPrice: number
 
-  @Column('float')
+  @Column('float', {
+    nullable: true
+  })
   sellPrice: number
 
   @Column('float')
   weight: number
 
-  @Column('float')
+  @Column('float', {
+    nullable: true
+  })
   qty: number
 
   @Column({
@@ -88,10 +112,14 @@ export class MarketplaceProduct {
   @Column('float')
   packageHeight: number
 
-  @Column('float')
+  @Column('float', {
+    nullable: true
+  })
   afterTaxCostPrice: number
 
-  @Column('float')
+  @Column('float', {
+    nullable: true
+  })
   afterTaxSalesPrice: number
 
   @Column({
@@ -99,13 +127,19 @@ export class MarketplaceProduct {
   })
   condition: string
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   daysToShip: number
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   discountId: string
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   isPreOrder: boolean
 
   @CreateDateColumn()

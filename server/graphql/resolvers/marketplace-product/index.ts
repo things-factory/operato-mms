@@ -1,9 +1,9 @@
 import { marketplaceProductResolver } from './marketplace-product'
 import { marketplaceProductsResolver } from './marketplace-products'
 
-import { updateMarketplaceProduct } from './update-marketplace-product'
-import { updateMultipleMarketplaceProduct } from './update-multiple-marketplace-product'
-import { createMarketplaceProduct } from './create-marketplace-product'
+import { upsertMarketplaceProduct } from './upsert-marketplace-product'
+import { updateMarketplaceProductResolver } from './update-marketplace-product'
+import { createMarketplaceProductResolver } from './create-marketplace-product'
 import { deleteMarketplaceProduct } from './delete-marketplace-product'
 import { deleteMarketplaceProducts } from './delete-marketplace-products'
 
@@ -13,9 +13,9 @@ export const Query = {
 }
 
 export const Mutation = {
-  ...updateMarketplaceProduct,
-  ...updateMultipleMarketplaceProduct,
-  ...createMarketplaceProduct,
+  ...updateMarketplaceProductResolver,
+  ...upsertMarketplaceProduct,
+  ...createMarketplaceProductResolver,
   ...deleteMarketplaceProduct,
   ...deleteMarketplaceProducts
 }
