@@ -1,4 +1,4 @@
-import { html } from 'lit-element'
+import { html, css } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
 import { store, PageView } from '@things-factory/shell'
 import '../components/variant-options-editor'
@@ -6,6 +6,17 @@ import '../components/variant-options-editor'
 const TYPES = ['Color', 'Size', 'Weight']
 
 class IntegrationOfflineStore extends connect(store)(PageView) {
+  static get styles() {
+    return [
+      css`
+        :host {
+          background-color: var(--main-section-background-color);
+          padding: var(--padding-wide);
+        }
+      `
+    ]
+  }
+
   static get properties() {
     return {}
   }

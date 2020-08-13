@@ -7,25 +7,47 @@ export class VariantOptionEditor extends LitElement {
         :host {
           display: flex;
           flex-direction: row;
+          margin-bottom: var(--margin-default);
+          padding: var(--padding-default);
+          padding-left: 0;
+          border-bottom: var(--border-dark-color);
         }
 
-        select {
-          width: 200px;
-        }
-
-        input {
-          width: 200px;
+        select,
+        input,
+        [option] {
+          min-width: 100px;
+          border: var(--border-dark-color);
+          border-radius: var(--border-radius);
+          padding: var(--padding-narrow);
+          margin-right: var(--margin-narrow);
+          font-size: 0.9rem;
         }
 
         span[options] {
           flex: 1;
+          margin: 2px 0 0 10px;
         }
 
         [option] {
           display: inline;
-          background-color: navy;
+          background-color: var(--primary-color);
+          margin-right: 0;
           color: white;
-          margin: 0 4px;
+        }
+
+        [delete] {
+          margin-left: var(--margin-narrow);
+          opacity: 0.5;
+        }
+        [delete]:hover {
+          opacity: 1;
+          cursor: pointer;
+        }
+
+        select:focus,
+        input:focus {
+          outline: none;
         }
       `
     ]
@@ -53,7 +75,7 @@ export class VariantOptionEditor extends LitElement {
       <span options>
         ${options.map(
           (option, index) =>
-            html` <div option>${option}<span delete @click=${e => this.onclickDelete(e, index)}>&nbsp;X</span></div>`
+            html` <div option>${option}<span delete @click=${e => this.onclickDelete(e, index)}>X</span></span>`
         )}
       </span>
     `
