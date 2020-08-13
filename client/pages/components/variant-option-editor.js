@@ -16,7 +16,6 @@ export class VariantOptionEditor extends LitElement {
         select,
         input,
         [option] {
-          min-width: 100px;
           border: var(--border-dark-color);
           border-radius: var(--border-radius);
           padding: var(--padding-narrow);
@@ -26,14 +25,16 @@ export class VariantOptionEditor extends LitElement {
 
         span[options] {
           flex: 1;
-          margin: 2px 0 0 10px;
+          margin-left: 0 0 0 10px;
         }
 
         [option] {
-          display: inline;
+          display: inline-block;
           background-color: var(--primary-color);
-          margin-right: 0;
+          margin: 1px 0;
+          padding: 2px 4px;
           color: white;
+          white-space: nowrap;
         }
 
         [delete] {
