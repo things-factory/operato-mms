@@ -33,6 +33,9 @@ body {
   --margin-default: 9px;
   --margin-narrow: 4px;
   --margin-wide: 15px;
+  --padding-default: var(--margin-default);
+  --padding-narrow: var(--margin-narrow);
+  --padding-wide: var(--margin-wide);
 
   --scrollbar-thumb-color: rgba(57, 78, 100, 0.5);
   --scrollbar-thumb-hover-color: var(--primary-color);

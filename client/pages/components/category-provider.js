@@ -1,11 +1,11 @@
 import { sleep } from '@things-factory/utils'
 
 const categories = [
-  { id: 'a', name: 'a', path: 'a' },
+  { id: 'a', name: 'Women’s Clothing', path: 'Women’s Clothing' },
   {
     id: 'b',
-    name: 'b',
-    path: 'b',
+    name: 'Men’s Clothing',
+    path: 'Men’s Clothing',
     children: [
       { id: 'ba', name: 'ba', path: 'ba' },
       { id: 'bb', name: 'bb', path: 'bb' },
@@ -45,11 +45,11 @@ const categories = [
       { id: 'bf', name: 'bf', path: 'bf' }
     ]
   },
-  { id: 'c', name: 'c', path: 'c' },
+  { id: 'c', name: 'Phones & Accessories', path: 'Phones & Accessories' },
   {
     id: 'd',
-    name: 'd',
-    path: 'd',
+    name: 'Computer, Office, Security',
+    path: 'Computer, Office, Security',
     children: [
       { id: 'da', name: 'da', path: 'da' },
       { id: 'db', name: 'db', path: 'db' },
@@ -90,8 +90,10 @@ const categories = [
       { id: 'de', name: 'de', path: 'de' }
     ]
   },
-  { id: 'e', name: 'e', path: 'e' },
-  { id: 'f', name: 'f', path: 'f' }
+  { id: 'e', name: 'Consumer Electronics', path: 'Consumer Electronics' },
+  { id: 'f', name: 'Jewelry & Watches', path: 'Jewelry & Watches' },
+  { id: 'g', name: 'Bags & Shoes', path: 'Bags & Shoes' },
+  { id: 'h', name: 'Sports & Outdoors', path: 'Sports & Outdoors' }
 ]
 
 function findCategory(target, categories) {

@@ -24,7 +24,6 @@ export class CategorySelectorPopup extends localize(i18next)(LitElement) {
         }
 
         .button-container {
-          padding: 10px 0 12px 0;
           text-align: center;
         }
         .button-container > button {
@@ -43,7 +42,11 @@ export class CategorySelectorPopup extends localize(i18next)(LitElement) {
         }
 
         [path] {
-          margin: 10px;
+          padding: var(--padding-wide, 15px);
+          color: var(--secondary-color);
+        }
+        [path] strong {
+          color: var(--primary-color);
         }
 
         [categories] {
@@ -55,22 +58,58 @@ export class CategorySelectorPopup extends localize(i18next)(LitElement) {
           justify-content: start;
 
           overflow-x: auto;
-          margin: 10px;
+
+          background-color: var(--main-section-background-color);
+          padding: var(--padding-wide, 15px);
+          border: var(--border-dark-color);
+          border-width: 2px 0 1px 0;
         }
 
         [category-level] {
-          min-width: 120px;
+          min-width: 150px;
           align-self: stretch;
+          position: relative;
+          margin-right: -1px;
 
-          border: 1px solid black;
-          border-radius: 5px;
-          margin: 4px;
-          padding: 10px;
+          border-radius: var(--border-radius);
+          border: var(--border-dark-color);
+          padding: var(--padding-narrow, 4px);
+          background-color: #fff;
+        }
+        [category-level] > div {
+          padding: var(--padding-narrow, 4px) var(--padding-default, 9px);
+          color: var(--secondary-color);
+          font-size: 0.9rem;
         }
 
-        [selected] {
-          color: white;
-          background: black;
+        [category-level] > div span {
+          float: right;
+          opacity: 0.6;
+        }
+
+        [category-level] > div[selected] {
+          background: rgba(0, 0, 0, 0.09);
+          color: var(--primary-color);
+          font-weight: bold;
+        }
+        div[search] {
+          display: flex;
+        }
+        div[search] mwc-icon {
+          --mdc-icon-size: 20px;
+
+          flex: 20px;
+          border-bottom: var(--border-dark-color);
+        }
+        div[search] input {
+          flex: 1;
+          border: none;
+          border-bottom: var(--border-dark-color);
+          max-width: 90%;
+          font-size: 1rem;
+        }
+        div[search] input:focus {
+          outline: none;
         }
       `
     ]
@@ -82,11 +121,13 @@ export class CategorySelectorPopup extends localize(i18next)(LitElement) {
 
     return html`
       <div category-level>
+        <div search><mwc-icon>search</mwc-icon> <input type="text" /></div>
+
         ${categories.map(
           category =>
             html`
               <div @click=${e => this.onclickCategory(category)} ?selected=${selected === category.id}>
-                ${category.name} ${category.hasSubcategories ? '>' : ''}
+                ${category.name} <span>${category.hasSubcategories ? '>' : ''}</span>
               </div>
             `
         )}
@@ -101,7 +142,7 @@ export class CategorySelectorPopup extends localize(i18next)(LitElement) {
     const categories = this.categories || []
 
     return html`
-      <div path>${i18next.t('target category')} : ${path.join(' > ')}</div>
+      <div path>${i18next.t('target category')} : <strong>${path.join(' > ')}</strong></div>
       <div categories>${this.renderLevel(categories, path)}</div>
       <div class="button-container">
         <button @click=${this.oncancel.bind(this)}>${i18next.t('button.cancel')}</button>
