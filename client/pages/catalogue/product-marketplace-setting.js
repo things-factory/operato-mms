@@ -48,10 +48,6 @@ class ProductMarketplaceSetting extends localize(i18next)(LitElement) {
     `
   }
 
-  async firstUpdated() {
-    this.storageTypes = await getCodeByName('STORAGE_TYPES')
-  }
-
   async _createProduct() {
     try {
       this._validateProductInformation()

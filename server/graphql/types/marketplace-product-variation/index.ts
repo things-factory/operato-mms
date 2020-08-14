@@ -17,6 +17,11 @@ export const Mutation = `
     patches: [MarketplaceProductVariationPatch]!
   ): [MarketplaceProductVariation]
 
+  upsertMarketplaceProductVariation (
+    marketplaceProductVariation: MarketplaceProductVariationPatch!
+    productInfo: MarketplaceProductPatch
+  ): Boolean
+
   deleteMarketplaceProductVariation (
     name: String!
   ): Boolean
@@ -31,4 +36,9 @@ export const Query = `
   marketplaceProductVariation(name: String!): MarketplaceProductVariation
 `
 
-export const Types = [MarketplaceProductVariation, NewMarketplaceProductVariation, MarketplaceProductVariationPatch, MarketplaceProductVariationList]
+export const Types = [
+  MarketplaceProductVariation,
+  NewMarketplaceProductVariation,
+  MarketplaceProductVariationPatch,
+  MarketplaceProductVariationList
+]

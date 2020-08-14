@@ -14,6 +14,9 @@ export const MarketplaceProductPatch = gql`
     currency: String
     hasVariation: Boolean
     categoryId: String
+    weight: Float
+    costPrice: Float
+    storageType: String
     packageLength: Float
     packageWidth: Float
     packageHeight: Float
@@ -23,5 +26,6 @@ export const MarketplaceProductPatch = gql`
     daysToShip: String
     discountId: String
     isPreOrder: Boolean
+    file: [Attachment]
   }
 `
