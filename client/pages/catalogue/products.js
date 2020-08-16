@@ -95,18 +95,28 @@ class Products extends localize(i18next)(PageView) {
     this.config = {
       rows: {
         selectable: { multiple: true },
-        handlers: { click: this._showProductInfo.bind(this) },
         appendable: false
       },
       columns: [
         { type: 'gutter', gutterName: 'sequence' },
         { type: 'gutter', gutterName: 'row-selector', multiple: true },
         {
+          type: 'gutter',
+          gutterName: 'button',
+          icon: 'reorder',
+          handlers: {
+            click: (columns, data, column, record, rowIndex) => {
+              console.log(record)
+              this._showProductInfo(record)
+            }
+          }
+        },
+        {
           type: 'string',
           name: 'isku',
           header: i18next.t('field.isku'),
           imex: { header: i18next.t('field.isku'), key: 'isku', width: 25, type: 'string' },
-          record: { editable: true, align: 'center' },
+          record: { align: 'center' },
           sortable: true,
           width: 150
         },
@@ -116,10 +126,7 @@ class Products extends localize(i18next)(PageView) {
           header: i18next.t('field.name'),
           sortable: true,
           imex: { header: i18next.t('field.name'), key: 'name', width: 25, type: 'string' },
-          record: {
-            editable: true,
-            align: 'center'
-          },
+          record: { align: 'center' },
           width: 180
         },
         {
@@ -128,10 +135,7 @@ class Products extends localize(i18next)(PageView) {
           header: i18next.t('field.type'),
           sortable: true,
           imex: { header: i18next.t('field.type'), key: 'type', width: 25, type: 'string' },
-          record: {
-            editable: true,
-            align: 'center'
-          },
+          record: { align: 'center' },
           width: 100
         },
         {
@@ -222,7 +226,7 @@ class Products extends localize(i18next)(PageView) {
     }
   }
 
-  _showProductInfo(columns, data, column, record, rowIndex) {
+  _showProductInfo(record) {
     openPopup(
       html`
         <product-detail-popup
@@ -235,7 +239,7 @@ class Products extends localize(i18next)(PageView) {
       {
         backdrop: true,
         size: 'large',
-        title: `${record.name}` + ` ( ${record.itemSku} )`
+        title: `${record.name}` + ` ( ${record.isku} )`
       }
     )
   }

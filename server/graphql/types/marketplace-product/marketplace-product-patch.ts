@@ -26,6 +26,5 @@ export const MarketplaceProductPatch = gql`
     daysToShip: String
     discountId: String
     isPreOrder: Boolean
-    file: [Attachment]
   }
 `
