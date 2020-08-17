@@ -238,6 +238,7 @@ class Products extends localize(i18next)(PageView) {
       `,
       {
         backdrop: true,
+        escapable: false,
         size: 'large',
         title: `${record.name}` + ` ( ${record.isku} )`
       }

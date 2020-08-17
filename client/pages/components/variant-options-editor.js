@@ -65,14 +65,14 @@ export class VariantOptionsEditor extends LitElement {
         ${options.map(
           (option, index) => html`
             <label
-              >Option <strong>#${index}</strong>
+              >Option <strong>#${index + 1}</strong>
               <mwc-icon @click=${e => this.onclickDelete(e, index)}>cancel</mwc-icon></label
             >
             <variant-option-editor .types=${this.types} .value=${option}></variant-option-editor>
           `
         )}
       </div>
-      <button type="button" @click=${this.onclickAddNew.bind(this)}>Add Another Option</button>
+      <button type="button" @click=${this.onclickAddNew.bind(this)}>Add Option</button>
     `
   }
 
