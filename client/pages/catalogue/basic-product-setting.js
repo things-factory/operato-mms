@@ -7,13 +7,16 @@ import gql from 'graphql-tag'
 import { css, html, LitElement } from 'lit-element'
 import { PRODUCT_TYPE } from './constants'
 
+import '../components/image-viewer'
+
 class BasicProductSetting extends localize(i18next)(LitElement) {
   static get properties() {
     return {
       storageTypes: Array,
       productInfo: Object,
       _files: Array,
-      _attachments: Array
+      _attachments: Array,
+      _noStatus: Boolean
     }
   }
 
@@ -24,11 +27,10 @@ class BasicProductSetting extends localize(i18next)(LitElement) {
         :host {
           display: flex;
           flex-direction: column;
-          overflow: hidden;
+          overflow-y: auto;
           background-color: white;
         }
         .form-container {
-          overflow-y: auto;
           flex: 1;
         }
       `
@@ -40,6 +42,7 @@ class BasicProductSetting extends localize(i18next)(LitElement) {
     this.storageTypes = []
     this._files = []
     this._attachments = []
+    this._noStatus = true
   }
 
   get inputForm() {
@@ -54,21 +57,25 @@ class BasicProductSetting extends localize(i18next)(LitElement) {
     return html`
       <div class="form-container">
         <form id="input-form" class="multi-column-form">
-          <fieldset>
-            <legend>${i18next.t('title.select_product_type')}</legend>
-            ${PRODUCT_TYPE.map(
-              (product, idx) => html`
-                <input
-                  id="product-type-${idx}"
-                  type="radio"
-                  name="productType"
-                  value="${product.value}"
-                  ?checked="${idx === 0}"
-                />
-                <label for="product-type-${idx}">${i18next.t(product.name)}</label>
+          ${this._noStatus
+            ? html`
+                <fieldset>
+                  <legend>${i18next.t('title.select_product_type')}</legend>
+                  ${PRODUCT_TYPE.map(
+                    (product, idx) => html`
+                      <input
+                        id="product-type-${idx}"
+                        type="radio"
+                        name="productType"
+                        value="${product.value}"
+                        ?checked="${idx === 0}"
+                      />
+                      <label for="product-type-${idx}">${i18next.t(product.name)}</label>
+                    `
+                  )}
+                </fieldset>
               `
-            )}
-          </fieldset>
+            : ''}
 
           <fieldset>
             <legend>${i18next.t('title.product_details')}</legend>
@@ -143,14 +150,8 @@ class BasicProductSetting extends localize(i18next)(LitElement) {
 
   async firstUpdated() {
     this.storageTypes = await getCodeByName('STORAGE_TYPES')
-    if (this.productInfo?.name && this.productInfo?.isku) await fetchBasicProduct()
+    if (this.productInfo?.name && this.productInfo?.isku) await this.fetchBasicProduct()
   }
-
-  // async updated(changeProps) {
-  //   if (changeProps.has('_files') && !this._files?.length) {
-  //     this._document.reset()
-  //   }
-  // }
 
   async fetchBasicProduct() {
     const response = await client.query({
@@ -186,6 +187,10 @@ class BasicProductSetting extends localize(i18next)(LitElement) {
       const marketplaceProduct = response.data.marketplaceProduct
       this._fillupProdForm({ ...marketplaceProduct, storageType: marketplaceProduct.type })
 
+      if (marketplaceProduct?.status) {
+        this._noStatus = false
+      }
+
       if (marketplaceProduct && marketplaceProduct?.attachment) {
         this._attachments = marketplaceProduct && marketplaceProduct.attachment
       }
@@ -196,13 +201,23 @@ class BasicProductSetting extends localize(i18next)(LitElement) {
     try {
       this._validateProductInformation()
 
-      const result = await CustomAlert({
-        title: i18next.t('title.are_you_sure'),
-        text: i18next.t('text.create_a_draft_product'),
-        confirmButton: { text: i18next.t('button.confirm') },
-        cancelButton: { text: i18next.t('button.cancel') }
-      })
-      if (!result.value) return
+      if (this.productInfo) {
+        const result = await CustomAlert({
+          title: i18next.t('title.are_you_sure'),
+          text: i18next.t('text.update_draft_product'),
+          confirmButton: { text: i18next.t('button.confirm') },
+          cancelButton: { text: i18next.t('button.cancel') }
+        })
+        if (!result.value) return
+      } else {
+        const result = await CustomAlert({
+          title: i18next.t('title.are_you_sure'),
+          text: i18next.t('text.create_a_draft_product'),
+          confirmButton: { text: i18next.t('button.confirm') },
+          cancelButton: { text: i18next.t('button.cancel') }
+        })
+        if (!result.value) return
+      }
 
       let marketplaceProduct = this._getFormInfo()
       const args = marketplaceProduct

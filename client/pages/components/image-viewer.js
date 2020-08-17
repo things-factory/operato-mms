@@ -65,7 +65,7 @@ class ImageViewer extends localize(i18next)(LitElement) {
       ${this.downloadable
         ? html`
             <div ?hidden="${!this.downloadable}" class="button-container">
-              <a href="${this._fullPath}" download="${`${this.name ? this.name : 'image'}.${this._exetention}`}"></a>
+              <a href="${this._fullPath}" download="${`${this.name ? this.name : 'image'}.${this._extension}`}"></a>
               <mwc-button
                 @click="${() => {
                   this.shadowRoot.querySelector('a').click()
@@ -88,7 +88,7 @@ class ImageViewer extends localize(i18next)(LitElement) {
     }
   }
 
-  get _exetention() {
+  get _extension() {
     if (this.src) return this.src.substring(this.src.lastIndexOf('.') + 1)
     return ''
   }
