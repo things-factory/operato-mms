@@ -18,14 +18,14 @@ class IntegrationOfflineStore extends connect(store)(PageView) {
   }
 
   static get properties() {
-    return {}
-  }
-
-  get context() {
     return {
       title: 'integration offline stores',
       options: Array
     }
+  }
+
+  get context() {
+    return {}
   }
 
   render() {
@@ -42,11 +42,24 @@ class IntegrationOfflineStore extends connect(store)(PageView) {
 
     return html`
       <h2>Integration Offline Stores</h2>
-      <variant-options-editor .types=${TYPES} .value=${options}></variant-options-editor>
+      <variant-options-editor
+        .types=${TYPES}
+        .value=${options}
+        id="options"
+        @change=${e => this.onchange(e)}
+      ></variant-options-editor>
+
+      <div>${JSON.stringify(options, null, 2)}</div>
     `
   }
 
   stateChanged(state) {}
+
+  onchange(e) {
+    e.stopPropagation()
+
+    this.options = e.target.value
+  }
 }
 
 customElements.define('mms-integration-offline-stores', IntegrationOfflineStore)

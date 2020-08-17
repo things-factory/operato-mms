@@ -61,7 +61,7 @@ export class VariantOptionsEditor extends LitElement {
     const options = this.value || []
 
     return html`
-      <div options>
+      <div options @change=${e => this.onchange(e)}>
         ${options.map(
           (option, index) => html`
             <label
@@ -76,12 +76,24 @@ export class VariantOptionsEditor extends LitElement {
     `
   }
 
+  onchange(e) {
+    e.stopPropagation()
+
+    const options = Array.from(this.renderRoot.querySelectorAll('variant-option-editor')).map(element => element.value)
+
+    this.value = [...options]
+
+    this.notifyChange()
+  }
+
   onclickAddNew(e) {
     e.stopPropagation()
 
     const options = Array.from(this.renderRoot.querySelectorAll('variant-option-editor')).map(element => element.value)
 
     this.value = [...options, {}]
+
+    this.notifyChange()
   }
 
   onclickDelete(e, index) {
@@ -91,6 +103,17 @@ export class VariantOptionsEditor extends LitElement {
     options.splice(index, 1)
 
     this.value = [...options]
+
+    this.notifyChange()
+  }
+
+  notifyChange() {
+    this.dispatchEvent(
+      new CustomEvent('change', {
+        detail: this.value,
+        bubbles: true
+      })
+    )
   }
 }
 

@@ -92,6 +92,8 @@ export class VariantOptionEditor extends LitElement {
       type: target.value,
       options
     }
+
+    this.notifyChange()
   }
 
   onchangeAdd(e) {
@@ -113,6 +115,8 @@ export class VariantOptionEditor extends LitElement {
       type,
       options
     }
+
+    this.notifyChange()
   }
 
   onclickDelete(e, index) {
@@ -130,6 +134,17 @@ export class VariantOptionEditor extends LitElement {
       type,
       options
     }
+
+    this.notifyChange()
+  }
+
+  notifyChange() {
+    this.dispatchEvent(
+      new CustomEvent('change', {
+        detail: this.value,
+        bubbles: true
+      })
+    )
   }
 }
 
