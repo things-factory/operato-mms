@@ -70,7 +70,7 @@
   "button.add": "add",
   "button.confirm": "confirm",
   "text.data_updated_successfully": "data updated succesfully",
-  "text.draft_product_has_been_created_successfully": "draft product has been created successfully",
+  "text.draft_product_has_been_updated_successfully": "draft product has been updated successfully",
   "text.form_is_incomplete": "form is incomplete",
   "text.create_a_draft_product": "create a draft product",
   "text.create_new_variation_draft": "create new variation draft",

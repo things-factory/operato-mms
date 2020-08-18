@@ -1,3 +1,4 @@
+import { getCodeByName } from '@things-factory/code-base'
 import { MultiColumnFormStyles } from '@things-factory/form-ui'
 import { i18next, localize } from '@things-factory/i18n-base'
 import { client } from '@things-factory/shell'
@@ -6,12 +7,11 @@ import gql from 'graphql-tag'
 import { css, html, LitElement } from 'lit-element'
 import '../components/variant-options-editor'
 
-const TYPES = ['Color', 'Size']
-
 class ProductVariationSetting extends localize(i18next)(LitElement) {
   static get properties() {
     return {
-      productInfo: Object
+      productInfo: Object,
+      variationTypes: Array
     }
   }
 
@@ -23,10 +23,10 @@ class ProductVariationSetting extends localize(i18next)(LitElement) {
           display: flex;
           flex-direction: column;
           overflow: hidden;
+          overflow-y: auto;
           background-color: white;
         }
         .form-container {
-          overflow-y: auto;
           flex: 1;
         }
       `
@@ -37,30 +37,32 @@ class ProductVariationSetting extends localize(i18next)(LitElement) {
     return this.shadowRoot.querySelector('form#input-form')
   }
 
-  render() {
-    const sampleOptions = [
-      {
-        type: 'Color',
-        options: ['Red', 'Blue']
-      }
-    ]
+  constructor() {
+    super()
+    this.variationTypes = []
+  }
 
+  render() {
+    console.log(this.variationTypes)
     return html`
       <div class="form-container">
         <form id="input-form" class="multi-column-form">
           <fieldset>
-            <legend>${i18next.t('title.inventory_details')}</legend>
-            <label>${i18next.t('label.available_stock')}</label>
-            <input type="number" name="qty" />
-
-            <label>${i18next.t('label.threshold_value')}</label>
-            <input type="number" min="1" name="stockThreshold" required />
+            <legend>${i18next.t('title.group_product_variants')}</legend>
+            <variant-options-editor .types=${this.variationTypes}></variant-options-editor>
           </fieldset>
+        </form>
+      </div>
 
+      <div class="form-container">
+        <form id="input-form" class="multi-column-form">
           <fieldset>
-            <legend>${i18next.t('title.channel_sku_information')}</legend>
+            <legend>${i18next.t('title.product_variant_details')}</legend>
             <label>${i18next.t('label.channel_sku')}</label>
-            <input name="channelSKU" />
+            <input name="channelSKU" required />
+
+            <label>${i18next.t('label.isku')}</label>
+            <input name="isku" required />
 
             <label>${i18next.t('label.pricing_mrp')}</label>
             <input type="number" min="1" name="mrpPrice" required />
@@ -68,16 +70,20 @@ class ProductVariationSetting extends localize(i18next)(LitElement) {
             <label>${i18next.t('label.selling_price')}</label>
             <input type="number" min="1" name="sellPrice" required />
 
-            <label>${i18next.t('label.images')}</label>
-            <file-uploader custom-input required name="prodImg" ._files=""></file-uploader>
-          </fieldset>
+            <label>${i18next.t('label.available_stock')}</label>
+            <input type="number" name="qty" />
 
-          <fieldset>
-            <variant-options-editor .types=${TYPES} .value=${sampleOptions}></variant-options-editor>
+            <label>${i18next.t('label.threshold_value')}</label>
+            <input type="number" min="1" name="stockThreshold" required />
           </fieldset>
         </form>
       </div>
     `
+  }
+
+  async firstUpdated() {
+    const varTypes = await getCodeByName('VARIATION_TYPES')
+    this.variationTypes = varTypes.map(varType => varType.name)
   }
 
   async _commit() {
@@ -98,19 +104,14 @@ class ProductVariationSetting extends localize(i18next)(LitElement) {
 
       const response = await client.query({
         query: gql`
-            mutation ($attachments: Upload) {
-              upsertMarketplaceProductVariation(${gqlBuilder.buildArgs(args)}, file:$attachments) {
+            mutation {
+              upsertMarketplaceProductVariation(${gqlBuilder.buildArgs(args)}) 
+              {
                 id
                 name
               }
             }
-          `,
-        variables: {
-          attachments
-        },
-        context: {
-          hasUpload: true
-        }
+          `
       })
       if (!response.errors) {
         this._showToast({ message: i18next.t('text.draft_variation_has_been_created_successfully') })

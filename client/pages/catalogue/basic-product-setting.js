@@ -244,7 +244,7 @@ class BasicProductSetting extends localize(i18next)(LitElement) {
       })
 
       if (!response.errors) {
-        this._showToast({ message: i18next.t('text.draft_product_has_been_created_successfully') })
+        this._showToast({ message: i18next.t('text.draft_product_has_been_updated_successfully') })
         this.dispatchEvent(new CustomEvent('submit', { marketplaceProduct }))
         return true
       }
