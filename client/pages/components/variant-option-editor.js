@@ -8,7 +8,7 @@ export class VariantOptionEditor extends LitElement {
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
-          margin-bottom: var(--margin-default);
+          margin-bottom: var(--margin-narrow);
           padding: var(--padding-default);
           padding-left: 0;
           border-bottom: var(--border-dark-color);
@@ -21,24 +21,23 @@ export class VariantOptionEditor extends LitElement {
           border-radius: var(--border-radius);
           padding: var(--padding-narrow);
           margin-right: var(--margin-narrow);
+          margin-bottom: var(--margin-narrow);
           font-size: 0.9rem;
         }
 
         span[options] {
           flex: 1;
-          display: flex;
+          display: inline-flex;
           flex-direction: row;
           flex-wrap: wrap;
-
-          min-width: 400px;
-          margin-left: 0 0 0 10px;
+          min-width: 500px;
         }
 
         [option] {
           display: inline-block;
           background-color: var(--primary-color);
-          margin: 1px 0;
-          padding: 2px 4px;
+          margin: 1px 3px 4px 0;
+          padding: 3px 5px;
           color: white;
           white-space: nowrap;
         }
