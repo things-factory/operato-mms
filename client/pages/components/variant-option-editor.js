@@ -7,6 +7,7 @@ export class VariantOptionEditor extends LitElement {
         :host {
           display: flex;
           flex-direction: row;
+          flex-wrap: wrap;
           margin-bottom: var(--margin-default);
           padding: var(--padding-default);
           padding-left: 0;
@@ -25,6 +26,11 @@ export class VariantOptionEditor extends LitElement {
 
         span[options] {
           flex: 1;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+
+          min-width: 400px;
           margin-left: 0 0 0 10px;
         }
 
